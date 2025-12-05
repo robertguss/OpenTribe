@@ -94,3 +94,32 @@ export const profileSchema = z.object({
 });
 
 export type ProfileFormData = z.infer<typeof profileSchema>;
+
+/**
+ * Notification preferences validation schema
+ * Validates email notification toggles and digest frequency
+ */
+export const notificationPrefsSchema = z.object({
+  emailComments: z.boolean(),
+  emailReplies: z.boolean(),
+  emailFollowers: z.boolean(),
+  emailEvents: z.boolean(),
+  emailCourses: z.boolean(),
+  emailDMs: z.boolean(),
+  digestFrequency: z.enum(["immediate", "daily", "weekly", "off"]),
+});
+
+export type NotificationPrefsFormData = z.infer<typeof notificationPrefsSchema>;
+
+/**
+ * Default notification preferences for new users or fallback
+ */
+export const DEFAULT_NOTIFICATION_PREFS: NotificationPrefsFormData = {
+  emailComments: true,
+  emailReplies: true,
+  emailFollowers: true,
+  emailEvents: true,
+  emailCourses: true,
+  emailDMs: true,
+  digestFrequency: "daily",
+};

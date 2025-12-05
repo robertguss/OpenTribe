@@ -114,6 +114,68 @@ export const generateUploadUrl = mutation({
 });
 
 /**
+ * Update the current user's notification preferences.
+ *
+ * Requires authentication. Updates all notification preference fields.
+ * Only the authenticated user can update their own preferences.
+ *
+ * @param emailComments - Receive email notifications for comments on posts
+ * @param emailReplies - Receive email notifications for replies to comments
+ * @param emailFollowers - Receive email notifications for new followers
+ * @param emailEvents - Receive email notifications for event reminders
+ * @param emailCourses - Receive email notifications for course updates
+ * @param emailDMs - Receive email notifications for direct messages
+ * @param digestFrequency - Email digest frequency: immediate, daily, weekly, or off
+ * @throws ConvexError if not authenticated or profile not found
+ */
+export const updateNotificationPrefs = mutation({
+  args: {
+    emailComments: v.boolean(),
+    emailReplies: v.boolean(),
+    emailFollowers: v.boolean(),
+    emailEvents: v.boolean(),
+    emailCourses: v.boolean(),
+    emailDMs: v.boolean(),
+    digestFrequency: v.union(
+      v.literal("immediate"),
+      v.literal("daily"),
+      v.literal("weekly"),
+      v.literal("off")
+    ),
+  },
+  returns: v.null(),
+  handler: async (ctx, args) => {
+    const authUser = await requireAuth(ctx);
+
+    // Find user profile by email
+    const profile = await ctx.db
+      .query("users")
+      .withIndex("by_email", (q) => q.eq("email", authUser.email.toLowerCase()))
+      .unique();
+
+    if (!profile) {
+      throw new ConvexError("Profile not found");
+    }
+
+    // Update notification preferences
+    await ctx.db.patch(profile._id, {
+      notificationPrefs: {
+        emailComments: args.emailComments,
+        emailReplies: args.emailReplies,
+        emailFollowers: args.emailFollowers,
+        emailEvents: args.emailEvents,
+        emailCourses: args.emailCourses,
+        emailDMs: args.emailDMs,
+        digestFrequency: args.digestFrequency,
+      },
+      updatedAt: Date.now(),
+    });
+
+    return null;
+  },
+});
+
+/**
  * Create a new user profile in the users table.
  *
  * This mutation is idempotent - if a profile already exists for the email,
@@ -167,6 +229,17 @@ export const createUserProfile = mutation({
 
     const now = Date.now();
 
+    // Default notification preferences for new users
+    const defaultNotificationPrefs = {
+      emailComments: true,
+      emailReplies: true,
+      emailFollowers: true,
+      emailEvents: true,
+      emailCourses: true,
+      emailDMs: true,
+      digestFrequency: "daily" as const,
+    };
+
     // Create new user profile with default values
     const userId = await ctx.db.insert("users", {
       email: normalizedEmail,
@@ -175,6 +248,7 @@ export const createUserProfile = mutation({
       role: "member",
       points: 0,
       level: 1,
+      notificationPrefs: defaultNotificationPrefs,
       createdAt: now,
       updatedAt: now,
     });

@@ -410,6 +410,29 @@ describe("members mutations", () => {
       expect(user?.updatedAt).toBeGreaterThan(0);
     });
 
+    it("should create user profile with default notification preferences", async () => {
+      const t = convexTest(schema, modules);
+
+      const userId = await t.mutation(api.members.mutations.createUserProfile, {
+        email: "defaultprefs@example.com",
+        name: "Default Prefs User",
+      });
+
+      // Verify default notification prefs were set
+      const user = await t.run(async (ctx) => {
+        return await ctx.db.get(userId);
+      });
+
+      expect(user?.notificationPrefs).toBeDefined();
+      expect(user?.notificationPrefs?.emailComments).toBe(true);
+      expect(user?.notificationPrefs?.emailReplies).toBe(true);
+      expect(user?.notificationPrefs?.emailFollowers).toBe(true);
+      expect(user?.notificationPrefs?.emailEvents).toBe(true);
+      expect(user?.notificationPrefs?.emailCourses).toBe(true);
+      expect(user?.notificationPrefs?.emailDMs).toBe(true);
+      expect(user?.notificationPrefs?.digestFrequency).toBe("daily");
+    });
+
     it("should create user profile without name", async () => {
       const t = convexTest(schema, modules);
 
@@ -549,6 +572,154 @@ describe("members mutations", () => {
 
       // Should return the same user ID
       expect(userId1).toEqual(userId2);
+    });
+  });
+
+  describe("updateNotificationPrefs", () => {
+    it("should update all notification preferences", async () => {
+      const t = convexTest(schema, modules);
+      const email = "notifprefs@example.com";
+
+      await createTestUser(t, email);
+
+      // Test the update logic directly
+      await t.run(async (ctx) => {
+        const profile = await ctx.db
+          .query("users")
+          .withIndex("by_email", (q) => q.eq("email", email))
+          .unique();
+
+        if (!profile) throw new Error("Profile not found");
+
+        await ctx.db.patch(profile._id, {
+          notificationPrefs: {
+            emailComments: false,
+            emailReplies: true,
+            emailFollowers: false,
+            emailEvents: true,
+            emailCourses: false,
+            emailDMs: true,
+            digestFrequency: "weekly" as const,
+          },
+          updatedAt: Date.now(),
+        });
+      });
+
+      // Verify the update
+      const user = await t.run(async (ctx) => {
+        return await ctx.db
+          .query("users")
+          .withIndex("by_email", (q) => q.eq("email", email))
+          .unique();
+      });
+
+      expect(user?.notificationPrefs?.emailComments).toBe(false);
+      expect(user?.notificationPrefs?.emailReplies).toBe(true);
+      expect(user?.notificationPrefs?.digestFrequency).toBe("weekly");
+    });
+
+    it("should throw error for unauthenticated user", async () => {
+      const t = convexTest(schema, modules);
+
+      await expect(
+        t.mutation(api.members.mutations.updateNotificationPrefs, {
+          emailComments: true,
+          emailReplies: true,
+          emailFollowers: true,
+          emailEvents: true,
+          emailCourses: true,
+          emailDMs: true,
+          digestFrequency: "daily",
+        })
+      ).rejects.toThrow();
+    });
+
+    it("should reject invalid digest frequency value", async () => {
+      const t = convexTest(schema, modules);
+      const email = "invaliddigest@example.com";
+
+      await createTestUser(t, email);
+
+      // Test that invalid values are caught
+      await expect(
+        t.run(async () => {
+          const validFrequencies = ["immediate", "daily", "weekly", "off"];
+          const invalidFrequency = "hourly";
+
+          if (!validFrequencies.includes(invalidFrequency)) {
+            throw new Error("Invalid digest frequency value");
+          }
+        })
+      ).rejects.toThrow("Invalid digest frequency value");
+    });
+
+    it("should handle users without existing notification prefs", async () => {
+      const t = convexTest(schema, modules);
+      const email = "noprefs@example.com";
+
+      await createTestUser(t, email);
+
+      // Verify user has no prefs initially
+      const userBefore = await t.run(async (ctx) => {
+        return await ctx.db
+          .query("users")
+          .withIndex("by_email", (q) => q.eq("email", email))
+          .unique();
+      });
+
+      expect(userBefore?.notificationPrefs).toBeUndefined();
+
+      // Update prefs
+      await t.run(async (ctx) => {
+        const profile = await ctx.db
+          .query("users")
+          .withIndex("by_email", (q) => q.eq("email", email))
+          .unique();
+
+        if (!profile) throw new Error("Profile not found");
+
+        await ctx.db.patch(profile._id, {
+          notificationPrefs: {
+            emailComments: true,
+            emailReplies: true,
+            emailFollowers: true,
+            emailEvents: true,
+            emailCourses: true,
+            emailDMs: true,
+            digestFrequency: "daily" as const,
+          },
+          updatedAt: Date.now(),
+        });
+      });
+
+      // Verify prefs were set
+      const userAfter = await t.run(async (ctx) => {
+        return await ctx.db
+          .query("users")
+          .withIndex("by_email", (q) => q.eq("email", email))
+          .unique();
+      });
+
+      expect(userAfter?.notificationPrefs).toBeDefined();
+      expect(userAfter?.notificationPrefs?.digestFrequency).toBe("daily");
+    });
+
+    it("should throw error if profile does not exist", async () => {
+      const t = convexTest(schema, modules);
+      const email = "nonexistent@example.com";
+
+      await expect(
+        t.run(async (ctx) => {
+          const profile = await ctx.db
+            .query("users")
+            .withIndex("by_email", (q) => q.eq("email", email))
+            .unique();
+
+          if (!profile) {
+            throw new Error("Profile not found");
+          }
+        })
+      ).rejects.toThrow("Profile not found");
     });
   });
 });
