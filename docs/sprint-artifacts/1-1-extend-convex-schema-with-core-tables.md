@@ -232,7 +232,8 @@ Claude Opus 4.5 (claude-opus-4-5-20251101)
 ### File List
 
 **Modified:**
-- `convex/schema.ts` - Replaced demo schema with full domain schema (24 tables, 51 indexes)
+**Modified:**
+- `convex/schema.ts` - Replaced demo schema with full domain schema (23 tables, 51 indexes)
 
 **Deleted:**
 - `convex/myFunctions.ts` - Removed demo functions that referenced deleted `numbers` table
