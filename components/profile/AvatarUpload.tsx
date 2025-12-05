@@ -57,6 +57,9 @@ export function AvatarUpload({
     }
 
     // Preview
+    if (preview) {
+      URL.revokeObjectURL(preview);
+    }
     setPreview(URL.createObjectURL(file));
     setUploading(true);
 
