@@ -1,9 +1,11 @@
 "use client";
 
+import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import type { Id } from "@/convex/_generated/dataModel";
 import { PostCard } from "./PostCard";
+import { NewPostsBanner } from "./NewPostsBanner";
 import { Skeleton } from "@/components/ui/skeleton";
 import { MessageCircle } from "lucide-react";
 
@@ -12,10 +14,57 @@ interface PostListProps {
 }
 
 export function PostList({ spaceId }: PostListProps) {
-  const result = useQuery(api.posts.queries.listPostsBySpace, {
+  const result = useQuery(api.posts.queries.listPostsBySpaceEnhanced, {
     spaceId,
     limit: 20,
   });
+
+  // Track post IDs to detect new posts
+  const previousPostIdsRef = useRef<Set<string>>(new Set());
+  const [newPostCount, setNewPostCount] = useState(0);
+  const [isAtTop, setIsAtTop] = useState(true);
+  const listRef = useRef<HTMLDivElement>(null);
+
+  // Detect scroll position to show new posts banner only when scrolled
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const atTop = scrollTop < 100;
+      setIsAtTop(atTop);
+      // Reset new post count when scrolled to top
+      if (atTop) {
+        setNewPostCount(0);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Calculate new posts count based on changes - derive from data
+  const currentIds = useMemo(
+    () => new Set(result?.posts?.map((p) => p._id as string) ?? []),
+    [result?.posts]
+  );
+
+  // Detect new posts - update ref and count in a single effect
+  useEffect(() => {
+    if (result?.posts && previousPostIdsRef.current.size > 0 && !isAtTop) {
+      const newPosts = result.posts.filter(
+        (p) => !previousPostIdsRef.current.has(p._id as string)
+      );
+      if (newPosts.length > 0) {
+        setNewPostCount((prev) => prev + newPosts.length);
+      }
+    }
+    previousPostIdsRef.current = currentIds;
+  }, [currentIds, result?.posts, isAtTop]);
+
+  // Handle showing new posts (scroll to top)
+  const handleShowNewPosts = useCallback(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    setNewPostCount(0);
+  }, []);
 
   // Loading state
   if (result === undefined) {
@@ -52,7 +101,16 @@ export function PostList({ spaceId }: PostListProps) {
   }
 
   return (
-    <div className="space-y-4">
+    <div ref={listRef} className="relative space-y-4">
+      {/* New posts banner */}
+      {!isAtTop && newPostCount > 0 && (
+        <NewPostsBanner
+          newPostCount={newPostCount}
+          onShowNewPosts={handleShowNewPosts}
+        />
+      )}
+
+      {/* Posts list */}
       {result.posts.map((post) => (
         <PostCard key={post._id} post={post} />
       ))}
