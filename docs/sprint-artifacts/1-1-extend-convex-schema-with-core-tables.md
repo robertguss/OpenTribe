@@ -241,7 +241,7 @@ Claude Opus 4.5 (claude-opus-4-5-20251101)
 
 ### Change Log
 
-- **2025-12-04:** Implemented complete Convex schema with 24 domain tables and 51 indexes. Replaced demo `numbers` table. All acceptance criteria satisfied.
+- **2025-12-04:** Implemented complete Convex schema with 23 domain tables and 51 indexes. Replaced demo `numbers` table. All acceptance criteria satisfied.
 
 ---
 
