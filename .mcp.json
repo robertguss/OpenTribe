@@ -12,9 +12,9 @@
       "command": "npx",
       "args": ["-y", "convex@latest", "mcp", "start"]
     },
-    "chrome-devtools": {
+    "playwright": {
       "command": "npx",
-      "args": ["chrome-devtools-mcp@latest"]
+      "args": ["@playwright/mcp@latest"]
     }
   }
 }
