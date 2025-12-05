@@ -1,9 +1,10 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { IconCamera, IconLoader2 } from "@tabler/icons-react";
 import { toast } from "sonner";
+import { getInitials } from "@/lib/utils";
 
 const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/gif", "image/webp"];
 const MAX_SIZE = 5 * 1024 * 1024; // 5MB
@@ -33,15 +34,16 @@ export function AvatarUpload({
   const [preview, setPreview] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
 
-  // Get user initials for avatar fallback
-  const initials = name
-    ? name
-        .split(" ")
-        .map((n) => n[0])
-        .join("")
-        .toUpperCase()
-        .slice(0, 2)
-    : "?";
+  // Cleanup object URL on unmount or when preview changes to prevent memory leaks
+  useEffect(() => {
+    return () => {
+      if (preview) {
+        URL.revokeObjectURL(preview);
+      }
+    };
+  }, [preview]);
+
+  const initials = getInitials(name);
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -76,8 +78,17 @@ export function AvatarUpload({
 
   return (
     <div
+      role="button"
+      tabIndex={0}
+      aria-label="Change profile photo"
       className="relative h-24 w-24 cursor-pointer rounded-full"
       onClick={() => inputRef.current?.click()}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          inputRef.current?.click();
+        }
+      }}
     >
       <Avatar className="h-24 w-24">
         <AvatarImage src={preview || currentUrl || undefined} alt={name} />

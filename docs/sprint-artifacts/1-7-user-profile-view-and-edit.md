@@ -1,6 +1,6 @@
 # Story 1.7: User Profile View and Edit
 
-Status: Ready for Review
+Status: Done
 
 ## Story
 
@@ -541,6 +541,16 @@ Claude Opus 4.5
 - Updated nav-user dropdown with Settings link
 - All acceptance criteria satisfied
 
+### Code Review Fixes Applied
+
+1. **Server-side avatar validation** - Added file size check (5MB limit) in `updateProfile` mutation with automatic deletion of oversized files
+2. **Memory leak fix** - Added `URL.revokeObjectURL()` cleanup in AvatarUpload component
+3. **Accessibility improvements** - Added `role="button"`, `aria-label`, `tabIndex`, and keyboard navigation to avatar upload
+4. **Shared utility** - Created `getInitials()` function in `lib/utils.ts` to eliminate duplicate code
+5. **Test documentation** - Added comprehensive documentation explaining Better Auth testing limitations
+6. **New tests** - Added 4 tests for avatar file size validation (reject >5MB, accept <5MB, edge cases)
+7. **ESLint comments** - Added explanatory comments for intentional dependency exclusions
+
 ### File List
 
 **New Files:**
@@ -557,21 +567,25 @@ Claude Opus 4.5
 
 **Modified Files:**
 
-- `convex/members/mutations.ts` - Added `updateProfile`, `generateUploadUrl` mutations
+- `convex/members/mutations.ts` - Added `updateProfile`, `generateUploadUrl` mutations + server-side avatar validation
 - `convex/members/queries.ts` - Added `getMyProfile`, `getAvatarUrl` queries
-- `convex/members/mutations.test.ts` - Added tests for new mutations
+- `convex/members/mutations.test.ts` - Added tests for new mutations + avatar file size validation tests
 - `convex/members/queries.test.ts` - Added tests for new queries
 - `lib/validators.ts` - Added `profileSchema` for profile form validation
 - `lib/validators.test.ts` - Added tests for profileSchema
-- `components/nav-user.tsx` - Added Settings link to user dropdown
+- `lib/utils.ts` - Added `getInitials` utility function
+- `components/nav-user.tsx` - Added Settings link to user dropdown, refactored to use shared `getInitials`
+- `app/reset-password/page.tsx` - Fixed error handling to use Better Auth error codes (related fix)
+- `package.json` - Added `@radix-ui/react-switch` dependency
 - `docs/sprint-artifacts/sprint-status.yaml` - Updated story status to in-progress → review
 - `docs/sprint-artifacts/1-7-user-profile-view-and-edit.md` - Updated task checkboxes and this record
 
 ### Change Log
 
-| Date       | Change                                                                  |
-| ---------- | ----------------------------------------------------------------------- |
-| 2025-12-05 | Implemented story 1-7: User Profile View and Edit - All tasks completed |
+| Date       | Change                                                                                                                                                 |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 2025-12-05 | Implemented story 1-7: User Profile View and Edit - All tasks completed                                                                                |
+| 2025-12-05 | Code Review Fixes: Added server-side avatar validation, fixed memory leak, improved accessibility, added shared utilities, enhanced test documentation |
 
 ---
 

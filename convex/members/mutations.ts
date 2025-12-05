@@ -11,6 +11,9 @@ import { v } from "convex/values";
 import { rateLimit } from "../_lib/rateLimits";
 import { requireAuth } from "../_lib/permissions";
 
+// Maximum avatar file size: 5MB
+const MAX_AVATAR_SIZE = 5 * 1024 * 1024;
+
 /**
  * Update the current user's profile.
  *
@@ -20,7 +23,7 @@ import { requireAuth } from "../_lib/permissions";
  * @param name - Optional display name (max 100 chars)
  * @param bio - Optional bio (max 500 chars)
  * @param visibility - Optional visibility setting ("public" or "private")
- * @param avatarStorageId - Optional avatar storage ID
+ * @param avatarStorageId - Optional avatar storage ID (file must be <5MB)
  * @throws ConvexError if not authenticated, profile not found, or validation fails
  */
 export const updateProfile = mutation({
@@ -52,6 +55,19 @@ export const updateProfile = mutation({
     // Validate name length
     if (args.name !== undefined && args.name.length > 100) {
       throw new ConvexError("Name must be 100 characters or less");
+    }
+
+    // Validate avatar file size (server-side enforcement)
+    if (args.avatarStorageId !== undefined) {
+      const metadata = await ctx.db.system.get(args.avatarStorageId);
+      if (!metadata) {
+        throw new ConvexError("Avatar file not found in storage");
+      }
+      if (metadata.size > MAX_AVATAR_SIZE) {
+        // Delete the oversized file to prevent storage abuse
+        await ctx.storage.delete(args.avatarStorageId);
+        throw new ConvexError("Avatar file must be less than 5MB");
+      }
     }
 
     // Build update object with only provided fields

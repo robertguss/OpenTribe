@@ -79,6 +79,10 @@ export function ProfileForm() {
   // No debounce for visibility since it's a toggle
 
   // Auto-save effect for name
+  // Intentionally excluding handleSave and initialValues from deps:
+  // - handleSave is recreated on every render but its identity change shouldn't trigger saves
+  // - initialValues changes after saves, which would cause infinite loops
+  // We only want to trigger saves when the debounced value actually changes
   useEffect(() => {
     if (initialValues && debouncedName !== initialValues.name) {
       handleSave({ name: debouncedName || undefined });
@@ -86,7 +90,7 @@ export function ProfileForm() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedName]);
 
-  // Auto-save effect for bio
+  // Auto-save effect for bio (same rationale as name effect above)
   useEffect(() => {
     if (initialValues && debouncedBio !== initialValues.bio) {
       handleSave({ bio: debouncedBio || undefined });
