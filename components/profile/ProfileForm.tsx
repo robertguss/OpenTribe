@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery } from "convex/react";
@@ -37,6 +37,10 @@ export function ProfileForm() {
     null
   );
   const saveStateTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const initialValuesRef = useRef<ProfileFormData | null>(null);
+
+  // Keep ref in sync with state for use in memoized callbacks
+  initialValuesRef.current = initialValues;
 
   // Cleanup timeout on unmount
   useEffect(() => {
@@ -90,9 +94,77 @@ export function ProfileForm() {
   const debouncedBio = useDebounce(watchedBio, 500);
   // No debounce for visibility since it's a toggle
 
+  // Save handler
+  const handleSave = useCallback(
+    async (
+      updates: Partial<{
+        name: string;
+        bio: string;
+        visibility: "public" | "private";
+      }>
+    ) => {
+      // Clear any existing timeout
+      if (saveStateTimeoutRef.current) {
+        clearTimeout(saveStateTimeoutRef.current);
+      }
+
+      // Validate the fields being saved
+      const nameValid = !updates.name || updates.name.length <= 100;
+      const bioValid = !updates.bio || updates.bio.length <= 500;
+
+      if (!nameValid || !bioValid) {
+        setSaveState("error");
+        saveStateTimeoutRef.current = setTimeout(
+          () => setSaveState("idle"),
+          3000
+        );
+        return;
+      }
+
+      setSaveState("saving");
+      try {
+        await updateProfile(updates);
+
+        // Update initial values after successful save
+        const currentInitialValues = initialValuesRef.current;
+        if (currentInitialValues) {
+          setInitialValues({
+            ...currentInitialValues,
+            ...updates,
+          });
+        }
+
+        setSaveState("saved");
+        // Reset to idle after 2 seconds
+        saveStateTimeoutRef.current = setTimeout(
+          () => setSaveState("idle"),
+          2000
+        );
+      } catch (error) {
+        console.error("Save failed:", error);
+        setSaveState("error");
+        saveStateTimeoutRef.current = setTimeout(
+          () => setSaveState("idle"),
+          3000
+        );
+      }
+    },
+    [updateProfile]
+  );
+
+  // Handle visibility toggle (immediate save, no debounce)
+  const handleVisibilityChange = useCallback(
+    async (isPrivate: boolean) => {
+      const visibility = isPrivate ? "private" : "public";
+      form.setValue("visibility", visibility);
+      await handleSave({ visibility });
+    },
+    [form, handleSave]
+  );
+
   // Auto-save effect for name
   // Intentionally excluding handleSave and initialValues from deps:
-  // - handleSave is recreated on every render but its identity change shouldn't trigger saves
+  // - handleSave is now stable via useCallback, but we still want to trigger only on value changes
   // - initialValues changes after saves, which would cause infinite loops
   // We only want to trigger saves when the debounced value actually changes
   useEffect(() => {
@@ -109,67 +181,6 @@ export function ProfileForm() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedBio]);
-
-  // Handle visibility toggle (immediate save, no debounce)
-  const handleVisibilityChange = async (isPrivate: boolean) => {
-    const visibility = isPrivate ? "private" : "public";
-    form.setValue("visibility", visibility);
-    await handleSave({ visibility });
-  };
-
-  // Save handler
-  const handleSave = async (
-    updates: Partial<{
-      name: string;
-      bio: string;
-      visibility: "public" | "private";
-    }>
-  ) => {
-    // Clear any existing timeout
-    if (saveStateTimeoutRef.current) {
-      clearTimeout(saveStateTimeoutRef.current);
-    }
-
-    // Validate the fields being saved
-    const nameValid = !updates.name || updates.name.length <= 100;
-    const bioValid = !updates.bio || updates.bio.length <= 500;
-
-    if (!nameValid || !bioValid) {
-      setSaveState("error");
-      saveStateTimeoutRef.current = setTimeout(
-        () => setSaveState("idle"),
-        3000
-      );
-      return;
-    }
-
-    setSaveState("saving");
-    try {
-      await updateProfile(updates);
-
-      // Update initial values after successful save
-      if (initialValues) {
-        setInitialValues({
-          ...initialValues,
-          ...updates,
-        });
-      }
-
-      setSaveState("saved");
-      // Reset to idle after 2 seconds
-      saveStateTimeoutRef.current = setTimeout(
-        () => setSaveState("idle"),
-        2000
-      );
-    } catch (error) {
-      console.error("Save failed:", error);
-      setSaveState("error");
-      saveStateTimeoutRef.current = setTimeout(
-        () => setSaveState("idle"),
-        3000
-      );
-    }
-  };
 
   // Handle avatar upload
   const handleAvatarUpload = async (file: File) => {
