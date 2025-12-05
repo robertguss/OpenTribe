@@ -1,0 +1,132 @@
+# generated: 2025-12-04
+# project: OpenTribe
+# project_key: opentribe
+# tracking_system: file-system
+# story_location: /Users/robertguss/Projects/startups/OpenTribe/docs/sprint-artifacts
+
+# STATUS DEFINITIONS:
+# ==================
+# Epic Status:
+#   - backlog: Epic exists in epic file but not contexted
+#   - contexted: Epic tech context created (required before drafting stories)
+#
+# Story Status:
+#   - backlog: Story only exists in epic file
+#   - drafted: Story file created in stories folder
+#   - ready-for-dev: Draft approved and story context created
+#   - in-progress: Developer actively working on implementation
+#   - review: Under SM review (via code-review workflow)
+#   - done: Story completed
+#
+# Retrospective Status:
+#   - optional: Can be completed but not required
+#   - completed: Retrospective has been done
+#
+# WORKFLOW NOTES:
+# ===============
+# - Epics should be 'contexted' before stories can be 'drafted'
+# - Stories can be worked in parallel if team capacity allows
+# - SM typically drafts next story after previous one is 'done' to incorporate learnings
+# - Dev moves story to 'review', SM reviews, then Dev moves to 'done'
+
+generated: 2025-12-04
+project: OpenTribe
+project_key: opentribe
+tracking_system: file-system
+story_location: "{project-root}/docs/sprint-artifacts"
+
+development_status:
+  # Epic 1: Foundation & Authentication
+  epic-1: contexted
+  1-1-extend-convex-schema-with-core-tables: backlog
+  1-2-create-core-authorization-utilities: backlog
+  1-3-email-password-registration-flow: backlog
+  1-4-social-login-with-google: backlog
+  1-5-magic-link-passwordless-authentication: backlog
+  1-6-password-reset-flow: backlog
+  1-7-user-profile-view-and-edit: backlog
+  1-8-notification-preferences-setup: backlog
+  epic-1-retrospective: optional
+
+  # Epic 2: Community Spaces & Content
+  epic-2: backlog
+  2-1-space-management-for-admins: backlog
+  2-2-space-navigation-sidebar: backlog
+  2-3-rich-text-post-composer: backlog
+  2-4-post-display-and-engagement-actions: backlog
+  2-5-comment-system-with-nested-replies: backlog
+  2-6-edit-and-delete-own-posts: backlog
+  2-7-pin-posts-to-space-top: backlog
+  2-8-activity-feed-aggregation: backlog
+  2-9-global-search: backlog
+  epic-2-retrospective: optional
+
+  # Epic 3: Courses & Learning
+  epic-3: backlog
+  3-1-course-creation-for-admins: backlog
+  3-2-module-and-lesson-organization: backlog
+  3-3-lesson-content-with-rich-media: backlog
+  3-4-course-catalog-for-members: backlog
+  3-5-course-enrollment: backlog
+  3-6-lesson-viewing-and-completion: backlog
+  3-7-course-progress-tracking: backlog
+  3-8-download-course-resources: backlog
+  epic-3-retrospective: optional
+
+  # Epic 4: Events & Calendar
+  epic-4: backlog
+  4-1-event-creation-for-admins: backlog
+  4-2-recurring-event-support: backlog
+  4-3-event-calendar-view: backlog
+  4-4-event-rsvp-system: backlog
+  4-5-add-event-to-personal-calendar: backlog
+  4-6-past-events-archive: backlog
+  4-7-event-reminder-notifications: backlog
+  epic-4-retrospective: optional
+
+  # Epic 5: Payments & Monetization
+  epic-5: backlog
+  5-1-stripe-account-connection: backlog
+  5-2-pricing-tier-configuration: backlog
+  5-3-coupon-code-management: backlog
+  5-4-free-trial-configuration: backlog
+  5-5-member-purchase-flow: backlog
+  5-6-automatic-access-provisioning: backlog
+  5-7-member-billing-management: backlog
+  5-8-billing-history-and-invoices: backlog
+  epic-5-retrospective: optional
+
+  # Epic 6: Gamification & Engagement
+  epic-6: backlog
+  6-1-points-system-core: backlog
+  6-2-admin-point-configuration: backlog
+  6-3-level-progression-system: backlog
+  6-4-admin-level-customization: backlog
+  6-5-member-points-display: backlog
+  6-6-community-leaderboard: backlog
+  epic-6-retrospective: optional
+
+  # Epic 7: Notifications & Messaging
+  epic-7: backlog
+  7-1-in-app-notification-system: backlog
+  7-2-notification-history-and-management: backlog
+  7-3-email-notification-delivery: backlog
+  7-4-transactional-emails: backlog
+  7-5-direct-message-conversations: backlog
+  7-6-message-thread-and-history: backlog
+  7-7-dm-privacy-controls: backlog
+  epic-7-retrospective: optional
+
+  # Epic 8: Administration & Settings
+  epic-8: backlog
+  8-1-admin-dashboard-overview: backlog
+  8-2-member-management: backlog
+  8-3-role-and-permission-management: backlog
+  8-4-remove-and-ban-members: backlog
+  8-5-content-moderation-queue: backlog
+  8-6-member-export: backlog
+  8-7-community-branding: backlog
+  8-8-custom-domain-setup: backlog
+  8-9-member-directory-and-search: backlog
+  8-10-follow-system: backlog
+  epic-8-retrospective: optional

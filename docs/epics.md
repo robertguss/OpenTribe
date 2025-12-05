@@ -12,6 +12,7 @@
 This document provides the complete epic and story breakdown for OpenTribe, decomposing the requirements from the [PRD](./prd.md) into implementable stories. Each epic delivers user value, and each story is sized for completion by a single dev agent in one focused session.
 
 **Source Documents:**
+
 - PRD: 75 Functional Requirements (FR1-FR75), 29 Non-Functional Requirements
 - Architecture: Convex + Next.js 16 + Better Auth + Stripe integration
 - UX Design: shadcn/ui + Tailwind CSS 4, three-column layout
@@ -22,11 +23,11 @@ This document provides the complete epic and story breakdown for OpenTribe, deco
 
 ### Documents Loaded
 
-| Document | Status | Key Content |
-|----------|--------|-------------|
-| PRD.md | Loaded | 75 FRs, 29 NFRs, complete MVP scope |
+| Document        | Status | Key Content                                      |
+| --------------- | ------ | ------------------------------------------------ |
+| PRD.md          | Loaded | 75 FRs, 29 NFRs, complete MVP scope              |
 | Architecture.md | Loaded | Tech stack, data models, implementation patterns |
-| UX Design Spec | Loaded | Visual design, component specs, user flows |
+| UX Design Spec  | Loaded | Visual design, component specs, user flows       |
 
 ### Technology Stack Confirmed
 
@@ -44,123 +45,123 @@ This document provides the complete epic and story breakdown for OpenTribe, deco
 
 ### User Management (FR1-FR10)
 
-| FR | Description | Priority |
-|----|-------------|----------|
-| FR1 | Visitors can register with email/password or social login | MVP |
-| FR2 | Users can authenticate via magic link (passwordless) | MVP |
-| FR3 | Users can reset their password via email | MVP |
-| FR4 | Users can view and edit their profile information | MVP |
-| FR5 | Users can upload and change their profile photo | MVP |
-| FR6 | Users can set profile visibility (public/private) | MVP |
-| FR7 | Users can configure notification preferences | MVP |
-| FR8 | Users can view other members' public profiles | MVP |
-| FR9 | Users can search and filter the member directory | MVP |
-| FR10 | Users can follow other members | MVP |
+| FR   | Description                                               | Priority |
+| ---- | --------------------------------------------------------- | -------- |
+| FR1  | Visitors can register with email/password or social login | MVP      |
+| FR2  | Users can authenticate via magic link (passwordless)      | MVP      |
+| FR3  | Users can reset their password via email                  | MVP      |
+| FR4  | Users can view and edit their profile information         | MVP      |
+| FR5  | Users can upload and change their profile photo           | MVP      |
+| FR6  | Users can set profile visibility (public/private)         | MVP      |
+| FR7  | Users can configure notification preferences              | MVP      |
+| FR8  | Users can view other members' public profiles             | MVP      |
+| FR9  | Users can search and filter the member directory          | MVP      |
+| FR10 | Users can follow other members                            | MVP      |
 
 ### Community & Content (FR11-FR24)
 
-| FR | Description | Priority |
-|----|-------------|----------|
-| FR11 | Admins can create, edit, and delete spaces | MVP |
-| FR12 | Admins can set space visibility (public, members-only, paid-only) | MVP |
-| FR13 | Admins can reorder spaces via drag-and-drop | MVP |
-| FR14 | Members can create posts with rich text, images, and video embeds | MVP |
-| FR15 | Members can edit and delete their own posts | MVP |
-| FR16 | Members can comment on posts | MVP |
-| FR17 | Members can reply to comments (nested 2 levels) | MVP |
-| FR18 | Members can like posts and comments | MVP |
-| FR19 | Members can @mention other members in posts and comments | MVP |
-| FR20 | Members can use #hashtags in posts | MVP |
-| FR21 | Admins can pin posts to the top of spaces | MVP |
-| FR22 | Members can view an aggregated activity feed across all spaces | MVP |
-| FR23 | Members can filter the activity feed by space or content type | MVP |
-| FR24 | Members can search posts, comments, members, courses, and events | MVP |
+| FR   | Description                                                       | Priority |
+| ---- | ----------------------------------------------------------------- | -------- |
+| FR11 | Admins can create, edit, and delete spaces                        | MVP      |
+| FR12 | Admins can set space visibility (public, members-only, paid-only) | MVP      |
+| FR13 | Admins can reorder spaces via drag-and-drop                       | MVP      |
+| FR14 | Members can create posts with rich text, images, and video embeds | MVP      |
+| FR15 | Members can edit and delete their own posts                       | MVP      |
+| FR16 | Members can comment on posts                                      | MVP      |
+| FR17 | Members can reply to comments (nested 2 levels)                   | MVP      |
+| FR18 | Members can like posts and comments                               | MVP      |
+| FR19 | Members can @mention other members in posts and comments          | MVP      |
+| FR20 | Members can use #hashtags in posts                                | MVP      |
+| FR21 | Admins can pin posts to the top of spaces                         | MVP      |
+| FR22 | Members can view an aggregated activity feed across all spaces    | MVP      |
+| FR23 | Members can filter the activity feed by space or content type     | MVP      |
+| FR24 | Members can search posts, comments, members, courses, and events  | MVP      |
 
 ### Courses & Learning (FR25-FR34)
 
-| FR | Description | Priority |
-|----|-------------|----------|
-| FR25 | Admins can create courses with title, description, and thumbnail | MVP |
-| FR26 | Admins can organize courses into modules and lessons | MVP |
-| FR27 | Admins can reorder modules and lessons via drag-and-drop | MVP |
-| FR28 | Admins can create lessons with rich text, video, and file attachments | MVP |
-| FR29 | Admins can set course visibility (public, members-only, paid-only) | MVP |
-| FR30 | Members can enroll in available courses | MVP |
-| FR31 | Members can mark lessons as complete | MVP |
-| FR32 | Members can view their progress per course and module | MVP |
-| FR33 | Members can resume courses where they left off | MVP |
-| FR34 | Members can download course resources and attachments | MVP |
+| FR   | Description                                                           | Priority |
+| ---- | --------------------------------------------------------------------- | -------- |
+| FR25 | Admins can create courses with title, description, and thumbnail      | MVP      |
+| FR26 | Admins can organize courses into modules and lessons                  | MVP      |
+| FR27 | Admins can reorder modules and lessons via drag-and-drop              | MVP      |
+| FR28 | Admins can create lessons with rich text, video, and file attachments | MVP      |
+| FR29 | Admins can set course visibility (public, members-only, paid-only)    | MVP      |
+| FR30 | Members can enroll in available courses                               | MVP      |
+| FR31 | Members can mark lessons as complete                                  | MVP      |
+| FR32 | Members can view their progress per course and module                 | MVP      |
+| FR33 | Members can resume courses where they left off                        | MVP      |
+| FR34 | Members can download course resources and attachments                 | MVP      |
 
 ### Events & Calendar (FR35-FR42)
 
-| FR | Description | Priority |
-|----|-------------|----------|
-| FR35 | Admins can create events with title, description, date/time, and location | MVP |
-| FR36 | Admins can create recurring events | MVP |
-| FR37 | Admins can set event capacity limits | MVP |
-| FR38 | Members can view events in calendar or list view | MVP |
-| FR39 | Members can RSVP to events (going, maybe, not going) | MVP |
-| FR40 | Members can add events to their personal calendar (Google, Apple, Outlook) | MVP |
-| FR41 | Members can view past events archive | MVP |
-| FR42 | System sends event reminder notifications to RSVPed members | MVP |
+| FR   | Description                                                                | Priority |
+| ---- | -------------------------------------------------------------------------- | -------- |
+| FR35 | Admins can create events with title, description, date/time, and location  | MVP      |
+| FR36 | Admins can create recurring events                                         | MVP      |
+| FR37 | Admins can set event capacity limits                                       | MVP      |
+| FR38 | Members can view events in calendar or list view                           | MVP      |
+| FR39 | Members can RSVP to events (going, maybe, not going)                       | MVP      |
+| FR40 | Members can add events to their personal calendar (Google, Apple, Outlook) | MVP      |
+| FR41 | Members can view past events archive                                       | MVP      |
+| FR42 | System sends event reminder notifications to RSVPed members                | MVP      |
 
 ### Payments & Monetization (FR43-FR51)
 
-| FR | Description | Priority |
-|----|-------------|----------|
-| FR43 | Admins can connect their Stripe account | MVP |
-| FR44 | Admins can create pricing tiers (free, one-time, subscription) | MVP |
-| FR45 | Admins can create and manage coupon codes | MVP |
-| FR46 | Admins can set free trial periods for subscriptions | MVP |
-| FR47 | Visitors can purchase memberships or content | MVP |
-| FR48 | Members can manage their subscription via Stripe portal | MVP |
-| FR49 | Members can view their billing history and invoices | MVP |
-| FR50 | System automatically provisions access on successful payment | MVP |
-| FR51 | System automatically revokes access on subscription cancellation | MVP |
+| FR   | Description                                                      | Priority |
+| ---- | ---------------------------------------------------------------- | -------- |
+| FR43 | Admins can connect their Stripe account                          | MVP      |
+| FR44 | Admins can create pricing tiers (free, one-time, subscription)   | MVP      |
+| FR45 | Admins can create and manage coupon codes                        | MVP      |
+| FR46 | Admins can set free trial periods for subscriptions              | MVP      |
+| FR47 | Visitors can purchase memberships or content                     | MVP      |
+| FR48 | Members can manage their subscription via Stripe portal          | MVP      |
+| FR49 | Members can view their billing history and invoices              | MVP      |
+| FR50 | System automatically provisions access on successful payment     | MVP      |
+| FR51 | System automatically revokes access on subscription cancellation | MVP      |
 
 ### Gamification & Engagement (FR52-FR58)
 
-| FR | Description | Priority |
-|----|-------------|----------|
-| FR52 | System awards points for configured actions (posts, comments, likes, completions) | MVP |
-| FR53 | Admins can configure point values per action | MVP |
-| FR54 | Members progress through levels based on accumulated points | MVP |
-| FR55 | Admins can customize level names and thresholds | MVP |
-| FR56 | Members can view their points, level, and rank | MVP |
-| FR57 | Members can view the community leaderboard | MVP |
-| FR58 | Members can filter leaderboard by time period (all-time, month, week) | MVP |
+| FR   | Description                                                                       | Priority |
+| ---- | --------------------------------------------------------------------------------- | -------- |
+| FR52 | System awards points for configured actions (posts, comments, likes, completions) | MVP      |
+| FR53 | Admins can configure point values per action                                      | MVP      |
+| FR54 | Members progress through levels based on accumulated points                       | MVP      |
+| FR55 | Admins can customize level names and thresholds                                   | MVP      |
+| FR56 | Members can view their points, level, and rank                                    | MVP      |
+| FR57 | Members can view the community leaderboard                                        | MVP      |
+| FR58 | Members can filter leaderboard by time period (all-time, month, week)             | MVP      |
 
 ### Notifications (FR59-FR63)
 
-| FR | Description | Priority |
-|----|-------------|----------|
-| FR59 | Members receive in-app notifications for relevant activity | MVP |
-| FR60 | Members can view notification history and mark as read | MVP |
-| FR61 | Members receive email notifications based on preferences | MVP |
-| FR62 | Members can configure email digest frequency (immediate, daily, weekly, off) | MVP |
-| FR63 | System sends transactional emails (welcome, password reset, payment receipts) | MVP |
+| FR   | Description                                                                   | Priority |
+| ---- | ----------------------------------------------------------------------------- | -------- |
+| FR59 | Members receive in-app notifications for relevant activity                    | MVP      |
+| FR60 | Members can view notification history and mark as read                        | MVP      |
+| FR61 | Members receive email notifications based on preferences                      | MVP      |
+| FR62 | Members can configure email digest frequency (immediate, daily, weekly, off)  | MVP      |
+| FR63 | System sends transactional emails (welcome, password reset, payment receipts) | MVP      |
 
 ### Administration (FR64-FR71)
 
-| FR | Description | Priority |
-|----|-------------|----------|
-| FR64 | Admins can view community analytics (members, activity, revenue) | MVP |
-| FR65 | Admins can manage member roles and permissions | MVP |
-| FR66 | Admins can remove or ban members | MVP |
-| FR67 | Admins can export member list to CSV | MVP |
-| FR68 | Admins can view and moderate reported content | MVP |
-| FR69 | Admins can configure community branding (logo, colors, favicon) | MVP |
-| FR70 | Admins can connect a custom domain | MVP |
-| FR71 | Admins can configure gamification settings | MVP |
+| FR   | Description                                                      | Priority |
+| ---- | ---------------------------------------------------------------- | -------- |
+| FR64 | Admins can view community analytics (members, activity, revenue) | MVP      |
+| FR65 | Admins can manage member roles and permissions                   | MVP      |
+| FR66 | Admins can remove or ban members                                 | MVP      |
+| FR67 | Admins can export member list to CSV                             | MVP      |
+| FR68 | Admins can view and moderate reported content                    | MVP      |
+| FR69 | Admins can configure community branding (logo, colors, favicon)  | MVP      |
+| FR70 | Admins can connect a custom domain                               | MVP      |
+| FR71 | Admins can configure gamification settings                       | MVP      |
 
 ### Direct Messaging (FR72-FR75)
 
-| FR | Description | Priority |
-|----|-------------|----------|
-| FR72 | Members can send direct messages to other members | MVP |
-| FR73 | Members can view message threads and history | MVP |
-| FR74 | Members can disable DMs in their settings | MVP |
-| FR75 | System shows read receipts for messages | MVP |
+| FR   | Description                                       | Priority |
+| ---- | ------------------------------------------------- | -------- |
+| FR72 | Members can send direct messages to other members | MVP      |
+| FR73 | Members can view message threads and history      | MVP      |
+| FR74 | Members can disable DMs in their settings         | MVP      |
+| FR75 | System shows read receipts for messages           | MVP      |
 
 ---
 
@@ -172,25 +173,27 @@ Each epic delivers **user value**, not just technical capability. The structure 
 
 ### Epic Overview
 
-| Epic | Title | User Value | FRs Covered |
-|------|-------|------------|-------------|
-| 1 | Foundation & Authentication | Users can sign up, log in, and access a secure community | FR1-FR10 (partial) |
-| 2 | Community Spaces & Content | Members can post, comment, and engage in organized spaces | FR11-FR24 |
-| 3 | Courses & Learning | Members can take courses and track their learning progress | FR25-FR34 |
-| 4 | Events & Calendar | Members can discover events and RSVP to attend | FR35-FR42 |
-| 5 | Payments & Monetization | Creators can monetize; members can purchase access | FR43-FR51 |
-| 6 | Gamification & Engagement | Members earn points, level up, and compete on leaderboards | FR52-FR58 |
-| 7 | Notifications & Messaging | Members stay informed and connect via DMs | FR59-FR63, FR72-FR75 |
-| 8 | Administration & Settings | Admins can manage, moderate, and customize the community | FR64-FR71, FR4-FR10 (remaining) |
+| Epic | Title                       | User Value                                                 | FRs Covered                     |
+| ---- | --------------------------- | ---------------------------------------------------------- | ------------------------------- |
+| 1    | Foundation & Authentication | Users can sign up, log in, and access a secure community   | FR1-FR10 (partial)              |
+| 2    | Community Spaces & Content  | Members can post, comment, and engage in organized spaces  | FR11-FR24                       |
+| 3    | Courses & Learning          | Members can take courses and track their learning progress | FR25-FR34                       |
+| 4    | Events & Calendar           | Members can discover events and RSVP to attend             | FR35-FR42                       |
+| 5    | Payments & Monetization     | Creators can monetize; members can purchase access         | FR43-FR51                       |
+| 6    | Gamification & Engagement   | Members earn points, level up, and compete on leaderboards | FR52-FR58                       |
+| 7    | Notifications & Messaging   | Members stay informed and connect via DMs                  | FR59-FR63, FR72-FR75            |
+| 8    | Administration & Settings   | Admins can manage, moderate, and customize the community   | FR64-FR71, FR4-FR10 (remaining) |
 
 ### Technical Context from Architecture
 
 **Foundation Dependencies:**
+
 - Convex schema must be extended with all domain tables first
 - `convex/_lib/` utilities (auth, permissions, points) enable all features
 - Better Auth integration already exists in starter
 
 **Cross-Cutting Concerns:**
+
 - Authorization checks required in all domain modules
 - Gamification points triggered by posts, comments, completions
 - Notifications triggered by engagement, payments, events
@@ -200,18 +203,18 @@ Each epic delivers **user value**, not just technical capability. The structure 
 
 ## FR Coverage Map
 
-| FR Range | Epic Coverage | Notes |
-|----------|---------------|-------|
-| FR1-FR3 | Epic 1 | Authentication flows |
-| FR4-FR10 | Epic 1 + Epic 8 | Profile in E1, directory/following in E8 |
-| FR11-FR24 | Epic 2 | Complete community features |
-| FR25-FR34 | Epic 3 | Complete course features |
-| FR35-FR42 | Epic 4 | Complete event features |
-| FR43-FR51 | Epic 5 | Complete payment features |
-| FR52-FR58 | Epic 6 | Complete gamification features |
-| FR59-FR63 | Epic 7 | Notification features |
-| FR64-FR71 | Epic 8 | Admin features |
-| FR72-FR75 | Epic 7 | Direct messaging features |
+| FR Range  | Epic Coverage   | Notes                                    |
+| --------- | --------------- | ---------------------------------------- |
+| FR1-FR3   | Epic 1          | Authentication flows                     |
+| FR4-FR10  | Epic 1 + Epic 8 | Profile in E1, directory/following in E8 |
+| FR11-FR24 | Epic 2          | Complete community features              |
+| FR25-FR34 | Epic 3          | Complete course features                 |
+| FR35-FR42 | Epic 4          | Complete event features                  |
+| FR43-FR51 | Epic 5          | Complete payment features                |
+| FR52-FR58 | Epic 6          | Complete gamification features           |
+| FR59-FR63 | Epic 7          | Notification features                    |
+| FR64-FR71 | Epic 8          | Admin features                           |
+| FR72-FR75 | Epic 7          | Direct messaging features                |
 
 ---
 
@@ -222,12 +225,14 @@ Each epic delivers **user value**, not just technical capability. The structure 
 **PRD Coverage:** FR1, FR2, FR3, FR4, FR5, FR6, FR7
 
 **Architecture Context:**
+
 - Better Auth with Convex integration (already in starter)
 - Hierarchical role system: Admin, Moderator, Member
 - Session management via HTTP endpoints
 - Convex schema extension for user profiles
 
 **UX Context:**
+
 - Login/signup pages following shadcn/ui patterns
 - Profile completion during onboarding
 - Clean, minimal authentication flows
@@ -245,6 +250,7 @@ So that the database foundation is ready for all features.
 **Given** the existing starter schema
 **When** I extend the schema
 **Then** the following tables are created:
+
 - `users` (extended with profile fields: bio, avatar, visibility, role)
 - `spaces` (id, name, description, icon, visibility, order, createdAt)
 - `posts` (id, spaceId, authorId, title, content, media, createdAt, pinnedAt, deletedAt)
@@ -266,12 +272,14 @@ So that the database foundation is ready for all features.
 - `levels` (id, name, threshold, order)
 
 **And** indexes are created following Architecture patterns:
+
 - `by_spaceId`, `by_authorId`, `by_createdAt` on posts
 - `by_postId` on comments
 - `by_userId` on notifications, enrollments, points
 - Compound indexes for common query patterns
 
 **Technical Notes:**
+
 - Follow Convex naming conventions (camelCase)
 - Use `v.id("tableName")` for all references
 - Store dates as Unix timestamps (Date.now())
@@ -292,6 +300,7 @@ So that permission checks are consistent across all features.
 **Given** the extended schema with roles
 **When** I create `convex/_lib/permissions.ts`
 **Then** the following utilities are available:
+
 - `getAuthUser(ctx)` returns User or null
 - `requireAuth(ctx)` returns User or throws if not authenticated
 - `requireAdmin(ctx)` returns User or throws if not admin
@@ -303,15 +312,18 @@ So that permission checks are consistent across all features.
 - `canDeleteContent(ctx, userId, contentId, type)` returns boolean
 
 **And** utilities use the hierarchical role model from Architecture:
+
 - Admin: Full access
 - Moderator: Content moderation, limited admin
 - Member: Standard participation
 
 **And** space-level permissions are checked:
+
 - Visibility: public, members-only, paid-tier-only
 - Post permission by role
 
 **Technical Notes:**
+
 - Reference Architecture section on Authorization Model
 - Use ConvexError for permission denied
 - Return null for not-found, not throw
@@ -347,6 +359,7 @@ So that I can join the community.
 **Then** I see inline error: "An account with this email already exists"
 
 **Technical Notes:**
+
 - Use React Hook Form + Zod for frontend validation
 - Better Auth handles password hashing (bcrypt)
 - Rate limiting: 5 attempts per hour per IP (Architecture 8.1)
@@ -378,6 +391,7 @@ So that I can join quickly without creating a new password.
 **Then** accounts are linked automatically
 
 **Technical Notes:**
+
 - Better Auth Google provider configuration
 - Google OAuth credentials via environment variables
 - Profile photo stored in Convex file storage
@@ -412,6 +426,7 @@ So that I can access my account without remembering a password.
 **Then** I see error: "This link has expired. Please request a new one."
 
 **Technical Notes:**
+
 - Better Auth magic link provider
 - Resend integration for email delivery
 - Rate limit: 3 magic links per email per hour
@@ -447,6 +462,7 @@ So that I can regain access to my account.
 **And** I am redirected to login with success message
 
 **Technical Notes:**
+
 - Better Auth password reset flow
 - Secure token generation and validation
 - Session invalidation on password change
@@ -467,6 +483,7 @@ So that other members can learn about me.
 **Given** I am logged in
 **When** I navigate to my profile settings
 **Then** I see my current profile information:
+
 - Display name
 - Bio (rich text, 500 char limit)
 - Profile photo
@@ -486,6 +503,7 @@ So that other members can learn about me.
 **And** my bio and other details are hidden from non-admins
 
 **Technical Notes:**
+
 - Convex file storage for avatars
 - Tiptap editor for bio (subset of features)
 - Optimistic UI updates
@@ -506,6 +524,7 @@ So that I receive updates in my preferred way.
 **Given** I am on my settings page
 **When** I view notification preferences
 **Then** I see toggles for each notification type:
+
 - New comments on my posts (email + in-app)
 - Replies to my comments (email + in-app)
 - New followers (email + in-app)
@@ -514,6 +533,7 @@ So that I receive updates in my preferred way.
 - Direct messages (email + in-app)
 
 **And** I see email digest frequency options:
+
 - Immediate
 - Daily digest
 - Weekly digest
@@ -524,6 +544,7 @@ So that I receive updates in my preferred way.
 **And** future notifications respect my preferences
 
 **Technical Notes:**
+
 - Store preferences in user record or separate preferences table
 - Notification system checks preferences before sending
 - Default: All in-app on, email digest daily
@@ -539,12 +560,14 @@ So that I receive updates in my preferred way.
 **PRD Coverage:** FR11, FR12, FR13, FR14, FR15, FR16, FR17, FR18, FR19, FR20, FR21, FR22, FR23, FR24
 
 **Architecture Context:**
+
 - Posts with denormalized author info for feed performance
 - Rich text via Tiptap with @mentions and #hashtags
 - Real-time updates via Convex reactive queries
 - Soft delete for user content
 
 **UX Context:**
+
 - Three-column layout with persistent sidebar
 - PostCard and PostComposer components
 - Activity feed with filtering
@@ -563,6 +586,7 @@ So that I can organize my community's conversations.
 **Given** I am logged in as admin
 **When** I navigate to space management
 **Then** I see a list of existing spaces with:
+
 - Name, icon, description preview
 - Visibility badge (public/members/paid)
 - Member count
@@ -570,6 +594,7 @@ So that I can organize my community's conversations.
 
 **When** I click "Create Space"
 **Then** I see a form with:
+
 - Name (required, 50 char max)
 - Description (optional, 200 char max)
 - Icon picker (emoji or Lucide icon)
@@ -594,6 +619,7 @@ So that I can organize my community's conversations.
 **And** space disappears from navigation
 
 **Technical Notes:**
+
 - Visibility affects sidebar display for non-admins
 - Order field for drag-drop persistence
 - Soft delete preserves posts for potential recovery
@@ -614,11 +640,13 @@ So that I can find conversations that interest me.
 **Given** I am logged in
 **When** I view the sidebar
 **Then** I see spaces grouped by visibility I can access:
+
 - Public spaces always visible
 - Members-only if I'm a member
 - Paid-only if I have the required tier
 
 **And** each space shows:
+
 - Icon
 - Name
 - Unread indicator (dot) if new posts since last visit
@@ -634,6 +662,7 @@ So that I can find conversations that interest me.
 **And** Enter opens selected space
 
 **Technical Notes:**
+
 - Track last visit per space per user for unread indicators
 - Convex reactive query for real-time space list
 - Respect space visibility permissions
@@ -654,6 +683,7 @@ So that I can share engaging content with the community.
 **Given** I am in a space where I can post
 **When** I focus the post composer
 **Then** I see a Tiptap editor with toolbar:
+
 - Bold, italic, underline
 - Headings (H1, H2, H3)
 - Bullet and numbered lists
@@ -684,6 +714,7 @@ So that I can share engaging content with the community.
 **Then** the post submits (keyboard shortcut)
 
 **Technical Notes:**
+
 - Tiptap with custom @mention and #hashtag extensions
 - Store content as JSON (Tiptap format)
 - Render to HTML for display
@@ -705,6 +736,7 @@ So that I can participate in community discussions.
 **Given** I am viewing a space feed
 **When** posts load
 **Then** each PostCard displays:
+
 - Author avatar, name, level badge
 - Space name (if in activity feed)
 - Timestamp (relative: "2h ago")
@@ -733,6 +765,7 @@ So that I can participate in community discussions.
 **And** clicking it scrolls to and reveals new posts
 
 **Technical Notes:**
+
 - Likes table with unique constraint on userId + targetId + targetType
 - Denormalize like count on post for performance
 - Real-time updates via Convex subscriptions
@@ -778,6 +811,7 @@ So that I can participate in discussions.
 **And** comment structure preserved for context
 
 **Technical Notes:**
+
 - Comments table with parentId for nesting
 - Limit nesting to 2 levels in query
 - Soft delete preserves thread structure
@@ -820,6 +854,7 @@ So that I can correct mistakes or remove content.
 **And** can restore if needed
 
 **Technical Notes:**
+
 - Soft delete via deletedAt timestamp
 - Filter deleted posts in normal queries
 - Admin queries can include deleted content
@@ -853,6 +888,7 @@ So that members see crucial announcements first.
 **Then** they appear at top sorted by pin date (newest pin first)
 
 **Technical Notes:**
+
 - pinnedAt timestamp field on posts
 - Query sorts by pinnedAt DESC, then createdAt DESC
 - Only mods+ can pin in spaces they moderate
@@ -879,6 +915,7 @@ So that I can catch up on everything happening in the community.
 
 **When** I click filter tabs
 **Then** I can filter by:
+
 - All (default)
 - Following (posts from people I follow)
 - Popular (sorted by engagement)
@@ -891,6 +928,7 @@ So that I can catch up on everything happening in the community.
 **And** clicking it loads new content without losing scroll position
 
 **Technical Notes:**
+
 - Paginated query across all accessible spaces
 - Denormalize space name/icon on posts for performance
 - Following filter uses follows table
@@ -914,6 +952,7 @@ So that I can find posts, members, courses, and events.
 
 **When** I type a search query
 **Then** results appear organized by category:
+
 - Posts (title and content matches)
 - Members (name matches)
 - Spaces (name and description matches)
@@ -936,7 +975,8 @@ So that I can find posts, members, courses, and events.
 **Then** I see "No results for [query]"
 
 **Technical Notes:**
-- Search utility in convex/_lib/search.ts
+
+- Search utility in convex/\_lib/search.ts
 - Search across multiple tables with permission filtering
 - Highlight matching text in results
 - Recent searches saved locally
@@ -953,12 +993,14 @@ So that I can find posts, members, courses, and events.
 **PRD Coverage:** FR25, FR26, FR27, FR28, FR29, FR30, FR31, FR32, FR33, FR34
 
 **Architecture Context:**
+
 - Courses -> Modules -> Lessons hierarchy
 - Progress tracking per user per lesson
 - Video support via embed URLs
 - File attachments via Convex storage
 
 **UX Context:**
+
 - Course catalog with card layout
 - Lesson viewer with video player
 - Progress ring/bar components
@@ -977,6 +1019,7 @@ So that I can deliver educational material to my community.
 **Given** I am logged in as admin
 **When** I navigate to course management
 **Then** I see existing courses with:
+
 - Thumbnail, title, description preview
 - Visibility badge
 - Enrollment count
@@ -984,6 +1027,7 @@ So that I can deliver educational material to my community.
 
 **When** I click "Create Course"
 **Then** I see a form with:
+
 - Title (required, 100 char max)
 - Description (rich text)
 - Thumbnail upload
@@ -995,6 +1039,7 @@ So that I can deliver educational material to my community.
 **And** I'm taken to the module editor
 
 **Technical Notes:**
+
 - Thumbnail via Convex file storage
 - Draft courses visible only to admins
 - Description supports Tiptap rich text
@@ -1022,6 +1067,7 @@ So that learners can follow a structured curriculum.
 
 **When** I click "Add Lesson" in a module
 **Then** I see the lesson editor with:
+
 - Title (required)
 - Content (Tiptap rich text editor)
 - Video URL field (YouTube/Vimeo)
@@ -1036,6 +1082,7 @@ So that learners can follow a structured curriculum.
 **And** I can continue editing or navigate away
 
 **Technical Notes:**
+
 - Modules have order field and courseId
 - Lessons have order field and moduleId
 - @dnd-kit for drag-drop
@@ -1060,6 +1107,7 @@ So that I can create engaging learning content.
 
 **When** I write content in the editor
 **Then** full Tiptap features are available:
+
 - Formatting, headings, lists
 - Code blocks with syntax highlighting
 - Inline images
@@ -1074,6 +1122,7 @@ So that I can create engaging learning content.
 **And** files remain attached
 
 **Technical Notes:**
+
 - Video URL parsing for embed generation
 - File storage with metadata (name, size, type)
 - Max file size: 50MB per file
@@ -1094,6 +1143,7 @@ So that I can find learning content that interests me.
 **Given** I am logged in
 **When** I navigate to Courses
 **Then** I see a grid of course cards showing:
+
 - Thumbnail
 - Title
 - Description preview (2 lines)
@@ -1108,11 +1158,13 @@ So that I can find learning content that interests me.
 
 **When** I filter courses
 **Then** I can filter by:
+
 - All courses
 - In progress (enrolled, not complete)
 - Completed
 
 **Technical Notes:**
+
 - Course cards per UX component spec
 - Progress shows as percentage bar if enrolled
 - Visibility filtering in query
@@ -1132,6 +1184,7 @@ So that I can track my progress and access content.
 **Given** I am viewing a course I haven't enrolled in
 **When** I view the course page
 **Then** I see course overview:
+
 - Title, description, thumbnail
 - Module/lesson outline (preview)
 - Instructor info
@@ -1148,6 +1201,7 @@ So that I can track my progress and access content.
 **And** clicking redirects to payment flow
 
 **Technical Notes:**
+
 - Enrollments table tracks user + course
 - Check visibility and tier requirements
 - Free courses enroll immediately
@@ -1168,6 +1222,7 @@ So that I can progress through courses.
 **Given** I am enrolled in a course
 **When** I view a lesson
 **Then** I see:
+
 - Lesson title
 - Video player (if video attached)
 - Lesson content (rich text)
@@ -1189,6 +1244,7 @@ So that I can progress through courses.
 **And** my current position is highlighted
 
 **Technical Notes:**
+
 - lessonProgress table tracks completions
 - Progress is per-user per-lesson
 - Video player: embedded YouTube/Vimeo
@@ -1209,11 +1265,13 @@ So that I know how much I've completed.
 **Given** I am enrolled in courses
 **When** I view the course catalog
 **Then** my progress shows on each enrolled course card:
+
 - Progress ring with percentage
 - "X of Y lessons complete"
 
 **When** I view a course detail page
 **Then** I see:
+
 - Overall progress bar
 - Module-by-module progress
 - Last accessed lesson with "Resume" button
@@ -1227,6 +1285,7 @@ So that I know how much I've completed.
 **And** completion celebration appears (confetti, message)
 
 **Technical Notes:**
+
 - Calculate progress from lessonProgress records
 - Store last accessed lesson per enrollment
 - Completion celebration per UX emotional design
@@ -1247,6 +1306,7 @@ So that I can access resources offline.
 **Given** I am viewing a lesson with attachments
 **When** I see the attachments section
 **Then** each file shows:
+
 - File name
 - File size
 - File type icon
@@ -1261,6 +1321,7 @@ So that I can access resources offline.
 **And** files open in appropriate app
 
 **Technical Notes:**
+
 - Convex file storage provides download URLs
 - Content-Disposition header for download
 - Track downloads for analytics (optional)
@@ -1276,12 +1337,14 @@ So that I can access resources offline.
 **PRD Coverage:** FR35, FR36, FR37, FR38, FR39, FR40, FR41, FR42
 
 **Architecture Context:**
+
 - Events table with recurring event support
 - RSVP table with status (going/maybe/not going)
 - Calendar integration via .ics file generation
 - Event reminders via notification system
 
 **UX Context:**
+
 - Event cards in list and calendar views
 - RSVP button with status options
 - "Add to Calendar" with platform options
@@ -1299,12 +1362,14 @@ So that members can attend gatherings and activities.
 **Given** I am logged in as admin
 **When** I navigate to event management
 **Then** I see existing events with:
+
 - Title, date/time, location
 - RSVP count
 - Status (upcoming/past)
 
 **When** I click "Create Event"
 **Then** I see a form with:
+
 - Title (required)
 - Description (rich text)
 - Start date and time (date picker)
@@ -1319,6 +1384,7 @@ So that members can attend gatherings and activities.
 **And** notification sent to members (based on preferences)
 
 **Technical Notes:**
+
 - Store times as Unix timestamps
 - Location field supports URLs for virtual events
 - Capacity null = unlimited
@@ -1339,6 +1405,7 @@ So that I don't have to create each instance manually.
 **Given** I am creating an event
 **When** I toggle "Recurring event"
 **Then** I see recurrence options:
+
 - Frequency: Daily, Weekly, Monthly
 - Interval: Every X days/weeks/months
 - End: After X occurrences, or by date, or never
@@ -1349,6 +1416,7 @@ So that I don't have to create each instance manually.
 
 **When** I edit a recurring event
 **Then** I can choose:
+
 - Edit this instance only
 - Edit all future instances
 - Edit entire series
@@ -1357,6 +1425,7 @@ So that I don't have to create each instance manually.
 **Then** same options apply
 
 **Technical Notes:**
+
 - Store recurrence rule (RRule format)
 - Generate instances dynamically or materialize
 - Editing series updates rule
@@ -1377,6 +1446,7 @@ So that I can plan my participation.
 **Given** I am on the Events page
 **When** I select calendar view
 **Then** I see a monthly calendar with:
+
 - Event dots/blocks on event days
 - Current day highlighted
 - Month/year navigation
@@ -1392,6 +1462,7 @@ So that I can plan my participation.
 **And** can toggle between Upcoming and Past
 
 **Technical Notes:**
+
 - Calendar component (build or use react-big-calendar)
 - Query events in current month range
 - Recurring events expanded to instances
@@ -1412,6 +1483,7 @@ So that organizers know I'm attending.
 **Given** I am viewing an event
 **When** I see the event details
 **Then** I see:
+
 - Title, description, date/time
 - Location (linked if URL)
 - RSVP status buttons
@@ -1435,6 +1507,7 @@ So that organizers know I'm attending.
 **Then** I receive reminders (24h, 1h before)
 
 **Technical Notes:**
+
 - RSVPs table with userId, eventId, status
 - Capacity check before allowing "Going"
 - Status options: going, maybe, notGoing, null (no response)
@@ -1455,6 +1528,7 @@ So that I don't forget to attend.
 **Given** I am viewing an event
 **When** I click "Add to Calendar"
 **Then** I see options:
+
 - Google Calendar
 - Apple Calendar
 - Outlook
@@ -1462,6 +1536,7 @@ So that I don't forget to attend.
 
 **When** I select a calendar
 **Then** appropriate action occurs:
+
 - Google: Opens Google Calendar with event pre-filled
 - Apple: Opens .ics file (triggers Calendar app)
 - Outlook: Opens Outlook calendar URL
@@ -1471,6 +1546,7 @@ So that I don't forget to attend.
 **Then** recurrence is included in calendar data
 
 **Technical Notes:**
+
 - Generate .ics file with event data
 - Google Calendar URL with parameters
 - Outlook web calendar URL
@@ -1502,6 +1578,7 @@ So that I can see what I missed or review what I attended.
 **Then** search includes past events
 
 **Technical Notes:**
+
 - Filter by endTime < Date.now()
 - Preserve RSVP data for history
 - Optional: Event recordings/notes for past events
@@ -1533,6 +1610,7 @@ So that I don't forget to attend.
 **Then** reminders are cancelled
 
 **Technical Notes:**
+
 - Scheduled functions in Convex for reminders
 - Check RSVP status before sending (cancelled if changed)
 - Respect notification preferences
@@ -1549,12 +1627,14 @@ So that I don't forget to attend.
 **PRD Coverage:** FR43, FR44, FR45, FR46, FR47, FR48, FR49, FR50, FR51
 
 **Architecture Context:**
+
 - Stripe integration via Convex component
 - Webhook handlers for payment events
 - Automatic access provisioning on payment
 - Membership tiers control content access
 
 **UX Context:**
+
 - Stripe connection in admin settings
 - Pricing page for visitors
 - Member billing management via Stripe portal
@@ -1587,6 +1667,7 @@ So that I can receive payments from members.
 **Then** I can create pricing tiers and accept payments
 
 **Technical Notes:**
+
 - Stripe Connect for platform payments
 - Store Stripe account ID in community settings
 - Webhook endpoint configured during connection
@@ -1610,6 +1691,7 @@ So that I can offer different access levels.
 
 **When** I create a tier
 **Then** I enter:
+
 - Name (e.g., "Pro Member", "Founding Member")
 - Price (one-time or recurring)
 - Billing interval (monthly/yearly) if recurring
@@ -1629,6 +1711,7 @@ So that I can offer different access levels.
 **And** existing subscribers continue unchanged
 
 **Technical Notes:**
+
 - Create Stripe Product + Price via API
 - Store tier metadata in Convex
 - Link tier to access permissions
@@ -1649,6 +1732,7 @@ So that I can offer promotions to my community.
 **Given** I am in pricing settings
 **When** I click "Create Coupon"
 **Then** I enter:
+
 - Code (custom or auto-generated)
 - Discount type (percentage or fixed amount)
 - Discount value
@@ -1669,6 +1753,7 @@ So that I can offer promotions to my community.
 **And** existing discounts continue
 
 **Technical Notes:**
+
 - Stripe Coupon API
 - Store coupon metadata in Convex
 - Validate coupon on checkout
@@ -1705,6 +1790,7 @@ So that members can try before committing.
 **And** no charge occurs
 
 **Technical Notes:**
+
 - Stripe subscription trial_period_days
 - Webhook handles trial end conversion
 - Notification before trial expiry
@@ -1725,6 +1811,7 @@ So that I can access premium content.
 **Given** I am viewing the pricing page
 **When** I see available tiers
 **Then** I see:
+
 - Tier name and price
 - Benefits list
 - "Subscribe" or "Purchase" button
@@ -1745,6 +1832,7 @@ So that I can access premium content.
 **And** I can retry
 
 **Technical Notes:**
+
 - Stripe Checkout for payment collection
 - Success URL returns to community
 - Webhook handles checkout.session.completed
@@ -1778,6 +1866,7 @@ So that members can immediately access paid content.
 **And** member notified: "Your access will end on [date]"
 
 **Technical Notes:**
+
 - Webhook handlers in convex/payments/webhooks.ts
 - Validate Stripe signature before processing
 - Idempotency via webhook event ID
@@ -1798,6 +1887,7 @@ So that I can update payment methods or cancel.
 **Given** I have an active subscription
 **When** I go to my billing settings
 **Then** I see:
+
 - Current tier and price
 - Next billing date
 - Payment method (last 4 digits)
@@ -1815,6 +1905,7 @@ So that I can update payment methods or cancel.
 **And** cancellation confirmation email sent
 
 **Technical Notes:**
+
 - Stripe Customer Portal for billing management
 - Portal session created via Convex action
 - Return URL brings back to app
@@ -1835,6 +1926,7 @@ So that I have records for my expenses.
 **Given** I have made payments
 **When** I view billing history
 **Then** I see list of transactions:
+
 - Date
 - Description (tier name)
 - Amount
@@ -1849,6 +1941,7 @@ So that I have records for my expenses.
 **Then** I see "No billing history yet"
 
 **Technical Notes:**
+
 - Query Stripe invoices via API
 - Cache invoice list in Convex (refresh periodically)
 - Stripe hosted invoice URLs for download
@@ -1864,12 +1957,14 @@ So that I have records for my expenses.
 **PRD Coverage:** FR52, FR53, FR54, FR55, FR56, FR57, FR58
 
 **Architecture Context:**
+
 - Central awardPoints function for all point awards
 - Standardized point values (Architecture table)
 - Levels table with configurable thresholds
 - Real-time leaderboard updates
 
 **UX Context:**
+
 - LevelBadge component showing user level
 - PointsToast for "+X pts" feedback
 - Leaderboard with filtering
@@ -1888,6 +1983,7 @@ So that engagement is recognized and rewarded.
 **Given** a member performs a point-worthy action
 **When** the action completes
 **Then** points are awarded per the configuration:
+
 - Post created: 10 points
 - Comment added: 5 points
 - Like received: 2 points (to content author)
@@ -1896,12 +1992,14 @@ So that engagement is recognized and rewarded.
 - Event RSVP: 5 points
 
 **And** a point record is created with:
+
 - userId, action, amount, timestamp
 
 **And** member's total points updates
 **And** PointsToast notification appears
 
 **Technical Notes:**
+
 - Centralized awardPoints function per Architecture
 - Points table for history
 - Total cached on user record (update on award)
@@ -1922,6 +2020,7 @@ So that I can tune the gamification for my community.
 **Given** I am in admin gamification settings
 **When** I view point configuration
 **Then** I see each action with current point value:
+
 - Post created: [input] pts
 - Comment added: [input] pts
 - Like received: [input] pts
@@ -1938,6 +2037,7 @@ So that I can tune the gamification for my community.
 **Then** that action awards no points
 
 **Technical Notes:**
+
 - gamificationConfig table for point values
 - Default values seeded on community creation
 - awardPoints reads from config
@@ -1964,12 +2064,14 @@ So that I have a sense of advancement.
 
 **When** viewing my profile
 **Then** I see:
+
 - Current level badge
 - Level name
 - Points toward next level (progress bar)
 - Total points earned
 
 **Default levels:**
+
 - Level 1: Newcomer (0 pts)
 - Level 2: Contributor (50 pts)
 - Level 3: Active Member (150 pts)
@@ -1982,6 +2084,7 @@ So that I have a sense of advancement.
 - Level 10: Legend (3500 pts)
 
 **Technical Notes:**
+
 - Levels table with thresholds
 - Check level on point award
 - Celebration per UX emotional design
@@ -2002,6 +2105,7 @@ So that the progression fits my community's culture.
 **Given** I am in gamification settings
 **When** I view level configuration
 **Then** I see levels list with:
+
 - Level number
 - Name (editable)
 - Points threshold (editable)
@@ -2018,6 +2122,7 @@ So that the progression fits my community's culture.
 **Then** it inserts at appropriate position
 
 **Technical Notes:**
+
 - Levels table with order field
 - Recalculate all user levels on threshold change
 - Minimum 3 levels required
@@ -2038,12 +2143,14 @@ So that I know how I'm doing.
 **Given** I am logged in
 **When** I view my profile or sidebar
 **Then** I see:
+
 - LevelBadge with level number and name
 - Points count
 - Progress to next level (if not max)
 
 **When** I click my points
 **Then** I see points history:
+
 - Recent actions that earned points
 - Date and points for each
 - Breakdown by category (posts, comments, etc.)
@@ -2053,6 +2160,7 @@ So that I know how I'm doing.
 **And** animates and auto-dismisses
 
 **Technical Notes:**
+
 - Points history from points table
 - PointsToast stacks if multiple earned
 - LevelBadge shows on all member cards
@@ -2073,6 +2181,7 @@ So that I can see top contributors and compete.
 **Given** I navigate to Leaderboard
 **When** I view the default leaderboard
 **Then** I see ranked members:
+
 - Rank number (with special badge for 1, 2, 3)
 - Avatar
 - Name
@@ -2084,6 +2193,7 @@ So that I can see top contributors and compete.
 
 **When** I filter by time period
 **Then** I can select:
+
 - All time
 - This month
 - This week
@@ -2094,6 +2204,7 @@ So that I can see top contributors and compete.
 **Then** I navigate to their profile
 
 **Technical Notes:**
+
 - Query top N users by points
 - Time-based filtering sums points in range
 - My rank calculated separately if not in top
@@ -2110,12 +2221,14 @@ So that I can see top contributors and compete.
 **PRD Coverage:** FR59, FR60, FR61, FR62, FR63, FR72, FR73, FR74, FR75
 
 **Architecture Context:**
+
 - Notifications table with type and data fields
 - Inline dispatch from triggering mutations
 - Email via Resend component
 - Real-time DM via Convex subscriptions
 
 **UX Context:**
+
 - NotificationBell with unread count
 - Notification dropdown with history
 - Message threads with real-time updates
@@ -2133,6 +2246,7 @@ So that I know when something relevant happens.
 
 **Given** notification-triggering events occur
 **When** someone:
+
 - Comments on my post
 - Replies to my comment
 - Likes my post/comment
@@ -2147,6 +2261,7 @@ So that I know when something relevant happens.
 
 **When** I click the notification bell
 **Then** I see notification list with:
+
 - Actor avatar and name
 - Action description
 - Timestamp
@@ -2157,8 +2272,9 @@ So that I know when something relevant happens.
 **And** notification is marked read
 
 **Technical Notes:**
+
 - Notifications table per schema
-- createNotification helper in _lib
+- createNotification helper in \_lib
 - Real-time via Convex subscription
 - Batch notifications (e.g., "5 people liked your post")
 
@@ -2192,6 +2308,7 @@ So that I can review and clear them.
 **Then** I see quick actions (mark read, delete)
 
 **Technical Notes:**
+
 - Pagination for notification history
 - Soft delete for removed notifications
 - Mark all read updates all unread in batch
@@ -2213,6 +2330,7 @@ So that I don't miss important activity.
 **When** my preferences allow email for that type
 **Then** email is sent via Resend
 **And** email includes:
+
 - Clear subject line
 - Actor and action
 - Preview of content
@@ -2220,6 +2338,7 @@ So that I don't miss important activity.
 
 **When** I have digest mode enabled
 **Then** notifications batch into:
+
 - Daily digest (morning summary)
 - Weekly digest (week summary)
 
@@ -2228,6 +2347,7 @@ So that I don't miss important activity.
 **And** failure logged for debugging
 
 **Technical Notes:**
+
 - Resend component for sending
 - Email templates in convex/notifications/
 - Digest via scheduled function
@@ -2247,6 +2367,7 @@ So that users receive essential communications.
 
 **Given** transactional events occur
 **When** event is:
+
 - Account creation: Welcome email
 - Password reset: Reset link email
 - Payment success: Receipt email
@@ -2261,6 +2382,7 @@ So that users receive essential communications.
 **Then** Stripe invoice link is included
 
 **Technical Notes:**
+
 - Transactional emails always send (no preferences)
 - Templates for each email type
 - Branding from community settings (logo, colors)
@@ -2298,6 +2420,7 @@ So that I can connect privately.
 **And** unread indicator on unread threads
 
 **Technical Notes:**
+
 - Conversations table with participantIds array
 - Messages table with conversationId
 - Real-time via Convex subscription
@@ -2318,6 +2441,7 @@ So that I can have ongoing conversations.
 **Given** I have a conversation
 **When** I open the thread
 **Then** I see:
+
 - Messages in chronological order
 - Sender avatar, name, timestamp
 - Read receipts (checkmark if read)
@@ -2335,6 +2459,7 @@ So that I can have ongoing conversations.
 **And** message appears immediately
 
 **Technical Notes:**
+
 - Messages ordered by createdAt
 - ReadAt timestamp for receipts
 - Typing indicator via presence
@@ -2355,6 +2480,7 @@ So that I can manage my inbox.
 **Given** I am in my settings
 **When** I view DM settings
 **Then** I see:
+
 - Enable/disable DMs toggle
 - Option: Allow DMs from everyone / Only following / Nobody
 
@@ -2370,6 +2496,7 @@ So that I can manage my inbox.
 **Then** they see "This member has disabled DMs"
 
 **Technical Notes:**
+
 - DM preferences in user settings
 - Check preferences before allowing new conversation
 - Existing threads preserved but new messages blocked
@@ -2386,12 +2513,14 @@ So that I can manage my inbox.
 **PRD Coverage:** FR64, FR65, FR66, FR67, FR68, FR69, FR70, FR71, FR8, FR9, FR10
 
 **Architecture Context:**
+
 - Admin routes in /admin
 - Role-based access to admin features
 - Analytics via Convex queries
 - Branding stored in community settings
 
 **UX Context:**
+
 - Admin dashboard with stat cards
 - Member management table
 - Moderation queue
@@ -2410,12 +2539,14 @@ So that I can quickly understand community health.
 **Given** I am logged in as admin
 **When** I navigate to /admin
 **Then** I see dashboard with:
+
 - Total members (with trend: +X this week)
 - Active members (last 7 days)
 - Total posts (with trend)
 - Total revenue (if Stripe connected)
 
 **And** charts showing:
+
 - Member growth over time
 - Activity over time (posts, comments)
 - Revenue trend (if applicable)
@@ -2424,6 +2555,7 @@ So that I can quickly understand community health.
 **Then** I navigate to detailed view for that metric
 
 **Technical Notes:**
+
 - Aggregate queries for statistics
 - Time-series data for charts
 - Chart library: recharts or similar
@@ -2444,6 +2576,7 @@ So that I can handle access and roles.
 **Given** I am in admin member management
 **When** I view the member list
 **Then** I see table with:
+
 - Avatar, name, email
 - Role badge
 - Join date
@@ -2456,18 +2589,21 @@ So that I can handle access and roles.
 
 **When** I filter members
 **Then** I can filter by:
+
 - Role (admin, moderator, member)
 - Status (active, banned)
 - Tier (free, paid)
 
 **When** I click a member row
 **Then** I see member detail panel with:
+
 - Full profile
 - Activity summary
 - Membership info
 - Role management
 
 **Technical Notes:**
+
 - Paginated member query
 - Search across name and email fields
 - Bulk selection for batch actions
@@ -2488,6 +2624,7 @@ So that I can delegate moderation and admin tasks.
 **Given** I am viewing a member
 **When** I click to change role
 **Then** I can select:
+
 - Admin (full access)
 - Moderator (content moderation)
 - Member (standard)
@@ -2505,6 +2642,7 @@ So that I can delegate moderation and admin tasks.
 **Then** I cannot demote myself (protection)
 
 **Technical Notes:**
+
 - Role stored on user record
 - Permission checks use role
 - Audit log for role changes
@@ -2531,16 +2669,18 @@ So that I can handle problematic users.
 
 **When** I click "Ban member"
 **Then** I see dialog to:
+
 - Choose ban duration (temporary or permanent)
 - Add reason (internal note)
-**And** member is banned
-**And** cannot sign up again with same email
-**And** their content is hidden
+  **And** member is banned
+  **And** cannot sign up again with same email
+  **And** their content is hidden
 
 **When** I view banned members
 **Then** I can unban them
 
 **Technical Notes:**
+
 - Ban status on user record
 - Ban table with reason and duration
 - Check ban on login
@@ -2561,6 +2701,7 @@ So that I can maintain community standards.
 **Given** content has been reported
 **When** I view the moderation queue
 **Then** I see reported items with:
+
 - Content preview
 - Reporter and reason
 - Report count
@@ -2582,6 +2723,7 @@ So that I can maintain community standards.
 **Then** I see "No reported content"
 
 **Technical Notes:**
+
 - Reports table with targetType, targetId, reason
 - Aggregate reports per content
 - Notification to mods on new reports
@@ -2602,12 +2744,14 @@ So that I have my data for external use.
 **Given** I am in member management
 **When** I click "Export"
 **Then** I see export options:
+
 - All members
 - Filtered selection
 - Format: CSV
 
 **When** I confirm export
 **Then** CSV downloads with:
+
 - Name, email, role
 - Join date, last active
 - Tier, points, level
@@ -2618,6 +2762,7 @@ So that I have my data for external use.
 **And** I receive notification when ready
 
 **Technical Notes:**
+
 - Generate CSV in Convex action
 - Stream to file storage for large exports
 - Include only data admin owns
@@ -2638,6 +2783,7 @@ So that it matches my brand identity.
 **Given** I am in admin settings
 **When** I view branding settings
 **Then** I see:
+
 - Community name field
 - Logo upload (with sizing)
 - Favicon upload
@@ -2658,6 +2804,7 @@ So that it matches my brand identity.
 **And** all users see updated branding
 
 **Technical Notes:**
+
 - Community settings table
 - Logo/favicon via Convex storage
 - Color stored as hex, CSS variables update
@@ -2678,6 +2825,7 @@ So that my community has a professional URL.
 **Given** I am in domain settings
 **When** I enter my custom domain
 **Then** I see:
+
 - Domain input field
 - DNS instructions for CNAME/A record
 - Verification status
@@ -2697,6 +2845,7 @@ So that my community has a professional URL.
 **And** redirects are handled
 
 **Technical Notes:**
+
 - Vercel Domains API for provisioning
 - DNS verification via TXT record
 - SSL automatic via Vercel
@@ -2717,6 +2866,7 @@ So that I can find and connect with others.
 **Given** I am logged in
 **When** I navigate to Members
 **Then** I see member grid with:
+
 - Avatar
 - Name
 - Level badge
@@ -2728,6 +2878,7 @@ So that I can find and connect with others.
 
 **When** I filter
 **Then** I can filter by:
+
 - Level (e.g., Level 5+)
 - Recently active
 
@@ -2736,12 +2887,14 @@ So that I can find and connect with others.
 
 **When** viewing a profile
 **Then** I see:
+
 - Full bio
 - Points, level, badges
 - Recent posts
 - Follow/Message buttons
 
 **Technical Notes:**
+
 - Privacy settings respected
 - Private profiles show limited info
 - Paginated member query
@@ -2776,6 +2929,7 @@ So that I see their content in my feed.
 **Then** I only see posts from people I follow
 
 **Technical Notes:**
+
 - Follows table with followerId, followingId
 - Notification on new follow
 - Activity feed filter uses follows
@@ -2787,83 +2941,83 @@ So that I see their content in my feed.
 
 ## FR Coverage Matrix
 
-| FR | Description | Epic | Story |
-|----|-------------|------|-------|
-| FR1 | Register with email/password or social login | Epic 1 | 1.3, 1.4 |
-| FR2 | Authenticate via magic link | Epic 1 | 1.5 |
-| FR3 | Reset password via email | Epic 1 | 1.6 |
-| FR4 | View and edit profile | Epic 1 | 1.7 |
-| FR5 | Upload and change profile photo | Epic 1 | 1.7 |
-| FR6 | Set profile visibility | Epic 1 | 1.7 |
-| FR7 | Configure notification preferences | Epic 1 | 1.8 |
-| FR8 | View other members' profiles | Epic 8 | 8.9 |
-| FR9 | Search and filter member directory | Epic 8 | 8.9 |
-| FR10 | Follow other members | Epic 8 | 8.10 |
-| FR11 | Create, edit, delete spaces | Epic 2 | 2.1 |
-| FR12 | Set space visibility | Epic 2 | 2.1 |
-| FR13 | Reorder spaces via drag-and-drop | Epic 2 | 2.1 |
-| FR14 | Create posts with rich text, images, video | Epic 2 | 2.3 |
-| FR15 | Edit and delete own posts | Epic 2 | 2.6 |
-| FR16 | Comment on posts | Epic 2 | 2.5 |
-| FR17 | Reply to comments (nested 2 levels) | Epic 2 | 2.5 |
-| FR18 | Like posts and comments | Epic 2 | 2.4 |
-| FR19 | @mention other members | Epic 2 | 2.3 |
-| FR20 | Use #hashtags in posts | Epic 2 | 2.3 |
-| FR21 | Pin posts to top of spaces | Epic 2 | 2.7 |
-| FR22 | View aggregated activity feed | Epic 2 | 2.8 |
-| FR23 | Filter activity feed | Epic 2 | 2.8 |
-| FR24 | Search posts, comments, members, courses, events | Epic 2 | 2.9 |
-| FR25 | Create courses with title, description, thumbnail | Epic 3 | 3.1 |
-| FR26 | Organize courses into modules and lessons | Epic 3 | 3.2 |
-| FR27 | Reorder modules and lessons via drag-and-drop | Epic 3 | 3.2 |
-| FR28 | Create lessons with rich text, video, attachments | Epic 3 | 3.3 |
-| FR29 | Set course visibility | Epic 3 | 3.1 |
-| FR30 | Enroll in courses | Epic 3 | 3.5 |
-| FR31 | Mark lessons as complete | Epic 3 | 3.6 |
-| FR32 | View progress per course and module | Epic 3 | 3.7 |
-| FR33 | Resume courses where left off | Epic 3 | 3.7 |
-| FR34 | Download course resources | Epic 3 | 3.8 |
-| FR35 | Create events with details | Epic 4 | 4.1 |
-| FR36 | Create recurring events | Epic 4 | 4.2 |
-| FR37 | Set event capacity limits | Epic 4 | 4.1 |
-| FR38 | View events in calendar or list | Epic 4 | 4.3 |
-| FR39 | RSVP to events | Epic 4 | 4.4 |
-| FR40 | Add events to personal calendar | Epic 4 | 4.5 |
-| FR41 | View past events archive | Epic 4 | 4.6 |
-| FR42 | Event reminder notifications | Epic 4 | 4.7 |
-| FR43 | Connect Stripe account | Epic 5 | 5.1 |
-| FR44 | Create pricing tiers | Epic 5 | 5.2 |
-| FR45 | Create and manage coupon codes | Epic 5 | 5.3 |
-| FR46 | Set free trial periods | Epic 5 | 5.4 |
-| FR47 | Purchase memberships or content | Epic 5 | 5.5 |
-| FR48 | Manage subscription via Stripe portal | Epic 5 | 5.7 |
-| FR49 | View billing history and invoices | Epic 5 | 5.8 |
-| FR50 | Automatic access provisioning on payment | Epic 5 | 5.6 |
-| FR51 | Automatic access revocation on cancellation | Epic 5 | 5.6 |
-| FR52 | Award points for actions | Epic 6 | 6.1 |
-| FR53 | Configure point values per action | Epic 6 | 6.2 |
-| FR54 | Level progression based on points | Epic 6 | 6.3 |
-| FR55 | Customize level names and thresholds | Epic 6 | 6.4 |
-| FR56 | View points, level, and rank | Epic 6 | 6.5 |
-| FR57 | View community leaderboard | Epic 6 | 6.6 |
-| FR58 | Filter leaderboard by time period | Epic 6 | 6.6 |
-| FR59 | Receive in-app notifications | Epic 7 | 7.1 |
-| FR60 | View notification history and mark read | Epic 7 | 7.2 |
-| FR61 | Receive email notifications | Epic 7 | 7.3 |
-| FR62 | Configure email digest frequency | Epic 1 | 1.8 |
-| FR63 | Transactional emails | Epic 7 | 7.4 |
-| FR64 | View community analytics | Epic 8 | 8.1 |
-| FR65 | Manage member roles | Epic 8 | 8.3 |
-| FR66 | Remove or ban members | Epic 8 | 8.4 |
-| FR67 | Export member list to CSV | Epic 8 | 8.6 |
-| FR68 | View and moderate reported content | Epic 8 | 8.5 |
-| FR69 | Configure community branding | Epic 8 | 8.7 |
-| FR70 | Connect custom domain | Epic 8 | 8.8 |
-| FR71 | Configure gamification settings | Epic 6 | 6.2, 6.4 |
-| FR72 | Send direct messages | Epic 7 | 7.5 |
-| FR73 | View message threads and history | Epic 7 | 7.6 |
-| FR74 | Disable DMs in settings | Epic 7 | 7.7 |
-| FR75 | Read receipts for messages | Epic 7 | 7.6 |
+| FR   | Description                                       | Epic   | Story    |
+| ---- | ------------------------------------------------- | ------ | -------- |
+| FR1  | Register with email/password or social login      | Epic 1 | 1.3, 1.4 |
+| FR2  | Authenticate via magic link                       | Epic 1 | 1.5      |
+| FR3  | Reset password via email                          | Epic 1 | 1.6      |
+| FR4  | View and edit profile                             | Epic 1 | 1.7      |
+| FR5  | Upload and change profile photo                   | Epic 1 | 1.7      |
+| FR6  | Set profile visibility                            | Epic 1 | 1.7      |
+| FR7  | Configure notification preferences                | Epic 1 | 1.8      |
+| FR8  | View other members' profiles                      | Epic 8 | 8.9      |
+| FR9  | Search and filter member directory                | Epic 8 | 8.9      |
+| FR10 | Follow other members                              | Epic 8 | 8.10     |
+| FR11 | Create, edit, delete spaces                       | Epic 2 | 2.1      |
+| FR12 | Set space visibility                              | Epic 2 | 2.1      |
+| FR13 | Reorder spaces via drag-and-drop                  | Epic 2 | 2.1      |
+| FR14 | Create posts with rich text, images, video        | Epic 2 | 2.3      |
+| FR15 | Edit and delete own posts                         | Epic 2 | 2.6      |
+| FR16 | Comment on posts                                  | Epic 2 | 2.5      |
+| FR17 | Reply to comments (nested 2 levels)               | Epic 2 | 2.5      |
+| FR18 | Like posts and comments                           | Epic 2 | 2.4      |
+| FR19 | @mention other members                            | Epic 2 | 2.3      |
+| FR20 | Use #hashtags in posts                            | Epic 2 | 2.3      |
+| FR21 | Pin posts to top of spaces                        | Epic 2 | 2.7      |
+| FR22 | View aggregated activity feed                     | Epic 2 | 2.8      |
+| FR23 | Filter activity feed                              | Epic 2 | 2.8      |
+| FR24 | Search posts, comments, members, courses, events  | Epic 2 | 2.9      |
+| FR25 | Create courses with title, description, thumbnail | Epic 3 | 3.1      |
+| FR26 | Organize courses into modules and lessons         | Epic 3 | 3.2      |
+| FR27 | Reorder modules and lessons via drag-and-drop     | Epic 3 | 3.2      |
+| FR28 | Create lessons with rich text, video, attachments | Epic 3 | 3.3      |
+| FR29 | Set course visibility                             | Epic 3 | 3.1      |
+| FR30 | Enroll in courses                                 | Epic 3 | 3.5      |
+| FR31 | Mark lessons as complete                          | Epic 3 | 3.6      |
+| FR32 | View progress per course and module               | Epic 3 | 3.7      |
+| FR33 | Resume courses where left off                     | Epic 3 | 3.7      |
+| FR34 | Download course resources                         | Epic 3 | 3.8      |
+| FR35 | Create events with details                        | Epic 4 | 4.1      |
+| FR36 | Create recurring events                           | Epic 4 | 4.2      |
+| FR37 | Set event capacity limits                         | Epic 4 | 4.1      |
+| FR38 | View events in calendar or list                   | Epic 4 | 4.3      |
+| FR39 | RSVP to events                                    | Epic 4 | 4.4      |
+| FR40 | Add events to personal calendar                   | Epic 4 | 4.5      |
+| FR41 | View past events archive                          | Epic 4 | 4.6      |
+| FR42 | Event reminder notifications                      | Epic 4 | 4.7      |
+| FR43 | Connect Stripe account                            | Epic 5 | 5.1      |
+| FR44 | Create pricing tiers                              | Epic 5 | 5.2      |
+| FR45 | Create and manage coupon codes                    | Epic 5 | 5.3      |
+| FR46 | Set free trial periods                            | Epic 5 | 5.4      |
+| FR47 | Purchase memberships or content                   | Epic 5 | 5.5      |
+| FR48 | Manage subscription via Stripe portal             | Epic 5 | 5.7      |
+| FR49 | View billing history and invoices                 | Epic 5 | 5.8      |
+| FR50 | Automatic access provisioning on payment          | Epic 5 | 5.6      |
+| FR51 | Automatic access revocation on cancellation       | Epic 5 | 5.6      |
+| FR52 | Award points for actions                          | Epic 6 | 6.1      |
+| FR53 | Configure point values per action                 | Epic 6 | 6.2      |
+| FR54 | Level progression based on points                 | Epic 6 | 6.3      |
+| FR55 | Customize level names and thresholds              | Epic 6 | 6.4      |
+| FR56 | View points, level, and rank                      | Epic 6 | 6.5      |
+| FR57 | View community leaderboard                        | Epic 6 | 6.6      |
+| FR58 | Filter leaderboard by time period                 | Epic 6 | 6.6      |
+| FR59 | Receive in-app notifications                      | Epic 7 | 7.1      |
+| FR60 | View notification history and mark read           | Epic 7 | 7.2      |
+| FR61 | Receive email notifications                       | Epic 7 | 7.3      |
+| FR62 | Configure email digest frequency                  | Epic 1 | 1.8      |
+| FR63 | Transactional emails                              | Epic 7 | 7.4      |
+| FR64 | View community analytics                          | Epic 8 | 8.1      |
+| FR65 | Manage member roles                               | Epic 8 | 8.3      |
+| FR66 | Remove or ban members                             | Epic 8 | 8.4      |
+| FR67 | Export member list to CSV                         | Epic 8 | 8.6      |
+| FR68 | View and moderate reported content                | Epic 8 | 8.5      |
+| FR69 | Configure community branding                      | Epic 8 | 8.7      |
+| FR70 | Connect custom domain                             | Epic 8 | 8.8      |
+| FR71 | Configure gamification settings                   | Epic 6 | 6.2, 6.4 |
+| FR72 | Send direct messages                              | Epic 7 | 7.5      |
+| FR73 | View message threads and history                  | Epic 7 | 7.6      |
+| FR74 | Disable DMs in settings                           | Epic 7 | 7.7      |
+| FR75 | Read receipts for messages                        | Epic 7 | 7.6      |
 
 ---
 
@@ -2871,16 +3025,16 @@ So that I see their content in my feed.
 
 ### Epic Statistics
 
-| Epic | Title | Stories | FRs Covered |
-|------|-------|---------|-------------|
-| 1 | Foundation & Authentication | 8 | FR1-FR7 (7) |
-| 2 | Community Spaces & Content | 9 | FR11-FR24 (14) |
-| 3 | Courses & Learning | 8 | FR25-FR34 (10) |
-| 4 | Events & Calendar | 7 | FR35-FR42 (8) |
-| 5 | Payments & Monetization | 8 | FR43-FR51 (9) |
-| 6 | Gamification & Engagement | 6 | FR52-FR58 (7) |
-| 7 | Notifications & Messaging | 7 | FR59-FR63, FR72-FR75 (9) |
-| 8 | Administration & Settings | 10 | FR64-FR71, FR8-FR10 (11) |
+| Epic | Title                       | Stories | FRs Covered              |
+| ---- | --------------------------- | ------- | ------------------------ |
+| 1    | Foundation & Authentication | 8       | FR1-FR7 (7)              |
+| 2    | Community Spaces & Content  | 9       | FR11-FR24 (14)           |
+| 3    | Courses & Learning          | 8       | FR25-FR34 (10)           |
+| 4    | Events & Calendar           | 7       | FR35-FR42 (8)            |
+| 5    | Payments & Monetization     | 8       | FR43-FR51 (9)            |
+| 6    | Gamification & Engagement   | 6       | FR52-FR58 (7)            |
+| 7    | Notifications & Messaging   | 7       | FR59-FR63, FR72-FR75 (9) |
+| 8    | Administration & Settings   | 10      | FR64-FR71, FR8-FR10 (11) |
 
 **Total:** 63 stories covering all 75 functional requirements
 
@@ -2914,5 +3068,4 @@ So that I see their content in my feed.
 
 ---
 
-*For implementation: Use the `dev-story` workflow to implement individual stories from this breakdown.*
-
+_For implementation: Use the `dev-story` workflow to implement individual stories from this breakdown._
