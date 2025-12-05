@@ -6,7 +6,7 @@
 
 import { v } from "convex/values";
 import { query } from "../_generated/server";
-import { requireAuth, requireAdmin } from "../_lib/permissions";
+import { requireAuth, requireAdmin, hasRole } from "../_lib/permissions";
 
 // Shared space validator for return types
 const spaceValidator = v.object({
@@ -143,5 +143,144 @@ export const listSpacesForAdmin = query({
       ...space,
       memberCount: 0,
     }));
+  },
+});
+
+// Member space validator with unread indicator
+const memberSpaceValidator = v.object({
+  _id: v.id("spaces"),
+  _creationTime: v.number(),
+  name: v.string(),
+  description: v.optional(v.string()),
+  icon: v.optional(v.string()),
+  visibility: v.union(
+    v.literal("public"),
+    v.literal("members"),
+    v.literal("paid")
+  ),
+  postPermission: v.union(
+    v.literal("all"),
+    v.literal("moderators"),
+    v.literal("admin")
+  ),
+  requiredTier: v.optional(v.string()),
+  order: v.number(),
+  createdAt: v.number(),
+  hasUnread: v.boolean(),
+});
+
+/**
+ * List spaces for member navigation sidebar.
+ *
+ * Returns spaces the user can access based on visibility permissions:
+ * - Public spaces: visible to all authenticated users
+ * - Members-only spaces: visible to all authenticated users
+ * - Paid spaces: visible only if user has matching tier membership
+ *
+ * Each space includes a hasUnread flag based on comparing the latest
+ * post time with the user's last visit time.
+ *
+ * Admins and moderators can see all spaces regardless of visibility.
+ *
+ * @returns Array of spaces with unread indicators, sorted by order
+ * @throws ConvexError if not authenticated
+ */
+export const listSpacesForMember = query({
+  args: {},
+  returns: v.array(memberSpaceValidator),
+  handler: async (ctx) => {
+    // 1. Auth check
+    const authUser = await requireAuth(ctx);
+
+    // 2. Find user profile by email
+    const userProfile = await ctx.db
+      .query("users")
+      .withIndex("by_email", (q) => q.eq("email", authUser.email.toLowerCase()))
+      .unique();
+
+    if (!userProfile) {
+      return [];
+    }
+
+    // 3. Get all active spaces
+    const spaces = await ctx.db
+      .query("spaces")
+      .withIndex("by_order")
+      .filter((q) => q.eq(q.field("deletedAt"), undefined))
+      .collect();
+
+    // 4. Get user's membership for tier checking
+    const membership = await ctx.db
+      .query("memberships")
+      .withIndex("by_userId", (q) => q.eq("userId", userProfile._id))
+      .unique();
+
+    // 5. Get all user's space visits for unread calculation
+    const visits = await ctx.db
+      .query("spaceVisits")
+      .withIndex("by_userId", (q) => q.eq("userId", userProfile._id))
+      .collect();
+
+    // Create a map of spaceId -> lastVisitedAt for quick lookup
+    const visitMap = new Map(visits.map((v) => [v.spaceId, v.lastVisitedAt]));
+
+    // 6. Filter spaces by visibility and add unread indicator
+    const accessibleSpaces = [];
+
+    for (const space of spaces) {
+      // Check visibility access
+      let canAccess = false;
+
+      // Admins and moderators can see all spaces
+      if (hasRole(userProfile.role, "moderator")) {
+        canAccess = true;
+      } else if (
+        space.visibility === "public" ||
+        space.visibility === "members"
+      ) {
+        // Public and members-only are accessible to all authenticated users
+        canAccess = true;
+      } else if (space.visibility === "paid") {
+        // Paid spaces require matching tier
+        if (space.requiredTier) {
+          if (
+            membership &&
+            (membership.status === "active" ||
+              membership.status === "trialing") &&
+            membership.tier === space.requiredTier
+          ) {
+            canAccess = true;
+          }
+        } else {
+          // If no requiredTier specified, any member can access
+          canAccess = true;
+        }
+      }
+
+      if (!canAccess) {
+        continue;
+      }
+
+      // Get latest post time for this space
+      const latestPost = await ctx.db
+        .query("posts")
+        .withIndex("by_spaceId", (q) => q.eq("spaceId", space._id))
+        .order("desc")
+        .first();
+
+      const latestPostTime = latestPost?.createdAt ?? 0;
+      const lastVisitTime = visitMap.get(space._id) ?? 0;
+
+      // Space is unread if there's a post newer than the last visit
+      // or if user has never visited and there are posts
+      const hasUnread = latestPostTime > 0 && latestPostTime > lastVisitTime;
+
+      accessibleSpaces.push({
+        ...space,
+        hasUnread,
+      });
+    }
+
+    return accessibleSpaces;
   },
 });
