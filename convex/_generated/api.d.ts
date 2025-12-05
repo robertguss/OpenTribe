@@ -9,15 +9,21 @@
  */
 
 import type * as _lib_permissions from "../_lib/permissions.js";
+import type * as _lib_points from "../_lib/points.js";
 import type * as _lib_rateLimits from "../_lib/rateLimits.js";
 import type * as auth from "../auth.js";
 import type * as emails_PasswordResetEmail from "../emails/PasswordResetEmail.js";
 import type * as emails_WelcomeEmail from "../emails/WelcomeEmail.js";
 import type * as http from "../http.js";
+import type * as media_mutations from "../media/mutations.js";
+import type * as media_queries from "../media/queries.js";
 import type * as members_mutations from "../members/mutations.js";
 import type * as members_queries from "../members/queries.js";
 import type * as notifications_actions from "../notifications/actions.js";
 import type * as notifications_mutations from "../notifications/mutations.js";
+import type * as posts__validators from "../posts/_validators.js";
+import type * as posts_mutations from "../posts/mutations.js";
+import type * as posts_queries from "../posts/queries.js";
 import type * as spaceVisits_mutations from "../spaceVisits/mutations.js";
 import type * as spaceVisits_queries from "../spaceVisits/queries.js";
 import type * as spaces_mutations from "../spaces/mutations.js";
@@ -31,15 +37,21 @@ import type {
 
 declare const fullApi: ApiFromModules<{
   "_lib/permissions": typeof _lib_permissions;
+  "_lib/points": typeof _lib_points;
   "_lib/rateLimits": typeof _lib_rateLimits;
   auth: typeof auth;
   "emails/PasswordResetEmail": typeof emails_PasswordResetEmail;
   "emails/WelcomeEmail": typeof emails_WelcomeEmail;
   http: typeof http;
+  "media/mutations": typeof media_mutations;
+  "media/queries": typeof media_queries;
   "members/mutations": typeof members_mutations;
   "members/queries": typeof members_queries;
   "notifications/actions": typeof notifications_actions;
   "notifications/mutations": typeof notifications_mutations;
+  "posts/_validators": typeof posts__validators;
+  "posts/mutations": typeof posts_mutations;
+  "posts/queries": typeof posts_queries;
   "spaceVisits/mutations": typeof spaceVisits_mutations;
   "spaceVisits/queries": typeof spaceVisits_queries;
   "spaces/mutations": typeof spaces_mutations;

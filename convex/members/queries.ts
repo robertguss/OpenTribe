@@ -147,3 +147,68 @@ export const getUserProfileByEmail = query({
     return user;
   },
 });
+
+/**
+ * Search members by name for @mentions.
+ *
+ * Returns members whose name contains the search query.
+ * Limited to prevent large result sets.
+ *
+ * @param query - The search query (partial name match)
+ * @param limit - Maximum number of results (default 5)
+ * @returns Array of matching members with their avatar URLs
+ */
+export const searchMembers = query({
+  args: {
+    query: v.string(),
+    limit: v.optional(v.number()),
+  },
+  returns: v.object({
+    members: v.array(
+      v.object({
+        _id: v.id("users"),
+        name: v.optional(v.string()),
+        avatarUrl: v.optional(v.string()),
+      })
+    ),
+  }),
+  handler: async (ctx, args) => {
+    await requireAuth(ctx);
+
+    const limit = args.limit ?? 5;
+
+    // Get all users (in a real app with many users, you'd want a search index)
+    // For now, we fetch recent users and filter in memory
+    const allUsers = await ctx.db.query("users").order("desc").take(100); // Cap at 100 for performance
+
+    // Filter by name if query provided
+    let filtered = allUsers;
+    if (args.query.trim()) {
+      const searchLower = args.query.toLowerCase().trim();
+      filtered = allUsers.filter(
+        (u) => u.name && u.name.toLowerCase().includes(searchLower)
+      );
+    }
+
+    // Limit results
+    const limited = filtered.slice(0, limit);
+
+    // Get avatar URLs
+    const membersWithAvatars = await Promise.all(
+      limited.map(async (user) => {
+        let avatarUrl: string | undefined;
+        if (user.avatarStorageId) {
+          avatarUrl =
+            (await ctx.storage.getUrl(user.avatarStorageId)) ?? undefined;
+        }
+        return {
+          _id: user._id,
+          name: user.name,
+          avatarUrl,
+        };
+      })
+    );
+
+    return { members: membersWithAvatars };
+  },
+});
