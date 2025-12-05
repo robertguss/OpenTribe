@@ -9,12 +9,15 @@
  */
 
 import type * as _lib_permissions from "../_lib/permissions.js";
+import type * as _lib_rateLimits from "../_lib/rateLimits.js";
 import type * as auth from "../auth.js";
+import type * as emails_PasswordResetEmail from "../emails/PasswordResetEmail.js";
 import type * as emails_WelcomeEmail from "../emails/WelcomeEmail.js";
 import type * as http from "../http.js";
 import type * as members_mutations from "../members/mutations.js";
 import type * as members_queries from "../members/queries.js";
 import type * as notifications_actions from "../notifications/actions.js";
+import type * as notifications_mutations from "../notifications/mutations.js";
 
 import type {
   ApiFromModules,
@@ -24,12 +27,15 @@ import type {
 
 declare const fullApi: ApiFromModules<{
   "_lib/permissions": typeof _lib_permissions;
+  "_lib/rateLimits": typeof _lib_rateLimits;
   auth: typeof auth;
+  "emails/PasswordResetEmail": typeof emails_PasswordResetEmail;
   "emails/WelcomeEmail": typeof emails_WelcomeEmail;
   http: typeof http;
   "members/mutations": typeof members_mutations;
   "members/queries": typeof members_queries;
   "notifications/actions": typeof notifications_actions;
+  "notifications/mutations": typeof notifications_mutations;
 }>;
 
 /**

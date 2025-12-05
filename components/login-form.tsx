@@ -17,14 +17,23 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { authClient } from "@/lib/auth-client";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
+
+interface LoginFormProps extends React.ComponentProps<"div"> {
+  resetSuccess?: boolean;
+}
 
 export function LoginForm({
   className,
+  resetSuccess,
   ...props
-}: React.ComponentProps<"div">) {
+}: LoginFormProps) {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const showResetSuccess =
+    resetSuccess || searchParams.get("reset") === "success";
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState(false);
 
@@ -66,6 +75,12 @@ export function LoginForm({
         <CardContent>
           <form onSubmit={handleSubmit}>
             <FieldGroup>
+              {showResetSuccess && (
+                <div className="rounded-md bg-green-500/15 p-3 text-sm text-green-700 dark:text-green-400">
+                  Your password has been reset successfully. Please log in with
+                  your new password.
+                </div>
+              )}
               {error && (
                 <div className="bg-destructive/15 text-destructive rounded-md p-3 text-sm">
                   {error}
@@ -85,12 +100,12 @@ export function LoginForm({
               <Field>
                 <div className="flex items-center">
                   <FieldLabel htmlFor="password">Password</FieldLabel>
-                  <a
-                    href="#"
-                    className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
+                  <Link
+                    href="/forgot-password"
+                    className="text-muted-foreground hover:text-foreground ml-auto inline-block text-sm underline-offset-4 hover:underline"
                   >
                     Forgot your password?
-                  </a>
+                  </Link>
                 </div>
                 <Input
                   id="password"
@@ -101,10 +116,15 @@ export function LoginForm({
                 />
               </Field>
               <Field>
-                <Button type="submit" disabled={loading}>
+                <Button type="submit" className="w-full" disabled={loading}>
                   {loading ? "Logging in..." : "Login"}
                 </Button>
-                <Button variant="outline" type="button" disabled={loading}>
+                <Button
+                  variant="outline"
+                  type="button"
+                  className="w-full"
+                  disabled={loading}
+                >
                   Login with Google
                 </Button>
                 <FieldDescription className="text-center">
