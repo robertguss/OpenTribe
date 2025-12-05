@@ -18,6 +18,8 @@ import type * as members_mutations from "../members/mutations.js";
 import type * as members_queries from "../members/queries.js";
 import type * as notifications_actions from "../notifications/actions.js";
 import type * as notifications_mutations from "../notifications/mutations.js";
+import type * as spaces_mutations from "../spaces/mutations.js";
+import type * as spaces_queries from "../spaces/queries.js";
 
 import type {
   ApiFromModules,
@@ -36,6 +38,8 @@ declare const fullApi: ApiFromModules<{
   "members/queries": typeof members_queries;
   "notifications/actions": typeof notifications_actions;
   "notifications/mutations": typeof notifications_mutations;
+  "spaces/mutations": typeof spaces_mutations;
+  "spaces/queries": typeof spaces_queries;
 }>;
 
 /**
