@@ -44,7 +44,7 @@ development_status:
   1-4-social-login-with-google: skipped
   1-5-magic-link-passwordless-authentication: skipped
   1-6-password-reset-flow: done
-  1-7-user-profile-view-and-edit: backlog
+  1-7-user-profile-view-and-edit: ready-for-dev
   1-8-notification-preferences-setup: backlog
   epic-1-retrospective: optional
 
