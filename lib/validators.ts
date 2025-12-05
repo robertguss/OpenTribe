@@ -74,3 +74,23 @@ export const resetPasswordSchema = z
   });
 
 export type ResetPasswordFormData = z.infer<typeof resetPasswordSchema>;
+
+/**
+ * Profile form validation schema
+ * Validates name (max 100 chars), bio (max 500 chars), and visibility
+ */
+export const profileSchema = z.object({
+  name: z
+    .string()
+    .max(100, "Name must be 100 characters or less")
+    .optional()
+    .or(z.literal("")),
+  bio: z
+    .string()
+    .max(500, "Bio must be 500 characters or less")
+    .optional()
+    .or(z.literal("")),
+  visibility: z.enum(["public", "private"]),
+});
+
+export type ProfileFormData = z.infer<typeof profileSchema>;

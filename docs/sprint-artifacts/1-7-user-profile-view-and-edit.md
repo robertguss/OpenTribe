@@ -1,6 +1,6 @@
 # Story 1.7: User Profile View and Edit
 
-Status: ready-for-dev
+Status: Ready for Review
 
 ## Story
 
@@ -33,48 +33,48 @@ So that other members can learn about me.
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Create profile settings page** (AC: #1)
-  - [ ] 1.1: Create `app/(community)/settings/profile/page.tsx`
-  - [ ] 1.2: Create `components/profile/ProfileForm.tsx` with auto-save form
-  - [ ] 1.3: Display current profile data from Convex query
-  - [ ] 1.4: Style following shadcn/ui Card + Form patterns
+- [x] **Task 1: Create profile settings page** (AC: #1)
+  - [x] 1.1: Create `app/(community)/settings/profile/page.tsx`
+  - [x] 1.2: Create `components/profile/ProfileForm.tsx` with auto-save form
+  - [x] 1.3: Display current profile data from Convex query
+  - [x] 1.4: Style following shadcn/ui Card + Form patterns
 
-- [ ] **Task 2: Implement profile update mutation** (AC: #2)
-  - [ ] 2.1: Add `updateProfile` mutation in `convex/members/mutations.ts`
-  - [ ] 2.2: Add `getMyProfile` query in `convex/members/queries.ts`
-  - [ ] 2.3: Validate bio length (max 500 chars) in mutation
-  - [ ] 2.4: Use `ctx.db.patch()` for partial updates
+- [x] **Task 2: Implement profile update mutation** (AC: #2)
+  - [x] 2.1: Add `updateProfile` mutation in `convex/members/mutations.ts`
+  - [x] 2.2: Add `getMyProfile` query in `convex/members/queries.ts`
+  - [x] 2.3: Validate bio length (max 500 chars) in mutation
+  - [x] 2.4: Use `ctx.db.patch()` for partial updates
 
-- [ ] **Task 3: Implement auto-save with debounce** (AC: #2)
-  - [ ] 3.1: Use `useDebounce` hook (create in `hooks/useDebounce.ts`)
-  - [ ] 3.2: Track save state: idle → saving → saved
-  - [ ] 3.3: Display "Saving..." and "Saved ✓" indicators
-  - [ ] 3.4: Handle save errors with inline feedback
+- [x] **Task 3: Implement auto-save with debounce** (AC: #2)
+  - [x] 3.1: Use `useDebounce` hook (create in `hooks/useDebounce.ts`)
+  - [x] 3.2: Track save state: idle → saving → saved
+  - [x] 3.3: Display "Saving..." and "Saved ✓" indicators
+  - [x] 3.4: Handle save errors with inline feedback
 
-- [ ] **Task 4: Implement avatar upload** (AC: #3)
-  - [ ] 4.1: Create avatar upload component with preview
-  - [ ] 4.2: Add `generateUploadUrl` mutation in `convex/members/mutations.ts`
-  - [ ] 4.3: Validate file type (image/jpeg, image/png, image/gif, image/webp)
-  - [ ] 4.4: Validate file size (<5MB client-side, enforced server-side)
-  - [ ] 4.5: Use `ctx.storage.generateUploadUrl()` for upload
-  - [ ] 4.6: Update `avatarStorageId` on successful upload
-  - [ ] 4.7: Add `getAvatarUrl` query to resolve storage ID to URL
+- [x] **Task 4: Implement avatar upload** (AC: #3)
+  - [x] 4.1: Create avatar upload component with preview
+  - [x] 4.2: Add `generateUploadUrl` mutation in `convex/members/mutations.ts`
+  - [x] 4.3: Validate file type (image/jpeg, image/png, image/gif, image/webp)
+  - [x] 4.4: Validate file size (<5MB client-side, enforced server-side)
+  - [x] 4.5: Use `ctx.storage.generateUploadUrl()` for upload
+  - [x] 4.6: Update `avatarStorageId` on successful upload
+  - [x] 4.7: Add `getAvatarUrl` query to resolve storage ID to URL
 
-- [ ] **Task 5: Implement visibility toggle** (AC: #4)
-  - [ ] 5.1: Add Switch/Toggle component for public/private
-  - [ ] 5.2: Auto-save visibility changes like other fields
-  - [ ] 5.3: Add helper text explaining visibility effects
+- [x] **Task 5: Implement visibility toggle** (AC: #4)
+  - [x] 5.1: Add Switch/Toggle component for public/private
+  - [x] 5.2: Auto-save visibility changes like other fields
+  - [x] 5.3: Add helper text explaining visibility effects
 
-- [ ] **Task 6: Add settings navigation** (AC: #1)
-  - [ ] 6.1: Create settings layout `app/(community)/settings/layout.tsx`
-  - [ ] 6.2: Add settings link to nav-user dropdown in sidebar
-  - [ ] 6.3: Create settings sidebar with Profile, Notifications sections
+- [x] **Task 6: Add settings navigation** (AC: #1)
+  - [x] 6.1: Create settings layout `app/(community)/settings/layout.tsx`
+  - [x] 6.2: Add settings link to nav-user dropdown in sidebar
+  - [x] 6.3: Create settings sidebar with Profile, Notifications sections
 
-- [ ] **Task 7: Write tests** (AC: all)
-  - [ ] 7.1: Test `updateProfile` mutation with valid/invalid data
-  - [ ] 7.2: Test `getMyProfile` query returns correct user data
-  - [ ] 7.3: Test file upload validation (type, size)
-  - [ ] 7.4: Test visibility update
+- [x] **Task 7: Write tests** (AC: all)
+  - [x] 7.1: Test `updateProfile` mutation with valid/invalid data
+  - [x] 7.2: Test `getMyProfile` query returns correct user data
+  - [x] 7.3: Test file upload validation (type, size)
+  - [x] 7.4: Test visibility update
 
 ## Dev Notes
 
@@ -519,13 +519,59 @@ await ctx.db.patch(profile._id, { name: args.name, updatedAt: Date.now() });
 
 ### Agent Model Used
 
-{{agent_model_name_version}}
+Claude Opus 4.5
 
 ### Debug Log References
 
+- All tests pass (110 tests, 1 skipped)
+- TypeScript compilation successful
+- No new lint errors introduced
+
 ### Completion Notes List
 
+- Implemented `getMyProfile` query and `updateProfile` mutation in Convex with proper authentication
+- Added `generateUploadUrl` mutation for avatar uploads to Convex storage
+- Added `getAvatarUrl` query to resolve storage IDs to URLs
+- Created `useDebounce` hook for auto-save functionality (500ms debounce)
+- Added `profileSchema` Zod validator for frontend form validation
+- Built settings layout with sidebar navigation (`/settings/profile`, `/settings/notifications`)
+- Created `ProfileForm` component with auto-save, save state indicators (Saving... / Saved ✓ / Error)
+- Created `AvatarUpload` component with file validation (type: jpg/png/gif/webp, size: <5MB)
+- Added visibility toggle (Switch component) with privacy explanation
+- Updated nav-user dropdown with Settings link
+- All acceptance criteria satisfied
+
 ### File List
+
+**New Files:**
+
+- `app/(community)/settings/layout.tsx` - Settings page layout with sidebar navigation
+- `app/(community)/settings/profile/page.tsx` - Profile settings page
+- `components/profile/ProfileForm.tsx` - Auto-save profile form component
+- `components/profile/AvatarUpload.tsx` - Avatar upload component with preview
+- `components/profile/index.ts` - Barrel export for profile components
+- `hooks/useDebounce.ts` - Debounce hook for auto-save
+- `components/ui/switch.tsx` - shadcn Switch component
+- `components/ui/form.tsx` - shadcn Form component
+- `components/ui/textarea.tsx` - shadcn Textarea component
+
+**Modified Files:**
+
+- `convex/members/mutations.ts` - Added `updateProfile`, `generateUploadUrl` mutations
+- `convex/members/queries.ts` - Added `getMyProfile`, `getAvatarUrl` queries
+- `convex/members/mutations.test.ts` - Added tests for new mutations
+- `convex/members/queries.test.ts` - Added tests for new queries
+- `lib/validators.ts` - Added `profileSchema` for profile form validation
+- `lib/validators.test.ts` - Added tests for profileSchema
+- `components/nav-user.tsx` - Added Settings link to user dropdown
+- `docs/sprint-artifacts/sprint-status.yaml` - Updated story status to in-progress → review
+- `docs/sprint-artifacts/1-7-user-profile-view-and-edit.md` - Updated task checkboxes and this record
+
+### Change Log
+
+| Date       | Change                                                                  |
+| ---------- | ----------------------------------------------------------------------- |
+| 2025-12-05 | Implemented story 1-7: User Profile View and Edit - All tasks completed |
 
 ---
 

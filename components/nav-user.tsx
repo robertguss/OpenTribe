@@ -27,6 +27,7 @@ import {
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { IconSettings } from "@tabler/icons-react";
 
 export function NavUser({
   user,
@@ -117,6 +118,12 @@ export function NavUser({
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
+              <DropdownMenuItem
+                onClick={() => router.push("/settings/profile")}
+              >
+                <IconSettings />
+                Settings
+              </DropdownMenuItem>
               <DropdownMenuItem>
                 <IconUserCircle />
                 Account
