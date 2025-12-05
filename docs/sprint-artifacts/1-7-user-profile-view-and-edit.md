@@ -501,6 +501,13 @@ await ctx.db.patch(profile._id, { name: args.name, updatedAt: Date.now() });
 
 **No new packages required.**
 
+### Design Mockups
+
+**UI implementation MUST match these mockups:**
+
+- Visual Reference: `docs/design/mockups/user_settings_page/screen.png`
+- HTML/CSS Reference: `docs/design/mockups/user_settings_page/code.html`
+
 ### References
 
 - [Source: docs/epics.md#Story-1.7] - Full acceptance criteria

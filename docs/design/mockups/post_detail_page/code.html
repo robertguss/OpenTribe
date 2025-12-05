@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Post Detail Page - OpenTribe</title>
+<script type='text/javascript' nonce='fq5m0Gz8H1U0FJCBZTdWdw==' src='https://contribution.usercontent.google.com/yTIukQu2TGIkpzL6HUhYtizYO8Z_kjnS5NmWzNzEhWE-EuuZMdPDzfyFduGBFuAOK-buMsSYfOzC37OT-U1Qy7qnfsZbH47ZhQ7lBjgXKRXfKqekw7ZjMFYB0BxYsFDTATdKOS8N8pc1828AZjUJakkJjlxco5YNrQduSiUm66Y='></script><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#19b357",
+              "background-light": "#f6f8f7",
+              "background-dark": "#112118",
+              "ot-dark-text": "#f0f4f2",
+              "ot-light-text": "#111714",
+              "ot-dark-text-secondary": "#9fb5aa",
+              "ot-light-text-secondary": "#648772",
+              "ot-dark-surface": "#1a2c22",
+              "ot-light-surface": "#ffffff",
+              "ot-dark-border": "#314b3d",
+              "ot-light-border": "#f0f4f2"
+            },
+            fontFamily: {
+              "display": ["Inter", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings:
+          'FILL' 0,
+          'wght' 400,
+          'GRAD' 0,
+          'opsz' 24;
+      }
+    </style>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark text-ot-light-text dark:text-ot-dark-text">
+<div class="relative flex h-auto min-h-screen w-full flex-col">
+<div class="flex h-full grow">
+<!-- SideNavBar -->
+<aside class="hidden lg:flex w-64 flex-col border-r border-ot-light-border dark:border-ot-dark-border p-4 bg-ot-light-surface dark:bg-ot-dark-surface">
+<div class="flex flex-col justify-between h-full">
+<div class="flex flex-col gap-4">
+<div class="flex items-center gap-3 px-3 py-2">
+<div class="size-6 text-primary">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M44 4H30.6666V17.3334H17.3334V30.6666H4V44H44V4Z" fill="currentColor"></path>
+</svg>
+</div>
+<h2 class="text-lg font-bold">OpenTribe</h2>
+</div>
+<div class="flex flex-col gap-2">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-primary/10 transition-colors" href="#">
+<span class="material-symbols-outlined">home</span>
+<p class="text-sm font-medium">Home</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/10 text-primary" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">explore</span>
+<p class="text-sm font-medium">Spaces</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-primary/10 transition-colors" href="#">
+<span class="material-symbols-outlined">mail</span>
+<p class="text-sm font-medium">Direct Messages</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-primary/10 transition-colors" href="#">
+<span class="material-symbols-outlined">bookmark</span>
+<p class="text-sm font-medium">Bookmarks</p>
+</a>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em]">
+<span class="truncate">Create Post</span>
+</button>
+<div class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-primary/10 transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<p class="text-sm font-medium">Settings</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-primary/10 transition-colors" href="#">
+<span class="material-symbols-outlined">help</span>
+<p class="text-sm font-medium">Help</p>
+</a>
+</div>
+</div>
+</div>
+</aside>
+<div class="flex-1 flex flex-col">
+<!-- TopNavBar -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-ot-light-border dark:border-ot-dark-border px-6 py-3 bg-ot-light-surface dark:bg-ot-dark-surface sticky top-0 z-10">
+<div class="flex items-center gap-4 text-ot-light-text dark:text-ot-dark-text">
+<!-- Breadcrumbs component merged here for mobile-friendliness and context -->
+<div class="flex items-center gap-2">
+<a class="text-ot-light-text-secondary dark:text-ot-dark-text-secondary hover:text-primary transition-colors flex items-center gap-1" href="#">
+<span class="material-symbols-outlined">arrow_back</span>
+<span class="hidden sm:inline">Back to UI/UX Design Hub</span>
+</a>
+</div>
+</div>
+<div class="flex flex-1 justify-end gap-4">
+<label class="hidden md:flex flex-col min-w-40 !h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+<div class="text-ot-light-text-secondary dark:text-ot-dark-text-secondary flex border-none bg-background-light dark:bg-background-dark items-center justify-center pl-4 rounded-l-lg border-r-0">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-ot-light-text dark:text-ot-dark-text focus:outline-0 focus:ring-0 border-none bg-background-light dark:bg-background-dark focus:border-none h-full placeholder:text-ot-light-text-secondary dark:placeholder:text-ot-dark-text-secondary px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal" placeholder="Search" value=""/>
+</div>
+</label>
+<button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 w-10 bg-background-light dark:bg-background-dark text-ot-light-text dark:text-ot-dark-text text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="User avatar of Alex Green" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBzRfiRZjfXHtLLYnWP_vJXNQIbDc_JvflplNl93nCUBzIruR8kaGZl02ICHQPDXPYkSm8EuTvF5l17LU9GtzPMbDd-JnzS8-GpfEDBczEI51BOGK5ZaeM4sTknroXQ9iwcrsJA2yB5XP9MQjd4ohinEP2CQm3aOwsOPc7MXQr5yMr2DDGMVreoZZ_Fg4Kab0juqB86ziYTdEzCSmOrUieCcpI087WhhQiiv8opPy90yBy2u58NguLf1V9BunvV0fKFFnOSxldj06A');"></div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-1 p-4 sm:p-6 md:p-8 overflow-y-auto">
+<div class="max-w-3xl mx-auto">
+<!-- Post Detail -->
+<article class="flex flex-col gap-4 bg-ot-light-surface dark:bg-ot-dark-surface p-4 sm:p-6 rounded-xl border border-ot-light-border dark:border-ot-dark-border">
+<!-- Author Header -->
+<div class="flex items-center gap-3">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-12" data-alt="User avatar of Maria Sanchez" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA_5HpYHV919eoT9DAsy-fntL3SeQoS40zY-EZyuZsxI_vkgjgQhEvsghKUC52H1jKOvhQZCEyONC-ktsnpGInD4zmeOrMQtOWBQNGxJDOr3vtSzyBN82kFJ-5DSWj2rUo-eEsIHGDepqE47Y7BaA6txh9C7KCBPYKwzmBoYHdJjBpMwdbFRXutGlAWxyd8arhBKwnvTOsoldYMe5QKH_0g29P5QHnVHUUIOdPZiJnZvvKprwL55BfQKDHRnA9FttVrHIr8VIyq-9s');"></div>
+<div class="flex flex-col">
+<h1 class="text-base font-medium">Maria Sanchez</h1>
+<p class="text-sm text-ot-light-text-secondary dark:text-ot-dark-text-secondary">@marias · 2 hours ago</p>
+</div>
+</div>
+<!-- Post Body -->
+<div class="flex flex-col gap-4">
+<h2 class="text-2xl sm:text-3xl font-bold leading-tight tracking-tight">My Journey into UX Design</h2>
+<div class="prose prose-lg dark:prose-invert max-w-none text-ot-light-text dark:text-ot-dark-text prose-p:text-ot-light-text prose-p:dark:text-ot-dark-text">
+<p>A detailed look into the principles and practices that have shaped my career in user experience design. From initial sketches to final prototypes, this post covers the entire process. I'll walk you through a recent project, highlighting the challenges we faced and the solutions we came up with.</p>
+<p>Here's a photo of my workspace setup. Keeping it clean and organized is key to my productivity!</p>
+</div>
+<div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl mt-2" data-alt="A clean and modern workspace with two monitors and a laptop" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDKZrvpQ1ntX71Ebc3jZ6evXO1z1EhuFQVVvsslaqh4p1YOQEN53c8mpqDytsyMExSCDu_h1gndC8yG9VWgTC352xuZ4lYf-MTW7U2iUZgWYB4vvNQaVOAn08W_mBJou8RMffFj9xN67XGt_zOkE7o28RWHpf6eLWTP7uCv5jkrTzN3-mUHLA-W6M9Dn1GbkBb5Q5J_IPR9z4ZK9djfPnMjEBGH5rWnEYUIIgWxFwoM6MnimeP1j3Lg05RKP-aQB0gUGhHJ7UbU0Sc');"></div>
+</div>
+<!-- ReactionBar / Interaction Stats -->
+<div class="flex flex-wrap gap-4 pt-4 border-t border-ot-light-border dark:border-ot-dark-border">
+<div class="flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-ot-light-text-secondary dark:text-ot-dark-text-secondary">favorite_border</span>
+<p class="text-sm font-bold tracking-wide text-ot-light-text-secondary dark:text-ot-dark-text-secondary">128 Likes</p>
+</div>
+<div class="flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-ot-light-text-secondary dark:text-ot-dark-text-secondary">chat_bubble_outline</span>
+<p class="text-sm font-bold tracking-wide text-ot-light-text-secondary dark:text-ot-dark-text-secondary">42 Comments</p>
+</div>
+<div class="flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-ot-light-text-secondary dark:text-ot-dark-text-secondary">share</span>
+<p class="text-sm font-bold tracking-wide text-ot-light-text-secondary dark:text-ot-dark-text-secondary">15 Shares</p>
+</div>
+</div>
+</article>
+<!-- Comment Section -->
+<section class="flex flex-col gap-6 mt-8">
+<h3 class="text-xl font-bold">Comments (42)</h3>
+<!-- Add Comment Form -->
+<div class="flex items-start gap-4">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="User avatar of Alex Green" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBUgpeiqbSxxNIJAipSgaFaA-ebQDzOF2wLf4QK-AYXdUsHZdrpdjINr9Txx6-RX1ELn76VV12O3CmKWppGUTvRXjqlY53TlCRXL0M_38Rnqr_6aMb2Me8lfiu41pHte4TXyakVP_Mo-WGnR1grRsPm0n6jPQcrzZn80BxsS_KBxj3argsmvwv6nfgcdDzDve55kPuiN-ullRoaBkfG91JAzbhWh1GoLwH47-u2A_rrFzuv9r7-LNmHM5EqV3YSPieFSIulXKeVfZs');"></div>
+<div class="flex-1 flex flex-col gap-2">
+<textarea class="form-textarea w-full min-w-0 flex-1 resize-y overflow-hidden rounded-lg bg-background-light dark:bg-background-dark text-ot-light-text dark:text-ot-dark-text placeholder:text-ot-light-text-secondary dark:placeholder:text-ot-dark-text-secondary border-ot-light-border dark:border-ot-dark-border focus:border-primary focus:ring-primary/50" placeholder="Add a comment..."></textarea>
+<button class="flex max-w-[120px] self-end cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em]">Post</button>
+</div>
+</div>
+<!-- Comments List -->
+<div class="flex flex-col gap-6">
+<!-- Comment Card 1 -->
+<div class="flex items-start gap-4">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="User avatar of David Lee" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDbnBHgHkgZB1_IRrZhcOqdAawzGhZVIb-ZoXNPBT9bHWu8jrgLZtOpJ1lGpfikFe9nz53voG7Z49vyvH-Np2ExROKU8vWBXOr9ASXBuBMGWhq40iMCxYrwNaIawrHw-8Vq5tfZnQl0fP-eDKeCQ2eVgPvoENiUBu5ZIs4nF9Cw-PjRpcRnVOIyQz6ZV_hRrF2HFEO44-G38_eWuU-kxt1C67z06i3PgOlbU1DpODNi3s4EL_lAK-mV-2JA5uxxXyz40CGSD9qV024');"></div>
+<div class="flex-1">
+<div class="bg-background-light dark:bg-ot-dark-surface p-4 rounded-lg">
+<div class="flex items-center gap-2 mb-2">
+<p class="font-medium text-sm">David Lee</p>
+<p class="text-xs text-ot-light-text-secondary dark:text-ot-dark-text-secondary">· 1 hour ago</p>
+</div>
+<p class="text-sm">This is such a great breakdown, Maria! Your workspace looks amazing. I've been meaning to organize mine for ages.</p>
+</div>
+</div>
+</div>
+<!-- Comment Card 2 (with reply) -->
+<div class="flex items-start gap-4">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="User avatar of Sarah Chen" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB1QG2ErvEcvBhIj060qfs2e2xzuong2rSyzQ6KntzWqsiSLZ9i0kML5Ihjmh6n32erCGaPXA1cnXC3UZZkMf0E3o8PB4GQv0JRKALB5IjgV0vjkP5RNV31QlDeVk_gnMTl3eRlfIVXpntaZhE353s2QKh3mvKUNzO-ZsO_AcLN2s9AUlOIY6LbqmYgWMuAkseDP9UcI8N0fZeoO4FvGUo909Maja2A2YyxSxu4Wre-VWyjlFkXRgmJzGB4qIbeFRZL3_cu0QBg3Xg');"></div>
+<div class="flex-1 flex flex-col gap-4">
+<div class="bg-background-light dark:bg-ot-dark-surface p-4 rounded-lg">
+<div class="flex items-center gap-2 mb-2">
+<p class="font-medium text-sm">Sarah Chen</p>
+<p class="text-xs text-ot-light-text-secondary dark:text-ot-dark-text-secondary">· 45 minutes ago</p>
+</div>
+<p class="text-sm">Incredible post! I'm just starting my own journey into UX and this is super inspiring. Thank you for sharing.</p>
+</div>
+<!-- Nested Reply -->
+<div class="flex items-start gap-4 pl-8">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-8" data-alt="User avatar of Maria Sanchez" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA2vc1rWai_8jp2hCZ6QaF7STJD3x6WiNKx2J0DoHydvuz1OMti7idPft2F-MFY-VBUWgnl72ElkvIEmmpve1_3K-L3_OcKnTAJDcs1GxYUN_VWmjuDbKBcQ1JDxBp6sn4qUB7mT85kIw4u9UCO1iki7NiogqWOSNidjAw1yinn7xi_wonBr7r0uHz6RxTxqOgEyiKPdAK0zf3hncJBu9Ga0maRofgSWvUi8eTD2RDJaoOiOoSHAOZZuY3wE7oKjOxRcEg1mXEyaFs');"></div>
+<div class="flex-1">
+<div class="bg-background-light dark:bg-ot-dark-surface p-3 rounded-lg">
+<div class="flex items-center gap-2 mb-1">
+<p class="font-medium text-sm">Maria Sanchez</p>
+<p class="text-xs text-ot-light-text-secondary dark:text-ot-dark-text-secondary">· 30 minutes ago</p>
+</div>
+<p class="text-sm">Thanks so much, Sarah! So glad you found it helpful. Don't hesitate to reach out if you have any questions.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+</div>
+</div>
+</div>
+</body></html>

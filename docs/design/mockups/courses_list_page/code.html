@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Courses List Page - OpenTribe</title>
+<script type='text/javascript' nonce='FPOaUKCle2V0CP1QQNsumQ==' src='https://contribution.usercontent.google.com/i8ZGrPYyfhgQo2m6HHjhOK1pYCD1VT2PEWewplmonXPOQuAQlshwJrLhpFsY3uKNjf4-f3btoqtGm2ixRNrSkjcfwAl5a693qOYzMBO2Lls2h1Yx0sjAXKrGnGDCu29m335j-yA6r-lgFbGHBuJq6gsJiaDL1adfOkJvMZgnJbo='></script><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings:
+        'FILL' 1,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24
+      }
+    </style>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#19b357",
+              "background-light": "#f6f8f7",
+              "background-dark": "#112118",
+            },
+            fontFamily: {
+              "display": ["Inter", "sans-serif"]
+            },
+            borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#111714] dark:text-white/90">
+<div class="relative flex min-h-screen w-full">
+<!-- SideNavBar -->
+<aside class="flex w-64 flex-col border-r border-gray-200/50 dark:border-white/10 bg-white dark:bg-black/20 p-4">
+<div class="flex h-full min-h-[700px] flex-col justify-between">
+<div class="flex flex-col gap-4">
+<div class="flex items-center gap-3">
+<img class="rounded-full size-10" data-alt="User profile picture of Alex Doe" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCx5oz-pPo9FTIjFijUFflfi9prwBZK6RwsNuRR7Pw8-tAX72vx7senbWmxBRW5Cq3Ltx9SBoyNYRKy7BSuDIJi29hfU6Uc5sc-cpah0cmmhHY0p85W_-nO7gPgglQYX5v1Uc3s-dqIzPmKWb9EkATzOmyBhoSiLJQgWeP_p3YHEm8jW_wHgXGbm6FUaNgGwzyuYquHSkBhca6Or5CILjWrBxTNoHhhdNrunY7IO8a30nucn3QBQG0pN27Ky8V6fNUmDMJwvHsNphY"/>
+<div class="flex flex-col">
+<h1 class="text-[#111714] dark:text-white/90 text-base font-medium leading-normal">Alex Doe</h1>
+<p class="text-gray-500 dark:text-gray-400 text-sm font-normal leading-normal">Creator</p>
+</div>
+</div>
+<nav class="flex flex-col gap-2 mt-4">
+<a class="flex items-center gap-3 px-3 py-2 text-[#111714] dark:text-white/90 rounded-lg hover:bg-gray-100 dark:hover:bg-white/10" href="#">
+<span class="material-symbols-outlined text-xl">home</span>
+<p class="text-sm font-medium leading-normal">Home</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/20 text-primary dark:bg-primary/30 dark:text-primary" href="#">
+<span class="material-symbols-outlined text-xl">school</span>
+<p class="text-sm font-medium leading-normal">Courses</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-[#111714] dark:text-white/90 rounded-lg hover:bg-gray-100 dark:hover:bg-white/10" href="#">
+<span class="material-symbols-outlined text-xl">groups</span>
+<p class="text-sm font-medium leading-normal">Community</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-[#111714] dark:text-white/90 rounded-lg hover:bg-gray-100 dark:hover:bg-white/10" href="#">
+<span class="material-symbols-outlined text-xl">event</span>
+<p class="text-sm font-medium leading-normal">Events</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-[#111714] dark:text-white/90 rounded-lg hover:bg-gray-100 dark:hover:bg-white/10" href="#">
+<span class="material-symbols-outlined text-xl">mail</span>
+<p class="text-sm font-medium leading-normal">Messages</p>
+</a>
+</nav>
+</div>
+<div class="flex flex-col gap-4">
+<button class="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em]">
+<span class="truncate">Create</span>
+</button>
+<div class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2 text-[#111714] dark:text-white/90 rounded-lg hover:bg-gray-100 dark:hover:bg-white/10" href="#">
+<span class="material-symbols-outlined text-xl">settings</span>
+<p class="text-sm font-medium leading-normal">Settings</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-[#111714] dark:text-white/90 rounded-lg hover:bg-gray-100 dark:hover:bg-white/10" href="#">
+<span class="material-symbols-outlined text-xl">logout</span>
+<p class="text-sm font-medium leading-normal">Log out</p>
+</a>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<div class="flex flex-1 flex-col">
+<!-- TopNavBar -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-gray-200/50 dark:border-white/10 bg-white dark:bg-black/20 px-10 py-3">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4 text-[#111714] dark:text-white/90">
+<div class="size-6 text-primary">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M44 4H30.6666V17.3334H17.3334V30.6666H4V44H44V4Z" fill="currentColor"></path>
+</svg>
+</div>
+<h2 class="text-[#111714] dark:text-white/90 text-lg font-bold leading-tight tracking-[-0.015em]">OpenTribe</h2>
+</div>
+<label class="flex flex-col w-96 !h-10">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+<div class="text-gray-500 dark:text-gray-400 flex border-none bg-gray-100 dark:bg-white/10 items-center justify-center pl-4 rounded-l-lg border-r-0"><span class="material-symbols-outlined text-xl">search</span></div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111714] dark:text-white/90 focus:outline-0 focus:ring-0 border-none bg-gray-100 dark:bg-white/10 focus:border-none h-full placeholder:text-gray-500 dark:placeholder:text-gray-400 px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal" placeholder="Search" value=""/>
+</div>
+</label>
+</div>
+<div class="flex flex-1 justify-end gap-2">
+<button class="flex h-10 w-10 cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-gray-100 dark:bg-white/10 text-[#111714] dark:text-white/90 text-sm font-bold leading-normal">
+<span class="material-symbols-outlined text-xl">notifications</span>
+</button>
+<button class="flex h-10 w-10 cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-gray-100 dark:bg-white/10 text-[#111714] dark:text-white/90 text-sm font-bold leading-normal">
+<span class="material-symbols-outlined text-xl">chat_bubble</span>
+</button>
+<img class="rounded-full size-10 ml-4" data-alt="User profile picture of Alex Doe" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_xT5KQGWf9nQ-V6ePsX6nhRAP_pUx6q08z6M2fGVXMqM6_zw9pOpx68NqKVD-jVJ1I1N1_Ts_aVySCQ8G6yko8NDENS2BXEmm9FcpGw3k22px4jayCcKObWtG4qKfAaswxqEaSMAvAj79oDR8xIWaamgnmcaXo0y18mGyy-zXjb38HiGTSDAbnatbPUUq_Q_85GYIatdsNzlNjBMt87E4TmFRPV2m5uQsb_ob2Ou6q5MkcG_wD8xPSUINU81ETUQ_sB10vMl76Js"/>
+</div>
+</header>
+<!-- Page Content -->
+<main class="flex-1 overflow-y-auto p-10">
+<!-- PageHeading -->
+<div class="flex flex-wrap justify-between gap-3 items-center">
+<div class="flex min-w-72 flex-col gap-1">
+<p class="text-[#111714] dark:text-white text-4xl font-black leading-tight tracking-[-0.033em]">Courses</p>
+<p class="text-gray-500 dark:text-gray-400 text-base font-normal leading-normal">Continue learning or start something new</p>
+</div>
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-lg h-10 px-4 bg-gray-100 dark:bg-white/10 text-[#111714] dark:text-white/90 text-sm font-bold leading-normal tracking-[0.015em]">
+<span class="material-symbols-outlined text-lg">filter_list</span>
+<span class="truncate">Filter</span>
+</button>
+</div>
+<!-- Section: Continue Learning -->
+<section class="mt-8">
+<h2 class="text-[#111714] dark:text-white text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Continue Learning</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
+<!-- Course Card 1 -->
+<div class="flex h-full flex-1 flex-col gap-4 rounded-xl">
+<img class="w-full aspect-video object-cover rounded-xl" data-alt="Abstract image representing design foundations" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA4dCL831a17HGcZrXNqSg98pyMnaEvS4m9ewAcD2MuGUirDRK1XX5dugxnwrGBRrvGNXD1mMvvmVFvtyN2obimo8UygBfinZ3RsXQ-E_3-dXAL68xZtJ3Tcpcdr8ZIYLhf6BmsE3PrDcYRx79ETmbU6LrQhu4umyELG8DNlvxGfpe5qd_1t3VZY-lvCDj0LqvLavhfk2ykUfla9Az9ob4KcIw6R7a3ZTriBIaDMeV8_e6tojgMe_hIKWd4dj97lePnnT1Hrct-w2Q"/>
+<div>
+<p class="text-[#111714] dark:text-white/90 text-base font-medium leading-normal">Foundations of Design</p>
+<div class="w-full bg-gray-200 dark:bg-white/20 rounded-full h-2 mt-2">
+<div class="bg-primary h-2 rounded-full" style="width: 65%"></div>
+</div>
+<p class="text-gray-500 dark:text-gray-400 text-sm font-normal leading-normal mt-1">65% Complete</p>
+</div>
+</div>
+<!-- Course Card 2 -->
+<div class="flex h-full flex-1 flex-col gap-4 rounded-xl">
+<img class="w-full aspect-video object-cover rounded-xl" data-alt="A person working on a pottery wheel" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpPy8SY7JOyOrartObrot5Gd2cF1iZ_wsG3KNzuBEGTTznvkKkly4SVwmf-lqvPw6PnOAM_qQWJAUa-vBdA7-_nSKAp5auKnprj4wyCfJ9BTDT66UOBQGQoVQFhhKDldALkfvNDap7HPLC--H8P8bSE4Yqdi8_N5v75GI2l5FG5GGgcRiEMhYQ1ie9upf3ONboA0pngAzpkX2JZnaSkVCRYiN-Edg2Sdp29V0Li96oN3n2a4e0CK7ziiZnh-yRvR12xYyNamydU2o"/>
+<div>
+<p class="text-[#111714] dark:text-white/90 text-base font-medium leading-normal">The Art of Pottery</p>
+<div class="w-full bg-gray-200 dark:bg-white/20 rounded-full h-2 mt-2">
+<div class="bg-primary h-2 rounded-full" style="width: 25%"></div>
+</div>
+<p class="text-gray-500 dark:text-gray-400 text-sm font-normal leading-normal mt-1">25% Complete</p>
+</div>
+</div>
+<!-- Course Card 3 -->
+<div class="flex h-full flex-1 flex-col gap-4 rounded-xl">
+<img class="w-full aspect-video object-cover rounded-xl" data-alt="Lines of code on a computer screen" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAps6hbH_SyfEKanFo14eVlRHp6LbKapAdVKUj9FnB42_KWFIu0HlbQka1Rc5Pfyhw3juMzmqD3YgYaC0yx_ZQrOI2JG6NmBo3A1wQFeZK7vJ3IHdhOF3YYAuBzvyYYFIDToskr9kdTQbFXnu776h3moYbAxkIIGf-d7Ndesjj4QOLOZk_UKxX7lSwioP0Vq39gi0ZxngDRiAbELnTHtsdFE5y1SuEAnkHbjXtY71ZIjN2-RSrtf0_LhFqz5g3AhsJFCvBKzuT78xA"/>
+<div>
+<p class="text-[#111714] dark:text-white/90 text-base font-medium leading-normal">Intro to Web Development</p>
+<div class="w-full bg-gray-200 dark:bg-white/20 rounded-full h-2 mt-2">
+<div class="bg-primary h-2 rounded-full" style="width: 80%"></div>
+</div>
+<p class="text-gray-500 dark:text-gray-400 text-sm font-normal leading-normal mt-1">80% Complete</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Section: All Courses -->
+<section class="mt-8">
+<h2 class="text-[#111714] dark:text-white text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">All Courses</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
+<!-- Course Card 4 -->
+<div class="flex h-full flex-1 flex-col gap-4 rounded-xl">
+<img class="w-full aspect-video object-cover rounded-xl" data-alt="A person holding a modern camera" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhS0nidjoTS3ciG4cW4-XQkDTLfPZqtGNDIIbZWOGKPIqJZZMZjIep24h7R_uJcvk_7wPcgXPiqjAPiAQyhBhpqDYnicNkZ7gkFMg55I3jvYSuaqhas-sRZyBS2QULqNjT1-dU44j0hhbbmFYsrdNsoDP9cWWHGqq54GvH5-HjejNuAmiWG4YY_LAKRav--_44ctWqBHWwXDtFtzgePoy4hFUjY0LhDpZMWWm7aNj1R_i8Rd7wmIQHYsuZMt-tJe4dZvjV5V27h0w"/>
+<div>
+<p class="text-[#111714] dark:text-white/90 text-base font-medium leading-normal">Digital Photography Masterclass</p>
+<div class="flex items-center justify-between mt-1">
+<p class="text-gray-500 dark:text-gray-400 text-sm font-normal leading-normal">18 Lessons</p>
+<span class="text-xs font-bold uppercase tracking-wider text-green-700 dark:text-green-300 bg-green-100 dark:bg-green-800/50 px-2 py-1 rounded-full">Free</span>
+</div>
+</div>
+</div>
+<!-- Course Card 5 -->
+<div class="flex h-full flex-1 flex-col gap-4 rounded-xl">
+<img class="w-full aspect-video object-cover rounded-xl" data-alt="Computer screen with data analytics charts" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCn20nDi5Sl5pDIjrWYjFpDlbbaAzjuQ6JhCx6weFGjlAxRVHscc6Y_vYtTpczxblFjZT8eMqX_MeQ0ZvoKQmRFaNkSrLf3xZsVvTvzY0cx6I1x86kES2JR2wAYKkLdpakPMo88TJLsgWcsXUoZ5NaxdtsagxNK0IjxRChXuIpL2n7S8IVsLW22nK2f299Kx5wk6kcCfzTr3H0LVU3o7FfQTSa2hgkSJwh1EH_OtaFgTo_yT93rqwD330SflwiXa5MNvH19D5RJVJU"/>
+<div>
+<p class="text-[#111714] dark:text-white/90 text-base font-medium leading-normal">Data Analytics for Beginners</p>
+<div class="flex items-center justify-between mt-1">
+<p class="text-gray-500 dark:text-gray-400 text-sm font-normal leading-normal">25 Lessons</p>
+<span class="text-xs font-bold uppercase tracking-wider text-amber-700 dark:text-amber-300 bg-amber-100 dark:bg-amber-800/50 px-2 py-1 rounded-full">Premium</span>
+</div>
+</div>
+</div>
+<!-- Course Card 6 -->
+<div class="flex h-full flex-1 flex-col gap-4 rounded-xl">
+<img class="w-full aspect-video object-cover rounded-xl" data-alt="Person writing notes during a business meeting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjVpRDp-bJPtmgiRT_d9hOkHbPBr5bAUs_gyCuXum7bsat-_hl9nTlU5wKTV_bezfj97n6GDj_Q_M7QVkQGuFXhABEdz90155jN1xj9rzO8dI6c--0oGq-nUZbb4UEyVqhl53UGKOJGC3ghL-EPva-Rxk7b2S44zuSYLK3OonuHnwcJxKDp_wlcMHnkjW33sJ8ykTNWzCzYtkRjmJQ0TZ5-MwlHOGhxWl-KSTfj0l9m-MNmACdPtjMfqCohqhP19D29hFb2aK72nA"/>
+<div>
+<p class="text-[#111714] dark:text-white/90 text-base font-medium leading-normal">Fundamentals of Marketing</p>
+<div class="flex items-center justify-between mt-1">
+<p class="text-gray-500 dark:text-gray-400 text-sm font-normal leading-normal">12 Lessons</p>
+<span class="text-xs font-bold uppercase tracking-wider text-green-700 dark:text-green-300 bg-green-100 dark:bg-green-800/50 px-2 py-1 rounded-full">Free</span>
+</div>
+</div>
+</div>
+<!-- Course Card 7 -->
+<div class="flex h-full flex-1 flex-col gap-4 rounded-xl">
+<img class="w-full aspect-video object-cover rounded-xl" data-alt="A person playing a piano" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIJ36mgk4rcbUW-TgZyb2lcdNBIEmMr9HRMGT07uDBE5-0dl_Yj5arBUplWptvnvjN3W60Ccs0IW09X0iw6dODaEqX9R6WaoriOW2PR1Wypg2iCSGDlDi7YT_V9aGYrm4jFhknlummwPgnNnvrUs-cwhjEXyLPOGt0UWm68uZ4aENTb2bLsPAXk7n9EzMyGo9dSPfJd23Gyum1yLAeH56_VjLeuQKBLKa2OM7jIqF9mc4Vw8LwnrVQTauNlogQ55tFbA-F2_O2JlU"/>
+<div>
+<p class="text-[#111714] dark:text-white/90 text-base font-medium leading-normal">Piano for Complete Beginners</p>
+<div class="flex items-center justify-between mt-1">
+<p class="text-gray-500 dark:text-gray-400 text-sm font-normal leading-normal">30 Lessons</p>
+<span class="text-xs font-bold uppercase tracking-wider text-amber-700 dark:text-amber-300 bg-amber-100 dark:bg-amber-800/50 px-2 py-1 rounded-full">Premium</span>
+</div>
+</div>
+</div>
+<!-- Course Card 8 -->
+<div class="flex h-full flex-1 flex-col gap-4 rounded-xl">
+<img class="w-full aspect-video object-cover rounded-xl" data-alt="A watercolor painting in progress" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9H9Tuq4Jnx6iDSm3PiEleLt6iqAAV38sigtPfvlk9kC9B8VT0s4AFW53AkycbMkYq-O22NyTgXF_0H8zKtvyUntWRH-Gp_hzPdB9akcMY4tUN2ZYu5HvgIkd1YJSeEwR96fixqWwNQiOj5IMulIaeS9Mbc_XBHLdj9SqafovvHG0o1qNuxPE78qwkB4sOH8YCDXkBkn67l3Pq15N43DiiKmBkx-_L2IezS3RUqeFIt5LuiAnFk2b2PHKhY-yeoOtbIWoJU0JrO1U"/>
+<div>
+<p class="text-[#111714] dark:text-white/90 text-base font-medium leading-normal">Watercolor Painting Essentials</p>
+<div class="flex items-center justify-between mt-1">
+<p class="text-gray-500 dark:text-gray-400 text-sm font-normal leading-normal">15 Lessons</p>
+<span class="text-xs font-bold uppercase tracking-wider text-green-700 dark:text-green-300 bg-green-100 dark:bg-green-800/50 px-2 py-1 rounded-full">Free</span>
+</div>
+</div>
+</div>
+<!-- Course Card 9 -->
+<div class="flex h-full flex-1 flex-col gap-4 rounded-xl">
+<img class="w-full aspect-video object-cover rounded-xl" data-alt="A person writing on a whiteboard with user interface sketches" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBp7I-8v4jYrV-Nb3Rtk0PCROucpjONZTIFE3AQPc7rDRur0ihEvICByLD643QCuyLigkxRSf9j2AZsD2Q1d8WUwrah8mze0xk9ehc37o4OF8QFuK9nlEBdYt4JgvxcZP6VwnOtOpF64fWsMEY80UYuORN6-T9SVPoioGTRcDfjoWS_-BJ1hchnRs1Tdmd2fvzkvUkEOLiuAIaid1_pnUEwB5M-M__vCPkrYEpCtUwTsKvm1DMK9Hh75mFeHoU1oQMTh1DtpisMqpA"/>
+<div>
+<p class="text-[#111714] dark:text-white/90 text-base font-medium leading-normal">UX Design: From Wireframe to Prototype</p>
+<div class="flex items-center justify-between mt-1">
+<p class="text-gray-500 dark:text-gray-400 text-sm font-normal leading-normal">22 Lessons</p>
+<span class="text-xs font-bold uppercase tracking-wider text-amber-700 dark:text-amber-300 bg-amber-100 dark:bg-amber-800/50 px-2 py-1 rounded-full">Premium</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+</div>
+</div>
+</body></html>

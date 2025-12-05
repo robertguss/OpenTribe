@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Space Page - OpenTribe</title>
+<script type='text/javascript' nonce='5xHvdFIf+WEbos1rhc4veA==' src='https://contribution.usercontent.google.com/L27pZwWSc1_ul7OKcREmt-ISZRayTb8P1zECs93038XiaQAqRzVKcAOOGe5rj9yqhzfFGcj4Eg6j9GCgdyR1UBLg_lLdjPn41gzRUHu0UvYhP_LqJz-W06Bfsse7EX-B0qBRNHoDv8WOvrVyQ9rKX-aeOrwmxeCz79o5Yck1e5A='></script><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings:
+      'FILL' 0,
+      'wght' 400,
+      'GRAD' 0,
+      'opsz' 24
+    }
+    .material-symbols-outlined.fill {
+        font-variation-settings: 'FILL' 1;
+    }
+  </style>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#19b357",
+            "background-light": "#f6f8f7",
+            "background-dark": "#112118",
+            "surface-light": "#ffffff",
+            "surface-dark": "#1a2c22",
+            "text-light-primary": "#111714",
+            "text-dark-primary": "#e8f5ee",
+            "text-light-secondary": "#648772",
+            "text-dark-secondary": "#8ba89a",
+            "border-light": "#f0f4f2",
+            "border-dark": "#2a4235",
+            "border-light-strong": "#dce5df",
+            "border-dark-strong": "#3a5746"
+          },
+          fontFamily: {
+            "display": ["Inter", "sans-serif"]
+          },
+          borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+        },
+      },
+    }
+  </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<!-- TopNavBar -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-border-light dark:border-border-dark bg-surface-light dark:bg-surface-dark px-6 py-3 sticky top-0 z-50">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4 text-text-light-primary dark:text-text-dark-primary">
+<div class="size-6 text-primary">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M44 4H30.6666V17.3334H17.3334V30.6666H4V44H44V4Z" fill="currentColor"></path>
+</svg>
+</div>
+<h2 class="text-lg font-bold leading-tight tracking-[-0.015em]">OpenTribe</h2>
+</div>
+<label class="hidden md:flex flex-col min-w-40 !h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+<div class="text-text-light-secondary dark:text-text-dark-secondary flex border-none bg-border-light dark:bg-border-dark items-center justify-center pl-4 rounded-l-lg border-r-0">
+<span class="material-symbols-outlined" style="font-size: 20px;">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-text-light-primary dark:text-text-dark-primary focus:outline-0 focus:ring-0 border-none bg-border-light dark:bg-border-dark focus:border-none h-full placeholder:text-text-light-secondary dark:placeholder:text-text-dark-secondary px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal" placeholder="Search" value=""/>
+</div>
+</label>
+</div>
+<div class="flex flex-1 justify-end gap-8">
+<div class="hidden lg:flex items-center gap-9">
+<a class="text-text-light-primary dark:text-text-dark-primary text-sm font-medium leading-normal" href="#">Home</a>
+<a class="text-text-light-primary dark:text-text-dark-primary text-sm font-medium leading-normal" href="#">Spaces</a>
+<a class="text-text-light-primary dark:text-text-dark-primary text-sm font-medium leading-normal" href="#">Events</a>
+</div>
+<div class="flex gap-2">
+<button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-border-light dark:bg-border-dark text-text-light-primary dark:text-text-dark-primary gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5">
+<span class="material-symbols-outlined text-text-light-primary dark:text-text-dark-primary" style="font-size: 20px;">notifications</span>
+</button>
+<button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-border-light dark:bg-border-dark text-text-light-primary dark:text-text-dark-primary gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5">
+<span class="material-symbols-outlined text-text-light-primary dark:text-text-dark-primary" style="font-size: 20px;">chat_bubble</span>
+</button>
+</div>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="User avatar image" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC6iKFiLfoy-Phil953S49hA-jSUzbukI8E0i0xQTPKAyq4f8ER91VfuNM_ee-kB79Aekwd_9mdqPh8gKxnv0YGrThbF8pIsHq8oE3aPoF-g7Sc9jSUyVAZoYnKEYVLm9DIBlphNDcH5QMGJnumd2uM-kAKgzRP4I9yOi2aNirtqISKMLZCUk8JyyOGDCvqQhDNsf1IEIRq6TW3tJTrwY6PUSuQ6Fll4GvJ5msfGTKVXgBg-sBPvyplNMxYlUfwRlQ_ltK1L_UdV3E");'></div>
+</div>
+</header>
+<div class="layout-container flex h-full grow flex-col">
+<div class="flex flex-1 justify-center">
+<div class="flex w-full max-w-screen-xl">
+<!-- SideNavBar -->
+<aside class="w-64 flex-shrink-0 p-4 hidden lg:block sticky top-[76px] self-start h-[calc(100vh-76px)] border-r border-border-light dark:border-border-dark bg-surface-light dark:bg-surface-dark">
+<div class="flex h-full flex-col justify-between">
+<div class="flex flex-col gap-4">
+<div class="flex gap-3">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="User avatar image" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDfTqVXhGlpFp0q5bMK-SsfHl5i0oRz9FQuoejkTdggYeT-7r8ypiiAmr9mYMYdMp5kmMa8IeWkpYTmKYAskSODHbTla4AcXEdAGaPyFd7JZmoqoRrzAwpm0Axty4jy8LDTkxFNblZOnsdF0GLYRlRkIa6gMVCflcOn47to1yTbWyaU0L_6eQkZ2qfyc8kTXHCI9FOFXBKOVXVGcoh1R9jhUI-0ZLiqGsmNLe3qDho_-_qRUFbEbmWZtCmin1B6NGSU9PeDxJ9BSKc");'></div>
+<div class="flex flex-col">
+<h1 class="text-text-light-primary dark:text-text-dark-primary text-base font-medium leading-normal">Alex Doe</h1>
+<p class="text-text-light-secondary dark:text-text-dark-secondary text-sm font-normal leading-normal">@alex_doe</p>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-border-light dark:hover:bg-border-dark" href="#">
+<span class="material-symbols-outlined text-text-light-primary dark:text-text-dark-primary">home</span>
+<p class="text-text-light-primary dark:text-text-dark-primary text-sm font-medium leading-normal">Home</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-border-light dark:bg-border-dark" href="#">
+<span class="material-symbols-outlined fill text-text-light-primary dark:text-text-dark-primary">groups</span>
+<p class="text-text-light-primary dark:text-text-dark-primary text-sm font-medium leading-normal">My Spaces</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-border-light dark:hover:bg-border-dark" href="#">
+<span class="material-symbols-outlined text-text-light-primary dark:text-text-dark-primary">explore</span>
+<p class="text-text-light-primary dark:text-text-dark-primary text-sm font-medium leading-normal">Discover</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-border-light dark:hover:bg-border-dark" href="#">
+<span class="material-symbols-outlined text-text-light-primary dark:text-text-dark-primary">bookmark</span>
+<p class="text-text-light-primary dark:text-text-dark-primary text-sm font-medium leading-normal">Bookmarks</p>
+</a>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em]">
+<span class="truncate">Create Space</span>
+</button>
+<div class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-border-light dark:hover:bg-border-dark" href="#">
+<span class="material-symbols-outlined text-text-light-primary dark:text-text-dark-primary">settings</span>
+<p class="text-text-light-primary dark:text-text-dark-primary text-sm font-medium leading-normal">Settings</p>
+</a>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 min-w-0">
+<div class="layout-content-container flex flex-col flex-1">
+<!-- PageHeading -->
+<div class="flex flex-wrap justify-between gap-3 p-6 border-b border-border-light dark:border-border-dark bg-surface-light dark:bg-surface-dark">
+<div class="flex items-center gap-4">
+<div class="flex items-center justify-center size-16 bg-primary/20 rounded-xl text-primary flex-shrink-0">
+<span class="material-symbols-outlined" style="font-size: 36px;">joystick</span>
+</div>
+<div class="flex flex-col gap-1">
+<p class="text-text-light-primary dark:text-text-dark-primary text-4xl font-black leading-tight tracking-[-0.033em]">Indie Game Developers</p>
+<p class="text-text-light-secondary dark:text-text-dark-secondary text-base font-normal leading-normal">
+                          A community for sharing progress, getting feedback, and collaborating on indie game projects. 1,234 members.
+                        </p>
+</div>
+</div>
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white gap-2 text-sm font-bold leading-normal tracking-[0.015em] self-center">
+<span class="material-symbols-outlined" style="font-size: 20px;">add</span>
+<span class="truncate">Post</span>
+</button>
+</div>
+<!-- Tabs & Filters -->
+<div class="px-6 py-3 border-b border-border-light-strong dark:border-border-dark-strong sticky top-[76px] bg-background-light dark:bg-background-dark z-40">
+<div class="flex justify-between items-center">
+<div class="flex gap-8">
+<a class="flex flex-col items-center justify-center border-b-[3px] border-b-text-light-primary dark:border-b-text-dark-primary text-text-light-primary dark:text-text-dark-primary pb-2 pt-1" href="#">
+<p class="text-sm font-bold leading-normal tracking-[0.015em]">Latest</p>
+</a>
+<a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-text-light-secondary dark:text-text-dark-secondary pb-2 pt-1" href="#">
+<p class="text-sm font-bold leading-normal tracking-[0.015em]">Popular</p>
+</a>
+<a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-text-light-secondary dark:text-text-dark-secondary pb-2 pt-1" href="#">
+<p class="text-sm font-bold leading-normal tracking-[0.015em]">Pinned</p>
+</a>
+</div>
+<div class="flex items-center gap-2">
+<select class="form-select rounded-lg border-border-light-strong dark:border-border-dark-strong bg-surface-light dark:bg-surface-dark text-text-light-primary dark:text-text-dark-primary text-sm focus:ring-primary focus:border-primary">
+<option>All Posts</option>
+<option>Announcements</option>
+<option>Questions</option>
+</select>
+</div>
+</div>
+</div>
+<!-- Posts Feed -->
+<div class="p-6 flex flex-col gap-6">
+<!-- Pinned Post Card -->
+<div class="p-4 @container bg-surface-light dark:bg-surface-dark rounded-xl border border-border-light dark:border-border-dark">
+<div class="flex flex-col items-stretch justify-start">
+<div class="flex w-full grow flex-col items-stretch justify-center gap-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-text-light-secondary dark:text-text-dark-secondary" style="font-size: 16px;">push_pin</span>
+<p class="text-text-light-secondary dark:text-text-dark-secondary text-sm font-normal leading-normal">Pinned by Admin</p>
+</div>
+<p class="text-text-light-primary dark:text-text-dark-primary text-xl font-bold leading-tight tracking-[-0.015em]">Welcome! Please Read the Community Guidelines</p>
+<p class="text-text-light-secondary dark:text-text-dark-secondary text-base font-normal leading-normal">
+                           To ensure a positive and productive environment for everyone, please take a moment to read our community guidelines before posting. Let's build something amazing together!
+                        </p>
+<div class="flex items-center justify-between mt-2">
+<p class="text-text-light-secondary dark:text-text-dark-secondary text-sm font-normal leading-normal">Alex Doe • 2 weeks ago</p>
+<div class="flex items-center gap-4 text-text-light-secondary dark:text-text-dark-secondary">
+<button class="flex items-center gap-1.5 hover:text-primary dark:hover:text-primary">
+<span class="material-symbols-outlined" style="font-size: 20px;">thumb_up</span>
+<span class="text-sm font-medium">128</span>
+</button>
+<button class="flex items-center gap-1.5 hover:text-primary dark:hover:text-primary">
+<span class="material-symbols-outlined" style="font-size: 20px;">chat_bubble_outline</span>
+<span class="text-sm font-medium">32</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Regular Post Card 1 -->
+<div class="p-4 @container bg-surface-light dark:bg-surface-dark rounded-xl border border-border-light dark:border-border-dark">
+<div class="flex flex-col items-stretch justify-start">
+<div class="flex items-center gap-3 mb-3">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="User avatar image" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDx0xJeFtQkBTpkE_j5nAZeHaiqJLOVR_HJQ622ukA7jyJNfCSvrI6uGks-jb2UYi7xsyVu3lvNfJdhheddoOXxFxMGdq2N1WuJ2LZFNo5t6KvjGypqaqeLVxjIeHQHsGnO2r1TsdnllwrSXZ-PML25oZ2kXO8B5bI_2CokYlab7SYOoiXKYVdWyFKR_eTdZg2JYbhYe9F5JAfqudyRNoaTKQnuu5pS-Uu9_1J6k-11pkVcYsno0fKiRhDLgQp2J-YCfc1V_qEdyb8");'></div>
+<div class="flex flex-col">
+<p class="text-text-light-primary dark:text-text-dark-primary text-base font-medium leading-normal">Jane Smith</p>
+<p class="text-text-light-secondary dark:text-text-dark-secondary text-sm font-normal leading-normal">2 hours ago</p>
+</div>
+</div>
+<div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-lg mb-3" data-alt="Screenshot from an indie video game showing a pixel art forest scene" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBiT0D_DUsgNCEX7QIR3qHpkINBZYgF6YGerVclV9zZYZb1iiifGJDYsW5Kna2kRfPttAFOw10jGmng2jCRssaXcqJoijpdAUUcUHQDbaiBh23qxKf1LcctD0yTcAO9LBMihJ2WB_y7mrIeHXAWyGMnIm_sCowCzdbduQtp91Nb6Lg82JV_LzChvrR0SizaW0WIMrHlLqRW8AhWpcVFL3s1zMx0IuoK3bIJm_0Eg9aELtg_OsIWMRq2CYZl-4m7Mij92f7Yvswsjg4");'></div>
+<div class="flex w-full grow flex-col items-stretch justify-center gap-2">
+<p class="text-text-light-primary dark:text-text-dark-primary text-xl font-bold leading-tight tracking-[-0.015em]">New concept art for my upcoming platformer!</p>
+<p class="text-text-light-secondary dark:text-text-dark-secondary text-base font-normal leading-normal">
+                           Been working on the main character design and the starting forest level. Really trying to nail the cozy but mysterious vibe. What do you all think of the color palette?
+                        </p>
+<div class="flex items-center justify-end mt-2">
+<div class="flex items-center gap-4 text-text-light-secondary dark:text-text-dark-secondary">
+<button class="flex items-center gap-1.5 hover:text-primary dark:hover:text-primary">
+<span class="material-symbols-outlined" style="font-size: 20px;">thumb_up</span>
+<span class="text-sm font-medium">88</span>
+</button>
+<button class="flex items-center gap-1.5 hover:text-primary dark:hover:text-primary">
+<span class="material-symbols-outlined" style="font-size: 20px;">chat_bubble_outline</span>
+<span class="text-sm font-medium">15</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Regular Post Card 2 -->
+<div class="p-4 @container bg-surface-light dark:bg-surface-dark rounded-xl border border-border-light dark:border-border-dark">
+<div class="flex flex-col items-stretch justify-start">
+<div class="flex items-center gap-3 mb-3">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="User avatar image" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDCyiZ-05kM_PGaRcnk8OwlP7CC67WbNsAoUMevRQcWxbtGmGy2KUAKt-HTCdyBPTYYkmMpw6r7xFBe8PZDd3LT6Q-jdLBBaQz7mfFiRQczisQIrTGWbOX8FMhnmU7zlgCN31hwUq4kdVgBQ2HRVmjG3AkqbP74gpbLNcTaAhmEBidUW3XkF1k61DaochXWKQdGgQOqG84R-YjBZDcI-yBii-GGxsZ9LvME_rjOf6PwD67WCxj9K59u7XqE40REQGlXx91LU6v-cnA");'></div>
+<div class="flex flex-col">
+<p class="text-text-light-primary dark:text-text-dark-primary text-base font-medium leading-normal">Carlos Reyes</p>
+<p class="text-text-light-secondary dark:text-text-dark-secondary text-sm font-normal leading-normal">8 hours ago</p>
+</div>
+</div>
+<div class="flex w-full grow flex-col items-stretch justify-center gap-2">
+<p class="text-text-light-primary dark:text-text-dark-primary text-xl font-bold leading-tight tracking-[-0.015em]">Looking for a pixel artist for a small collaboration</p>
+<p class="text-text-light-secondary dark:text-text-dark-secondary text-base font-normal leading-normal">
+                           Hey everyone! I'm a programmer with a prototype for a top-down RPG. The mechanics are solid but I'm terrible at art. Looking for a pixel artist to collaborate with. It's a passion project for now, but hoping to take it to Kickstarter if we get a good demo going. DM me if you're interested!
+                        </p>
+<div class="flex items-center justify-end mt-2">
+<div class="flex items-center gap-4 text-text-light-secondary dark:text-text-dark-secondary">
+<button class="flex items-center gap-1.5 hover:text-primary dark:hover:text-primary">
+<span class="material-symbols-outlined" style="font-size: 20px;">thumb_up</span>
+<span class="text-sm font-medium">42</span>
+</button>
+<button class="flex items-center gap-1.5 hover:text-primary dark:hover:text-primary">
+<span class="material-symbols-outlined" style="font-size: 20px;">chat_bubble_outline</span>
+<span class="text-sm font-medium">9</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
+</div>
+</div>
+</body></html>
