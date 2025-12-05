@@ -5,6 +5,7 @@ import {
   IconDotsVertical,
   IconLogout,
   IconNotification,
+  IconSettings,
   IconUserCircle,
 } from "@tabler/icons-react";
 
@@ -25,6 +26,7 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { authClient } from "@/lib/auth-client";
+import { getInitials } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -59,15 +61,7 @@ export function NavUser({
     return null;
   }
 
-  // Get user initials for avatar fallback
-  const initials = user.name
-    ? user.name
-        .split(" ")
-        .map((n) => n[0])
-        .join("")
-        .toUpperCase()
-        .slice(0, 2)
-    : "U";
+  const initials = getInitials(user.name, "U");
 
   return (
     <SidebarMenu>
@@ -117,6 +111,12 @@ export function NavUser({
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
+              <DropdownMenuItem
+                onClick={() => router.push("/settings/profile")}
+              >
+                <IconSettings />
+                Settings
+              </DropdownMenuItem>
               <DropdownMenuItem>
                 <IconUserCircle />
                 Account

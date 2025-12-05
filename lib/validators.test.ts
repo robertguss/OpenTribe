@@ -1,5 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { forgotPasswordSchema, resetPasswordSchema } from "./validators";
+import {
+  forgotPasswordSchema,
+  resetPasswordSchema,
+  profileSchema,
+} from "./validators";
 
 describe("forgotPasswordSchema", () => {
   it("should accept valid email", () => {
@@ -94,6 +98,98 @@ describe("resetPasswordSchema", () => {
     const result = resetPasswordSchema.safeParse({
       password: strongPassword,
       confirmPassword: strongPassword,
+    });
+    expect(result.success).toBe(true);
+  });
+});
+
+describe("profileSchema", () => {
+  it("should accept valid profile data", () => {
+    const result = profileSchema.safeParse({
+      name: "Test User",
+      bio: "This is my bio",
+      visibility: "public",
+    });
+    expect(result.success).toBe(true);
+  });
+
+  it("should accept empty name", () => {
+    const result = profileSchema.safeParse({
+      name: "",
+      bio: "Bio text",
+      visibility: "public",
+    });
+    expect(result.success).toBe(true);
+  });
+
+  it("should accept empty bio", () => {
+    const result = profileSchema.safeParse({
+      name: "Name",
+      bio: "",
+      visibility: "public",
+    });
+    expect(result.success).toBe(true);
+  });
+
+  it("should reject name over 100 characters", () => {
+    const result = profileSchema.safeParse({
+      name: "a".repeat(101),
+      bio: "Bio",
+      visibility: "public",
+    });
+    expect(result.success).toBe(false);
+    if (!result.success) {
+      expect(result.error.issues[0].message).toContain("100");
+    }
+  });
+
+  it("should reject bio over 500 characters", () => {
+    const result = profileSchema.safeParse({
+      name: "Name",
+      bio: "a".repeat(501),
+      visibility: "public",
+    });
+    expect(result.success).toBe(false);
+    if (!result.success) {
+      expect(result.error.issues[0].message).toContain("500");
+    }
+  });
+
+  it("should accept visibility public", () => {
+    const result = profileSchema.safeParse({
+      visibility: "public",
+    });
+    expect(result.success).toBe(true);
+  });
+
+  it("should accept visibility private", () => {
+    const result = profileSchema.safeParse({
+      visibility: "private",
+    });
+    expect(result.success).toBe(true);
+  });
+
+  it("should reject invalid visibility", () => {
+    const result = profileSchema.safeParse({
+      visibility: "invalid",
+    });
+    expect(result.success).toBe(false);
+  });
+
+  it("should accept 500 character bio exactly", () => {
+    const result = profileSchema.safeParse({
+      name: "Name",
+      bio: "a".repeat(500),
+      visibility: "public",
+    });
+    expect(result.success).toBe(true);
+  });
+
+  it("should accept 100 character name exactly", () => {
+    const result = profileSchema.safeParse({
+      name: "a".repeat(100),
+      bio: "Bio",
+      visibility: "public",
     });
     expect(result.success).toBe(true);
   });

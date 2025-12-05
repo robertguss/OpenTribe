@@ -84,13 +84,14 @@ function ResetPasswordForm() {
       // Redirect to login with success message
       router.push("/login?reset=success");
     } catch (err: unknown) {
-      const error = err as { message?: string };
+      // Better Auth errors include a `code` property for programmatic handling.
+      // Known codes for token issues: "INVALID_TOKEN", "EXPIRED_TOKEN"
+      // Coupling: better-auth@1.3.27 - error codes may change in future versions.
+      // See: https://www.better-auth.com/docs/concepts/error-handling
+      const error = err as { code?: string; message?: string };
 
-      // Handle specific error cases
-      if (
-        error?.message?.toLowerCase().includes("expired") ||
-        error?.message?.toLowerCase().includes("invalid")
-      ) {
+      // Handle specific error cases by code
+      if (error?.code === "INVALID_TOKEN" || error?.code === "EXPIRED_TOKEN") {
         setServerError(
           "This link has expired or is invalid. Please request a new password reset."
         );
