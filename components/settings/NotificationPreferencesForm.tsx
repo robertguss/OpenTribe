@@ -5,6 +5,7 @@ import { useMutation, useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import {
   DEFAULT_NOTIFICATION_PREFS,
+  areNotificationPrefsEqual,
   type NotificationPrefsFormData,
 } from "@/lib/validators";
 import { useDebounce } from "@/hooks/useDebounce";
@@ -116,6 +117,9 @@ export function NotificationPreferencesForm() {
   const [lastError, setLastError] = useState<string | null>(null);
   const hasInitializedRef = useRef(false);
   const isSavingRef = useRef(false);
+  const isMountedRef = useRef(true);
+  const successTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const errorTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Track the last saved prefs to detect changes (use ref to avoid dependency issues)
   const lastSavedPrefsRef = useRef<NotificationPrefsFormData>(
@@ -124,6 +128,20 @@ export function NotificationPreferencesForm() {
 
   // Debounce prefs for auto-save
   const debouncedPrefs = useDebounce(prefs, DEBOUNCE_DELAY_MS);
+
+  // Cleanup effect to clear timeouts and track unmount
+  useEffect(() => {
+    isMountedRef.current = true;
+    return () => {
+      isMountedRef.current = false;
+      if (successTimeoutRef.current) {
+        clearTimeout(successTimeoutRef.current);
+      }
+      if (errorTimeoutRef.current) {
+        clearTimeout(errorTimeoutRef.current);
+      }
+    };
+  }, []);
 
   // Initialize prefs from profile
   // This effect synchronizes external state (profile from Convex) with local state
@@ -150,18 +168,36 @@ export function NotificationPreferencesForm() {
     setSaveState("saving");
     setLastError(null);
 
+    // Clear any existing timeouts before starting a new save
+    if (successTimeoutRef.current) {
+      clearTimeout(successTimeoutRef.current);
+      successTimeoutRef.current = null;
+    }
+    if (errorTimeoutRef.current) {
+      clearTimeout(errorTimeoutRef.current);
+      errorTimeoutRef.current = null;
+    }
+
     try {
       await updateNotificationPrefs(prefsToSave);
       lastSavedPrefsRef.current = prefsToSave;
       setSaveState("saved");
-      setTimeout(() => setSaveState("idle"), SAVE_SUCCESS_DISPLAY_MS);
+      successTimeoutRef.current = setTimeout(() => {
+        if (isMountedRef.current) {
+          setSaveState("idle");
+        }
+      }, SAVE_SUCCESS_DISPLAY_MS);
     } catch (error) {
       console.error("Save failed:", error);
       const errorMessage =
         error instanceof Error ? error.message : "Unknown error";
       setLastError(errorMessage);
       setSaveState("error");
-      setTimeout(() => setSaveState("idle"), SAVE_ERROR_DISPLAY_MS);
+      errorTimeoutRef.current = setTimeout(() => {
+        if (isMountedRef.current) {
+          setSaveState("idle");
+        }
+      }, SAVE_ERROR_DISPLAY_MS);
     } finally {
       isSavingRef.current = false;
     }
@@ -180,8 +216,7 @@ export function NotificationPreferencesForm() {
     // Only save if initialized and prefs have changed from last saved
     if (
       hasInitializedRef.current &&
-      JSON.stringify(debouncedPrefs) !==
-        JSON.stringify(lastSavedPrefsRef.current)
+      !areNotificationPrefsEqual(debouncedPrefs, lastSavedPrefsRef.current)
     ) {
       handleSave(debouncedPrefs);
     }

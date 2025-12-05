@@ -123,3 +123,22 @@ export const DEFAULT_NOTIFICATION_PREFS: NotificationPrefsFormData = {
   emailDMs: true,
   digestFrequency: "daily",
 };
+
+/**
+ * Type-safe equality comparison for notification preferences.
+ * More efficient and explicit than JSON.stringify comparison.
+ */
+export function areNotificationPrefsEqual(
+  a: NotificationPrefsFormData,
+  b: NotificationPrefsFormData
+): boolean {
+  return (
+    a.emailComments === b.emailComments &&
+    a.emailReplies === b.emailReplies &&
+    a.emailFollowers === b.emailFollowers &&
+    a.emailEvents === b.emailEvents &&
+    a.emailCourses === b.emailCourses &&
+    a.emailDMs === b.emailDMs &&
+    a.digestFrequency === b.digestFrequency
+  );
+}

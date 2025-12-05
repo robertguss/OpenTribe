@@ -640,17 +640,21 @@ describe("members mutations", () => {
 
       await createTestUser(t, email);
 
-      // Test that invalid values are caught
-      await expect(
-        t.run(async () => {
-          const validFrequencies = ["immediate", "daily", "weekly", "off"];
-          const invalidFrequency = "hourly";
+      const asUser = t.withIdentity({ subject: email });
 
-          if (!validFrequencies.includes(invalidFrequency)) {
-            throw new Error("Invalid digest frequency value");
-          }
+      // Test that Convex's v.union() validator rejects invalid digest frequency values
+      // We use type assertion to bypass TypeScript and test runtime validation
+      await expect(
+        asUser.mutation(api.members.mutations.updateNotificationPrefs, {
+          emailComments: true,
+          emailReplies: true,
+          emailFollowers: true,
+          emailEvents: true,
+          emailCourses: true,
+          emailDMs: true,
+          digestFrequency: "hourly" as "daily", // Invalid value, cast to bypass TS
         })
-      ).rejects.toThrow("Invalid digest frequency value");
+      ).rejects.toThrow();
     });
 
     it("should handle users without existing notification prefs", async () => {
