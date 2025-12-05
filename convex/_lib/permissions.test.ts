@@ -21,10 +21,14 @@ import { Id } from "../_generated/dataModel";
 
 async function createTestUser(
   t: ReturnType<typeof convexTest>,
-  role: "admin" | "moderator" | "member" = "member"
+  role: "admin" | "moderator" | "member" = "member",
+  email?: string
 ): Promise<Id<"users">> {
   return await t.run(async (ctx) => {
     return await ctx.db.insert("users", {
+      email:
+        email ??
+        `test-${Date.now()}-${Math.random().toString(36).slice(2)}@example.com`,
       visibility: "public",
       role,
       points: 0,
@@ -476,7 +480,9 @@ describe("Space Permission Helpers", () => {
     it("should deny members from posting in 'moderators' permission spaces (AC: #6)", async () => {
       const t = convexTest(schema, modules);
       const memberId = await createTestUser(t, "member");
-      const spaceId = await createTestSpace(t, { postPermission: "moderators" });
+      const spaceId = await createTestSpace(t, {
+        postPermission: "moderators",
+      });
 
       const canPost = await t.run(async (ctx) => {
         const { canPostInSpace } = await import("./permissions");
@@ -489,7 +495,9 @@ describe("Space Permission Helpers", () => {
     it("should allow moderators to post in 'moderators' permission spaces", async () => {
       const t = convexTest(schema, modules);
       const modId = await createTestUser(t, "moderator");
-      const spaceId = await createTestSpace(t, { postPermission: "moderators" });
+      const spaceId = await createTestSpace(t, {
+        postPermission: "moderators",
+      });
 
       const canPost = await t.run(async (ctx) => {
         const { canPostInSpace } = await import("./permissions");
@@ -502,7 +510,9 @@ describe("Space Permission Helpers", () => {
     it("should allow admins to post in 'moderators' permission spaces", async () => {
       const t = convexTest(schema, modules);
       const adminId = await createTestUser(t, "admin");
-      const spaceId = await createTestSpace(t, { postPermission: "moderators" });
+      const spaceId = await createTestSpace(t, {
+        postPermission: "moderators",
+      });
 
       const canPost = await t.run(async (ctx) => {
         const { canPostInSpace } = await import("./permissions");

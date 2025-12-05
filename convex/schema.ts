@@ -8,6 +8,10 @@ export default defineSchema({
   // We add community-specific fields
   // ============================================
   users: defineTable({
+    // Email field links Better Auth user to extended profile
+    email: v.string(),
+    // Optional name from registration
+    name: v.optional(v.string()),
     bio: v.optional(v.string()),
     avatarStorageId: v.optional(v.id("_storage")),
     visibility: v.union(v.literal("public"), v.literal("private")),
@@ -37,6 +41,7 @@ export default defineSchema({
     createdAt: v.number(),
     updatedAt: v.number(),
   })
+    .index("by_email", ["email"])
     .index("by_role", ["role"])
     .index("by_points", ["points"]),
 

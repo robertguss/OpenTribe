@@ -1,0 +1,38 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# BMAD framework files (don't modify)
+.bmad/
+.agent/
+.claude/commands/bmad/
+
+# Build outputs
+.next/
+out/
+dist/
+build/
+
+# Convex generated files
+convex/_generated/
+
+# Cache
+.cache/
+.turbo/
+
+# Lock files
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+
+# Coverage
+coverage/
+
+# Playwright
+playwright-report/
+test-results/
+
+# Other
+.env*
+*.min.js
+*.min.css
