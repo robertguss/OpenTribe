@@ -48,6 +48,8 @@ export function ProfileForm() {
     },
   });
 
+  const { reset } = form;
+
   // Get avatar URL if user has one
   const avatarStorageId = profile?.avatarStorageId;
   const avatarUrl = useQuery(
@@ -58,15 +60,15 @@ export function ProfileForm() {
   // Update form when profile loads
   useEffect(() => {
     if (profile) {
-      const values: ProfileFormData = {
+      const profileValues: ProfileFormData = {
         name: profile.name || "",
         bio: profile.bio || "",
         visibility: profile.visibility,
       };
-      form.reset(values);
-      setInitialValues(values);
+      reset(profileValues);
+      setInitialValues(profileValues);
     }
-  }, [profile, form]);
+  }, [profile, reset]);
 
   // Watch form values for auto-save
   const watchedName = form.watch("name");
