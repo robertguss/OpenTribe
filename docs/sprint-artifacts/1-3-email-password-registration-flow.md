@@ -312,7 +312,7 @@ describe("members mutations", () => {
 
 ### Security Considerations
 
-1. **Rate Limiting** - Architecture specifies: 5 attempts per hour per IP. Implement using `convex-helpers` rate limiting:
+1. **Rate Limiting** - 5 attempts per hour per email. Email-based limiting is used instead of IP-based because client IPs are unreliable in serverless environments (proxies, CDNs). Implement using `convex-helpers` rate limiting:
 
 ```typescript
 import { rateLimit } from "convex-helpers/server/rateLimit";
@@ -320,7 +320,7 @@ import { rateLimit } from "convex-helpers/server/rateLimit";
 // In signup endpoint/mutation
 await rateLimit(ctx, {
   name: "signup",
-  key: clientIp, // Need to pass from client
+  key: email, // Email-based for reliable serverless rate limiting
   rate: 5,
   period: 60 * 60 * 1000, // 1 hour
 });

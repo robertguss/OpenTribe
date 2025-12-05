@@ -21,13 +21,11 @@ import {
 
 interface WelcomeEmailProps {
   name?: string;
-  dashboardUrl?: string;
+  /** Dashboard URL - must be provided by caller based on environment */
+  dashboardUrl: string;
 }
 
-export function WelcomeEmail({
-  name,
-  dashboardUrl = "https://opentribe.com/dashboard",
-}: WelcomeEmailProps) {
+export function WelcomeEmail({ name, dashboardUrl }: WelcomeEmailProps) {
   const greeting = name ? `Welcome, ${name}!` : "Welcome!";
 
   return (
