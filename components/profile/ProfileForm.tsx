@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery } from "convex/react";
@@ -36,6 +36,16 @@ export function ProfileForm() {
   const [initialValues, setInitialValues] = useState<ProfileFormData | null>(
     null
   );
+  const saveStateTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (saveStateTimeoutRef.current) {
+        clearTimeout(saveStateTimeoutRef.current);
+      }
+    };
+  }, []);
 
   const form = useForm<ProfileFormData>({
     resolver: zodResolver(profileSchema),
@@ -115,12 +125,21 @@ export function ProfileForm() {
       visibility: "public" | "private";
     }>
   ) => {
+    // Clear any existing timeout
+    if (saveStateTimeoutRef.current) {
+      clearTimeout(saveStateTimeoutRef.current);
+    }
+
     // Validate the fields being saved
     const nameValid = !updates.name || updates.name.length <= 100;
     const bioValid = !updates.bio || updates.bio.length <= 500;
 
     if (!nameValid || !bioValid) {
       setSaveState("error");
+      saveStateTimeoutRef.current = setTimeout(
+        () => setSaveState("idle"),
+        3000
+      );
       return;
     }
 
@@ -138,11 +157,17 @@ export function ProfileForm() {
 
       setSaveState("saved");
       // Reset to idle after 2 seconds
-      setTimeout(() => setSaveState("idle"), 2000);
+      saveStateTimeoutRef.current = setTimeout(
+        () => setSaveState("idle"),
+        2000
+      );
     } catch (error) {
       console.error("Save failed:", error);
       setSaveState("error");
-      setTimeout(() => setSaveState("idle"), 3000);
+      saveStateTimeoutRef.current = setTimeout(
+        () => setSaveState("idle"),
+        3000
+      );
     }
   };
 
