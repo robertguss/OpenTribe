@@ -43,4 +43,12 @@ export const { checkRateLimit, rateLimit, resetRateLimit } = defineRateLimits({
     rate: 3,
     period: HOUR,
   },
+
+  // Password reset: 3 attempts per hour per email (security requirement)
+  // Prevents email enumeration and spam attacks
+  passwordReset: {
+    kind: "fixed window",
+    rate: 3,
+    period: HOUR,
+  },
 });

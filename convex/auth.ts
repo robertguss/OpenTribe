@@ -1,8 +1,8 @@
 import { createClient, type GenericCtx } from "@convex-dev/better-auth";
 import { convex } from "@convex-dev/better-auth/plugins";
-import { components } from "./_generated/api";
+import { components, internal } from "./_generated/api";
 import { DataModel } from "./_generated/dataModel";
-import { query } from "./_generated/server";
+import { query, ActionCtx } from "./_generated/server";
 import { betterAuth } from "better-auth";
 
 // Check if we're in a setup/analysis phase where env vars may not be configured yet
@@ -49,6 +49,37 @@ export const createAuth = (
     emailAndPassword: {
       enabled: true,
       requireEmailVerification: false,
+      // Password reset email configuration
+      sendResetPassword: async ({ user, url }) => {
+        // Use internal action to send password reset email via Resend
+        // Note: We cast ctx to ActionCtx since Better Auth runs in the HTTP handler context
+        // which has access to runAction for calling Convex functions
+        console.log(`[Better Auth] Password reset requested for ${user.email}`);
+        try {
+          const actionCtx = ctx as unknown as ActionCtx;
+          if (actionCtx.runAction) {
+            await actionCtx.runAction(
+              internal.notifications.actions.sendPasswordResetEmail,
+              {
+                email: user.email,
+                resetUrl: url,
+                name: user.name || undefined,
+              }
+            );
+          } else {
+            // This shouldn't happen in normal operation, but log if it does
+            console.error(
+              "[Better Auth] runAction not available in current context - password reset email not sent"
+            );
+          }
+        } catch (error) {
+          console.error(
+            "[Better Auth] Failed to send password reset email:",
+            error
+          );
+          // Don't throw - Better Auth will still return success to avoid email enumeration
+        }
+      },
     },
     plugins: [
       // The Convex plugin is required for Convex compatibility

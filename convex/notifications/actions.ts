@@ -19,10 +19,11 @@
 
 import { render } from "@react-email/render";
 import { Resend } from "@convex-dev/resend";
-import { components } from "../_generated/api";
-import { action } from "../_generated/server";
+import { components, internal } from "../_generated/api";
+import { action, internalAction } from "../_generated/server";
 import { v } from "convex/values";
 import { WelcomeEmail } from "../emails/WelcomeEmail";
+import { PasswordResetEmail } from "../emails/PasswordResetEmail";
 
 // Initialize the Resend component client
 const resend = new Resend(components.resend, {});
@@ -68,6 +69,69 @@ export const sendWelcomeEmail = action({
       return true;
     } catch (error) {
       console.error("[sendWelcomeEmail] Failed to send:", error);
+      return false;
+    }
+  },
+});
+
+/**
+ * Send a password reset email to a user.
+ *
+ * Features:
+ * - Rate limited: 3 attempts per hour per email (security requirement)
+ * - Prevents email enumeration and spam attacks
+ *
+ * @param email - The user's email address
+ * @param resetUrl - The password reset URL with token
+ * @param name - Optional display name for personalization
+ * @returns true if email was queued successfully, false otherwise
+ */
+export const sendPasswordResetEmail = internalAction({
+  args: {
+    email: v.string(),
+    resetUrl: v.string(),
+    name: v.optional(v.string()),
+  },
+  returns: v.boolean(),
+  handler: async (ctx, args) => {
+    try {
+      // Check rate limit before sending (3 per hour per email)
+      const rateLimitResult = await ctx.runMutation(
+        internal.notifications.mutations.checkPasswordResetRateLimit,
+        { email: args.email }
+      );
+
+      if (!rateLimitResult.allowed) {
+        console.log(
+          `[sendPasswordResetEmail] Rate limited for ${args.email}, retry at ${rateLimitResult.retryAt}`
+        );
+        // Return true to avoid revealing rate limit status to caller
+        // (prevents email enumeration via timing attacks)
+        return true;
+      }
+
+      // Render the React Email template to HTML
+      const html = await render(
+        PasswordResetEmail({
+          name: args.name,
+          resetUrl: args.resetUrl,
+        })
+      );
+
+      // Send via Convex Resend component
+      await resend.sendEmail(ctx, {
+        from: "OpenTribe <noreply@opentribe.com>",
+        to: args.email,
+        subject: "Reset your password",
+        html,
+      });
+
+      console.log(
+        `[sendPasswordResetEmail] Successfully queued for ${args.email}`
+      );
+      return true;
+    } catch (error) {
+      console.error("[sendPasswordResetEmail] Failed to send:", error);
       return false;
     }
   },

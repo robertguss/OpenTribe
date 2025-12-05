@@ -41,9 +41,9 @@ development_status:
   1-1-extend-convex-schema-with-core-tables: done
   1-2-create-core-authorization-utilities: done
   1-3-email-password-registration-flow: done
-  1-4-social-login-with-google: backlog
-  1-5-magic-link-passwordless-authentication: backlog
-  1-6-password-reset-flow: backlog
+  1-4-social-login-with-google: skipped
+  1-5-magic-link-passwordless-authentication: skipped
+  1-6-password-reset-flow: done
   1-7-user-profile-view-and-edit: backlog
   1-8-notification-preferences-setup: backlog
   epic-1-retrospective: optional
