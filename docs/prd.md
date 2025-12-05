@@ -3,11 +3,11 @@ stepsCompleted: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 inputDocuments:
   - docs/opentribe-prd.md
   - docs/analysis/product-brief-OpenTribe-2025-12-04.md
-workflowType: 'prd'
+workflowType: "prd"
 lastStep: 11
-project_name: 'OpenTribe'
-user_name: 'Robert'
-date: '2025-12-04'
+project_name: "OpenTribe"
+user_name: "Robert"
+date: "2025-12-04"
 ---
 
 # Product Requirements Document - OpenTribe
@@ -33,12 +33,12 @@ Creators are trapped paying $50-360/month for community platforms. Over a year, 
 
 OpenTribe breaks this cycle:
 
-| What Others Charge | What OpenTribe Offers |
-|--------------------|----------------------|
-| $49-360/month | $0/month forever |
-| 2.9-10% transaction fees | 0% (your Stripe, your money) |
-| Custom domains on premium tiers | Custom domains included |
-| Platform owns your data | You own everything |
+| What Others Charge                 | What OpenTribe Offers        |
+| ---------------------------------- | ---------------------------- |
+| $49-360/month                      | $0/month forever             |
+| 2.9-10% transaction fees           | 0% (your Stripe, your money) |
+| Custom domains on premium tiers    | Custom domains included      |
+| Platform owns your data            | You own everything           |
 | Closed source, take it or leave it | Open source, fork and extend |
 
 **The Real Differentiator:** This isn't a stripped-down alternative. It's a complete Skool/Circle replacement with feature parity — given away for free.
@@ -50,6 +50,7 @@ OpenTribe breaks this cycle:
 **Complexity Level:** Medium-High
 
 **Technology Stack:**
+
 - Frontend: Next.js 16, React 19, TypeScript, Tailwind CSS 4
 - Backend: Convex (real-time database + serverless functions)
 - Authentication: Better Auth with Convex integration
@@ -64,6 +65,7 @@ OpenTribe breaks this cycle:
 ### User Success
 
 **Sarah's Success (Primary User - Creator):**
+
 - Deploys OpenTribe to her own domain in under 30 minutes
 - Migrates her community without losing member relationships
 - Keeps 100% of her revenue (minus only Stripe's 2.9% + 30¢)
@@ -71,6 +73,7 @@ OpenTribe breaks this cycle:
 - First month with $0 platform fees — she keeps the $99 she was paying Skool
 
 **Member Success:**
+
 - New members complete onboarding and make their first post within 24 hours
 - Members find relevant content through spaces and search
 - Course students complete lessons and track their progress
@@ -79,12 +82,14 @@ OpenTribe breaks this cycle:
 ### Business Success
 
 **For OpenTribe (the project):**
+
 - Real communities cancel Skool/Circle/Mighty subscriptions and run on OpenTribe instead
 - GitHub stars indicate developer interest and validation
 - "Kill Your SaaS" brand recognition grows with each project
 - DevFast receives inbound inquiries from founders who saw OpenTribe built
 
 **Measurable Indicators:**
+
 - Active deployments running real communities (not just forks)
 - Confirmed "I switched from [platform]" testimonials
 - DevFast client inquiries attributable to OpenTribe content
@@ -99,12 +104,12 @@ OpenTribe breaks this cycle:
 
 ### Measurable Outcomes
 
-| Outcome | Target | Measurement |
-|---------|--------|-------------|
-| Deployment success rate | >90% | Users complete deploy without support |
-| Time to first community | <30 minutes | From deploy to first member invited |
-| Feature completeness vs Skool | 100% core features | Feature comparison matrix |
-| Uptime | 99.5%+ | Convex/Vercel monitoring |
+| Outcome                       | Target             | Measurement                           |
+| ----------------------------- | ------------------ | ------------------------------------- |
+| Deployment success rate       | >90%               | Users complete deploy without support |
+| Time to first community       | <30 minutes        | From deploy to first member invited   |
+| Feature completeness vs Skool | 100% core features | Feature comparison matrix             |
+| Uptime                        | 99.5%+             | Convex/Vercel monitoring              |
 
 ---
 
@@ -115,6 +120,7 @@ OpenTribe breaks this cycle:
 OpenTribe v1.0 launches as a **complete Skool/Circle replacement** — not a minimal prototype. The quality and completeness IS the marketing.
 
 **Core Capabilities:**
+
 - Community & Discussions (Spaces, Posts, Comments, Reactions, Activity Feed)
 - Member Management (Profiles, Directory, Roles & Permissions)
 - Courses & Content (Modules, Lessons, Progress Tracking)
@@ -166,6 +172,7 @@ The real test comes when she invites her first 50 members to migrate. She sends 
 Three months later, Sarah has 180 members, runs weekly live events through the platform, and has launched two courses. She calculates she's saved $297 in platform fees and kept an extra $180 in transaction fees she would have lost. But the real win? When prospects visit her community, they see her brand, not someone else's.
 
 **Journey reveals requirements for:**
+
 - One-click deployment with guided setup
 - Custom domain configuration
 - Branding and visual customization
@@ -188,6 +195,7 @@ He announces the migration to his Discord server: "We're moving to our own platf
 Within the first month, Marcus notices something interesting: engagement is up 40%. The leaderboard has created friendly competition, and members are actually completing the tutorial courses he created. One contributor messages him: "The points system is addictive. I spent my Saturday writing docs just to hit Level 5."
 
 **Journey reveals requirements for:**
+
 - GitHub-based deployment for technical users
 - Codebase extensibility and customization
 - Rich text with code block support
@@ -209,6 +217,7 @@ Next, David reviews the weekly analytics. Active members are up 12%, but he noti
 A new member messages him confused about accessing the premium content. David checks her membership status, sees her payment went through but access wasn't provisioned (edge case bug). He manually grants access, notes the issue to report, and sends her a welcome message with the AI-suggested conversation starter: "I see you're also in the SaaS space — have you connected with the other founders building in that vertical?"
 
 **Journey reveals requirements for:**
+
 - Admin dashboard with activity overview
 - Content moderation queue
 - Member management (roles, access, bans)
@@ -231,6 +240,7 @@ She notices the "New Members" space and sees a pinned post: "Introduce Yourself 
 Priya explores the course library, starts the "Founder Fundamentals" course, and completes the first two lessons during lunch. She gets a notification: "You earned 50 points! You're now Level 2: Rising Star." She smiles — she's already more engaged here than she ever was in the Facebook group she left.
 
 **Journey reveals requirements for:**
+
 - Welcome email with login link
 - Guided onboarding checklist
 - AI profile builder
@@ -245,21 +255,21 @@ Priya explores the course library, starts the "Founder Fundamentals" course, and
 
 ### Journey Requirements Summary
 
-| Capability Area | Journeys That Require It |
-|-----------------|-------------------------|
-| Deployment & Setup | Sarah, Marcus |
-| Branding & Customization | Sarah, Marcus |
-| Member Management | Sarah, Admin, New Member |
-| Content & Discussions | All journeys |
-| Courses & Learning | Sarah, Marcus, New Member |
-| Events & Calendar | Sarah, Admin |
-| Payments & Access | Sarah, Admin |
-| Gamification | Marcus, New Member |
-| Admin & Moderation | Admin |
-| Notifications | All journeys |
-| AI Features (v1.1) | Admin, New Member |
-| Search & Discovery | All journeys |
-| Direct Messaging | Admin, New Member |
+| Capability Area          | Journeys That Require It  |
+| ------------------------ | ------------------------- |
+| Deployment & Setup       | Sarah, Marcus             |
+| Branding & Customization | Sarah, Marcus             |
+| Member Management        | Sarah, Admin, New Member  |
+| Content & Discussions    | All journeys              |
+| Courses & Learning       | Sarah, Marcus, New Member |
+| Events & Calendar        | Sarah, Admin              |
+| Payments & Access        | Sarah, Admin              |
+| Gamification             | Marcus, New Member        |
+| Admin & Moderation       | Admin                     |
+| Notifications            | All journeys              |
+| AI Features (v1.1)       | Admin, New Member         |
+| Search & Discovery       | All journeys              |
+| Direct Messaging         | Admin, New Member         |
 
 ---
 
@@ -269,6 +279,7 @@ Priya explores the course library, starts the "Founder Fundamentals" course, and
 
 **Real-Time Foundation:**
 OpenTribe requires real-time capabilities throughout:
+
 - Live activity feeds that update without refresh
 - Instant notifications when someone interacts with your content
 - Presence indicators showing who's online
@@ -280,6 +291,7 @@ Convex provides this natively through reactive queries, eliminating the need for
 Each OpenTribe deployment is a single-tenant instance. The deploying creator owns their data completely. This differs from SaaS platforms where all communities share infrastructure.
 
 **Data Ownership:**
+
 - All data stored in creator's own Convex deployment
 - No data shared with OpenTribe project or DevFast
 - Creator can export all data at any time
@@ -288,6 +300,7 @@ Each OpenTribe deployment is a single-tenant instance. The deploying creator own
 ### Authentication Architecture
 
 **Better Auth + Convex Integration:**
+
 - Email/password with secure session management
 - Social login (Google, GitHub) via Better Auth providers
 - Magic link passwordless authentication
@@ -295,6 +308,7 @@ Each OpenTribe deployment is a single-tenant instance. The deploying creator own
 - No external auth service dependencies (no Clerk)
 
 **Authorization Model:**
+
 - Role-based access control (Admin, Moderator, Member)
 - Custom roles definable by admin
 - Space-level permissions (who can post, who can view)
@@ -303,6 +317,7 @@ Each OpenTribe deployment is a single-tenant instance. The deploying creator own
 ### Payment Architecture
 
 **Stripe Integration via Convex Component:**
+
 - Creator connects their own Stripe account
 - Zero platform transaction fees (only Stripe's standard rates)
 - Subscription management (monthly, yearly)
@@ -311,6 +326,7 @@ Each OpenTribe deployment is a single-tenant instance. The deploying creator own
 - Stripe Customer Portal for member self-service
 
 **Access Provisioning:**
+
 - Automatic access grant on successful payment
 - Automatic access revocation on subscription cancellation
 - Grace period handling for failed payments
@@ -319,17 +335,20 @@ Each OpenTribe deployment is a single-tenant instance. The deploying creator own
 ### Implementation Considerations
 
 **Deployment Model:**
+
 - One-click deploy to Vercel via deploy button
 - Convex backend auto-provisioned
 - Environment variables configured through setup wizard
 - Custom domain configuration through Vercel
 
 **File Storage:**
+
 - Convex file storage for user uploads
 - Profile photos, course thumbnails, post attachments
 - Automatic CDN distribution through Convex
 
 **Email Delivery:**
+
 - Resend integration via Convex component
 - Transactional emails (welcome, password reset, receipts)
 - Notification digests (immediate, daily, weekly options)
@@ -496,22 +515,22 @@ Each OpenTribe deployment is a single-tenant instance. The deploying creator own
 
 ## Appendix: Competitive Feature Matrix
 
-| Feature | OpenTribe v1.0 | Skool | Circle | Mighty Networks |
-|---------|----------------|-------|--------|-----------------|
-| Community feed | Yes | Yes | Yes | Yes |
-| Courses | Yes | Yes | Yes | Yes |
-| Events | Yes | Yes | Yes | Yes |
-| Payments | Yes | Yes | Yes | Yes |
-| Gamification | Yes | Yes | No | Yes |
-| Custom domain | Yes | No | Paid tiers | Paid tiers |
-| Search | Yes | Yes | Yes | Yes |
-| Direct messaging | Yes | Yes | Yes | Yes |
-| AI features | v1.1 | No | No | Yes (paid) |
-| Self-hosted | Yes | No | No | No |
-| Open source | Yes | No | No | No |
-| Price | $0 | $99/mo | $49-199/mo | $41-360/mo |
-| Transaction fees | 0% | 2.9%+ | 0.5-4% | Varies |
+| Feature          | OpenTribe v1.0 | Skool  | Circle     | Mighty Networks |
+| ---------------- | -------------- | ------ | ---------- | --------------- |
+| Community feed   | Yes            | Yes    | Yes        | Yes             |
+| Courses          | Yes            | Yes    | Yes        | Yes             |
+| Events           | Yes            | Yes    | Yes        | Yes             |
+| Payments         | Yes            | Yes    | Yes        | Yes             |
+| Gamification     | Yes            | Yes    | No         | Yes             |
+| Custom domain    | Yes            | No     | Paid tiers | Paid tiers      |
+| Search           | Yes            | Yes    | Yes        | Yes             |
+| Direct messaging | Yes            | Yes    | Yes        | Yes             |
+| AI features      | v1.1           | No     | No         | Yes (paid)      |
+| Self-hosted      | Yes            | No     | No         | No              |
+| Open source      | Yes            | No     | No         | No              |
+| Price            | $0             | $99/mo | $49-199/mo | $41-360/mo      |
+| Transaction fees | 0%             | 2.9%+  | 0.5-4%     | Varies          |
 
 ---
 
-*This PRD was created through the BMAD workflow methodology and is ready to guide UX design, technical architecture, and development planning.*
+_This PRD was created through the BMAD workflow methodology and is ready to guide UX design, technical architecture, and development planning._

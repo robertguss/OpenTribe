@@ -5,13 +5,13 @@ inputDocuments:
   - docs/ux-design-specification.md
   - docs/ARCHITECTURE.md
   - docs/analysis/product-brief-OpenTribe-2025-12-04.md
-workflowType: 'architecture'
+workflowType: "architecture"
 lastStep: 8
 status: complete
-completedAt: '2025-12-04'
-project_name: 'OpenTribe'
-user_name: 'Robert'
-date: '2025-12-04'
+completedAt: "2025-12-04"
+project_name: "OpenTribe"
+user_name: "Robert"
+date: "2025-12-04"
 ---
 
 # Architecture Decision Document
@@ -24,6 +24,7 @@ _This document builds collaboratively through step-by-step discovery. Sections a
 
 **Functional Requirements:**
 75 functional requirements across 9 capability areas:
+
 - User Management (10 FRs): Registration, authentication, profiles, directory, following
 - Community & Content (14 FRs): Spaces, posts, comments, reactions, mentions, search, activity feed
 - Courses & Learning (10 FRs): Modules, lessons, progress tracking, enrollments, resources
@@ -36,6 +37,7 @@ _This document builds collaboratively through step-by-step discovery. Sections a
 
 **Non-Functional Requirements:**
 29 NFRs establishing quality attributes:
+
 - Performance: 2s page loads, 500ms real-time updates, 1s search, 500 concurrent users
 - Security: HTTPS, bcrypt/argon2 passwords, session tokens, rate limiting, webhook validation
 - Scalability: Auto-scaling infrastructure, free tier <1000 members, 10x growth capacity
@@ -52,6 +54,7 @@ _This document builds collaboratively through step-by-step discovery. Sections a
 ### Technical Constraints & Dependencies
 
 **Mandated Technology Stack:**
+
 - Frontend: Next.js 16, React 19, TypeScript, Tailwind CSS 4
 - Backend: Convex (real-time database + serverless functions)
 - Authentication: Better Auth with Convex integration
@@ -61,6 +64,7 @@ _This document builds collaboratively through step-by-step discovery. Sections a
 - Deployment: Vercel + Convex Cloud
 
 **Key Constraints:**
+
 - Single-tenant deployment model (each creator owns their instance)
 - Must operate within Vercel/Convex free tier for communities <1000 members
 - Real-time capabilities are non-negotiable (core value proposition)
@@ -88,37 +92,44 @@ This project extends an existing Next.js + Convex + Better Auth starter kit rath
 **Current Foundation Provides:**
 
 **Language & Runtime:**
+
 - TypeScript 5.x with strict mode
 - Node.js runtime for API routes
 - React 19 with Server Components support
 
 **Framework & Routing:**
+
 - Next.js 16 with App Router
 - File-based routing in `/app` directory
 - Server and Client Component patterns established
 
 **Backend & Database:**
+
 - Convex serverless functions (queries, mutations, actions)
 - Convex real-time database with reactive subscriptions
 - Schema-driven data modeling in `/convex/schema.ts`
 
 **Authentication:**
+
 - Better Auth with Convex integration
 - Email/password authentication operational
 - Session management via HTTP endpoints
 - Middleware-based route protection
 
 **Styling Solution:**
+
 - Tailwind CSS 4 configured
 - shadcn/ui (New York style) components installed
 - CSS variables for theming
 
 **Testing Framework:**
+
 - Vitest configured for unit testing
 - convex-test for backend function testing
 - Test setup with mock environment
 
 **Development Experience:**
+
 - Turbo mode for fast development builds
 - Hot reloading for frontend changes
 - Convex dev server for backend iteration
@@ -127,6 +138,7 @@ This project extends an existing Next.js + Convex + Better Auth starter kit rath
 ### Extension Strategy
 
 Rather than replacing the existing foundation, OpenTribe will extend it by:
+
 1. Adding new Convex tables to the schema (spaces, posts, courses, events, etc.)
 2. Implementing new Convex functions for community features
 3. Building new React components following established patterns
@@ -140,17 +152,20 @@ Rather than replacing the existing foundation, OpenTribe will extend it by:
 ### Decision Priority Analysis
 
 **Critical Decisions (Block Implementation):**
+
 - Authorization model (hierarchical roles + space overrides)
 - Data modeling patterns (denormalization strategy)
 - Real-time presence approach (Convex Presence component)
 
 **Important Decisions (Shape Architecture):**
+
 - Form handling (React Hook Form + Zod)
 - Rich text editing (Tiptap)
 - Notification architecture (inline dispatch)
 - Error monitoring (Sentry)
 
 **Deferred Decisions (Post-MVP):**
+
 - Additional social login providers (GitHub, Apple)
 - Rich presence features ("typing...", "viewing X")
 - Advanced caching strategies
@@ -158,11 +173,13 @@ Rather than replacing the existing foundation, OpenTribe will extend it by:
 ### Data Architecture
 
 **Schema Organization:** Single schema file
+
 - All ~15-20 tables defined in `convex/schema.ts`
 - Convex's schema is designed as single source of truth
 - Complexity of modular schemas not warranted at this scale
 
 **Deletion Strategy:** Hybrid approach
+
 - Soft delete for user-generated content (posts, comments, course content)
   - `deletedAt: v.optional(v.number())` field
   - Filtered in queries, recoverable by admins
@@ -171,12 +188,14 @@ Rather than replacing the existing foundation, OpenTribe will extend it by:
   - Reduced storage overhead
 
 **Denormalization Strategy:** Strategic denormalization for hot paths
+
 - Author info (name, avatar) denormalized onto posts/comments for feed performance
 - Space info (name, icon) denormalized onto posts for activity feed
 - Relationships normalized for less-accessed data (course enrollments, event RSVPs)
 - Update patterns: Mutation triggers update related denormalized records
 
 **Indexing Strategy:**
+
 - Index naming: `by_fieldName` for single field, `by_field1_and_field2` for compound
 - Required indexes: `by_spaceId`, `by_authorId`, `by_createdAt` on posts
 - Compound indexes for common query patterns: `by_spaceId_and_createdAt`
@@ -193,12 +212,14 @@ Rather than replacing the existing foundation, OpenTribe will extend it by:
 | Member | Standard community participation, content creation |
 
 **Space-Level Permissions:**
+
 - Visibility: public, members-only, paid-tier-only
 - Post permission: who can create posts (all members, moderators+, admin only)
 - Comment permission: who can comment
 - Override: Admins can grant/restrict per-space access
 
 **Implementation Pattern:**
+
 ```typescript
 // Authorization check in Convex functions
 const canPostInSpace = async (ctx, userId, spaceId) => {
@@ -207,10 +228,11 @@ const canPostInSpace = async (ctx, userId, spaceId) => {
   const membership = await getMembership(ctx, userId);
 
   // Admin always can
-  if (user.role === 'admin') return true;
+  if (user.role === "admin") return true;
 
   // Check space-level permission
-  if (space.postPermission === 'moderators' && user.role === 'member') return false;
+  if (space.postPermission === "moderators" && user.role === "member")
+    return false;
 
   // Check tier access
   if (space.requiredTier && membership.tier < space.requiredTier) return false;
@@ -220,6 +242,7 @@ const canPostInSpace = async (ctx, userId, spaceId) => {
 ```
 
 **Social Login:** Google only for MVP
+
 - Rationale: Highest adoption rate, simplest configuration
 - Architecture supports easy addition of GitHub, Apple, others post-MVP
 - Better Auth provider configuration is modular
@@ -227,6 +250,7 @@ const canPostInSpace = async (ctx, userId, spaceId) => {
 ### API & Communication Patterns
 
 **Convex Function Organization:**
+
 ```
 convex/
 ├── schema.ts              # Single schema file
@@ -266,12 +290,14 @@ convex/
 ```
 
 **Notification Architecture:** Inline dispatch
+
 - Mutations that trigger notifications create notification records directly
 - No separate event bus needed at current scale
 - Pattern: `await createNotification(ctx, { userId, type, data })`
 - Email dispatch via Convex actions (async, non-blocking)
 
 **Error Handling Standard:**
+
 ```typescript
 // Convex function error pattern
 export const createPost = mutation({
@@ -290,6 +316,7 @@ export const createPost = mutation({
 ```
 
 **Webhook Handling (Stripe):**
+
 - HTTP endpoint at `/api/webhooks/stripe`
 - Signature validation before processing
 - Idempotency via event ID tracking
@@ -298,24 +325,28 @@ export const createPost = mutation({
 ### Frontend Architecture
 
 **State Management:** Convex reactive queries
+
 - No Redux/Zustand needed — Convex queries ARE the state
 - `useQuery` for read state with automatic real-time updates
 - `useMutation` for write operations with optimistic updates
 - Local UI state via React `useState` for ephemeral state (modals, form input)
 
 **Form Handling:** React Hook Form + Zod
+
 - React Hook Form for form state management
 - Zod schemas shared between frontend validation and display
 - Convex validators as source of truth for backend validation
 - Pattern: Zod schema mirrors Convex args validator
 
 **Rich Text Editor:** Tiptap
+
 - Headless, Prosemirror-based editor
 - Extensions: @mention, #hashtag, image embed, video embed, code blocks
 - Output: JSON (stored in Convex) + HTML (rendered)
 - Rationale: Highly customizable, active maintenance, good Convex examples exist
 
 **Component Organization:**
+
 ```
 components/
 ├── ui/                    # shadcn/ui primitives
@@ -333,6 +364,7 @@ components/
 ### Real-Time & Presence
 
 **Presence Implementation:** Convex Presence Component
+
 - Package: `@convex-dev/presence`
 - Features: Room-based presence, heartbeat management, auto-disconnect
 - Use cases:
@@ -341,11 +373,13 @@ components/
   - Future: Typing indicators in DMs
 
 **Presence Data Model:**
+
 - Room concept maps to: global community, individual spaces, DM threads
 - Heartbeat interval: Default (component-managed)
 - Disconnect: Automatic on tab close via component
 
 **Integration Pattern:**
+
 ```typescript
 // Client-side usage
 const { users, myPresence, updatePresence } = usePresence(roomId, userId);
@@ -357,6 +391,7 @@ const { users, myPresence, updatePresence } = usePresence(roomId, userId);
 ### Convex Ecosystem Components
 
 **Convex Presence Component** (`@convex-dev/presence`)
+
 - Room-based real-time presence tracking
 - Automatic heartbeat management and disconnect handling
 - Use cases: Online indicators, "viewing this space" counts, typing indicators
@@ -364,17 +399,17 @@ const { users, myPresence, updatePresence } = usePresence(roomId, userId);
 **Convex Helpers** (`convex-helpers`)
 Core utilities to leverage throughout the codebase:
 
-| Utility | Use Case in OpenTribe |
-|---------|----------------------|
-| **Relationship helpers** | Managing posts↔comments, spaces↔posts, users↔memberships |
-| **CRUD utilities** | Standard database operations with consistent patterns |
-| **Row-level security** | Authorization checks integrated into queries/mutations |
-| **Rate limiting** | Protecting mutations (post creation, DMs, signups) |
-| **Zod validation** | Runtime validation aligned with React Hook Form schemas |
-| **Action retry** | Resilient external API calls (Stripe, Resend) |
-| **Manual pagination** | Paginated feeds, member directories, search results |
-| **Session helpers** | Server-side session tracking for auth flows |
-| **Query caching** | `ConvexQueryCacheProvider` for optimized client performance |
+| Utility                  | Use Case in OpenTribe                                       |
+| ------------------------ | ----------------------------------------------------------- |
+| **Relationship helpers** | Managing posts↔comments, spaces↔posts, users↔memberships    |
+| **CRUD utilities**       | Standard database operations with consistent patterns       |
+| **Row-level security**   | Authorization checks integrated into queries/mutations      |
+| **Rate limiting**        | Protecting mutations (post creation, DMs, signups)          |
+| **Zod validation**       | Runtime validation aligned with React Hook Form schemas     |
+| **Action retry**         | Resilient external API calls (Stripe, Resend)               |
+| **Manual pagination**    | Paginated feeds, member directories, search results         |
+| **Session helpers**      | Server-side session tracking for auth flows                 |
+| **Query caching**        | `ConvexQueryCacheProvider` for optimized client performance |
 
 **Implementation Patterns:**
 
@@ -397,11 +432,11 @@ export const createPost = mutation({
     await rateLimit(ctx, {
       name: "createPost",
       key: userId,
-      rate: 10,      // 10 posts
-      period: 60000  // per minute
+      rate: 10, // 10 posts
+      period: 60000, // per minute
     });
     // ... create post
-  }
+  },
 });
 
 // Relationship helpers example
@@ -416,6 +451,7 @@ import { zodToConvex } from "convex-helpers/server/zod";
 ```
 
 **Additional Convex Components to Integrate:**
+
 - Stripe component (payments)
 - Resend component (email)
 - File storage (built-in)
@@ -423,22 +459,26 @@ import { zodToConvex } from "convex-helpers/server/zod";
 ### Infrastructure & Deployment
 
 **Environment Strategy:** Separate Convex projects
+
 - Development: Local Convex dev server + localhost:3000
 - Staging: Separate Convex project + Vercel preview
 - Production: Production Convex project + Vercel production
 - Branch previews: Auto-deploy to Vercel + ephemeral Convex (optional)
 
 **Environment Variables:**
+
 - Convex: `BETTER_AUTH_SECRET`, `SITE_URL`, `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `RESEND_API_KEY`
 - Next.js: `NEXT_PUBLIC_CONVEX_URL`, `NEXT_PUBLIC_CONVEX_SITE_URL`
 
 **Error Monitoring:** Sentry (free tier)
+
 - Client-side error capture in Next.js
 - Server-side capture in API routes
 - Convex function errors logged to Convex dashboard
 - Source maps uploaded for readable stack traces
 
 **Logging Strategy:**
+
 - Development: Console logging, Convex dashboard
 - Production: Sentry for errors, Convex dashboard for function logs
 - Structured logging pattern for consistency
@@ -446,6 +486,7 @@ import { zodToConvex } from "convex-helpers/server/zod";
 ### Decision Impact Analysis
 
 **Implementation Sequence:**
+
 1. Schema design (all tables, indexes, relationships)
 2. Authorization utilities (role checks, permission helpers)
 3. Core domain modules (spaces, posts, members)
@@ -456,6 +497,7 @@ import { zodToConvex } from "convex-helpers/server/zod";
 8. Admin dashboard
 
 **Cross-Component Dependencies:**
+
 - Authorization → Required by all domain modules
 - Gamification → Triggered by posts, comments, completions (cross-cutting)
 - Notifications → Triggered by engagement, payments, events (cross-cutting)
@@ -470,37 +512,44 @@ import { zodToConvex } from "convex-helpers/server/zod";
 ### Naming Patterns
 
 **Convex Schema Conventions:**
+
 - Tables: camelCase, plural (posts, comments, courseModules)
 - Fields: camelCase (authorId, createdAt, spaceId)
 - Indexes: by_fieldName or by_field1_and_field2
 
 **Convex Function Conventions:**
+
 - Queries: get*, list*, search*, count*
-- Mutations: create*, update*, delete*, set*, toggle*
+- Mutations: create*, update*, delete*, set*, toggle\*
 - File organization: convex/{domain}/queries.ts, mutations.ts
 
 **React Component Conventions:**
+
 - Files: PascalCase.tsx (PostCard.tsx, ActivityFeed.tsx)
 - Names: PascalCase matching file (export function PostCard)
 - Organization: By feature domain (components/feed/, components/spaces/)
 
 **Route Conventions:**
+
 - Folders: kebab-case (app/dashboard/, app/settings/)
 - Dynamic params: camelCase ([spaceId], [courseId])
 
 ### Format Patterns
 
 **Convex Return Values:**
+
 - Direct returns, no wrapper objects
 - Null for not-found (client handles), not throwing
 - Use Convex validators for all args and returns
 
 **Date/Time Handling:**
+
 - Storage: Unix timestamp milliseconds (v.number())
 - Creation: Date.now()
 - Display: Format on frontend with date-fns
 
 **ID References:**
+
 - Always typed: Id<"posts">, Id<"users">
 - In args: v.id("tableName")
 - Never raw strings for document references
@@ -508,19 +557,23 @@ import { zodToConvex } from "convex-helpers/server/zod";
 ### Structure Patterns
 
 **Test Location:** Co-located
+
 - convex/posts/queries.test.ts alongside queries.ts
 
 **Shared Utilities:**
-- convex/_lib/ for internal helpers
+
+- convex/\_lib/ for internal helpers
 - Underscore prefix indicates internal
 
 **Components:**
+
 - Feature folders with barrel exports
 - components/feed/index.ts exports all feed components
 
 ### Process Patterns
 
 **Error Handling:**
+
 ```typescript
 // Convex: ConvexError for user-facing
 throw new ConvexError("Permission denied");
@@ -532,6 +585,7 @@ if (error instanceof ConvexError) {
 ```
 
 **Loading States:**
+
 ```typescript
 const data = useQuery(api.module.query, args);
 if (data === undefined) return <Skeleton />;
@@ -540,20 +594,22 @@ return <DataDisplay data={data} />;
 ```
 
 **Gamification:**
+
 - Central awardPoints function for all point awards
 - Standardized point values per action type
 
-| Action | Points |
-|--------|--------|
-| Post created | 10 |
-| Comment added | 5 |
-| Like received | 2 |
-| Course lesson completed | 15 |
-| Course completed | 50 |
+| Action                  | Points |
+| ----------------------- | ------ |
+| Post created            | 10     |
+| Comment added           | 5      |
+| Like received           | 2      |
+| Course lesson completed | 15     |
+| Course completed        | 50     |
 
 ### Enforcement Guidelines
 
 **All AI Agents MUST:**
+
 1. Follow Convex naming conventions (camelCase tables/fields)
 2. Use typed IDs (Id<"tableName">) never raw strings
 3. Store dates as Unix timestamps (Date.now())
@@ -566,6 +622,7 @@ return <DataDisplay data={data} />;
 ### Pattern Examples
 
 **Good Examples:**
+
 ```typescript
 // Table definition
 defineTable({
@@ -592,6 +649,7 @@ export function PostCard({ postId }: { postId: Id<"posts"> }) {
 ```
 
 **Anti-Patterns to Avoid:**
+
 ```typescript
 // ❌ Wrong naming conventions
 defineTable({
@@ -617,17 +675,17 @@ createdAt: new Date().toISOString()  // Should be Date.now()
 
 ### Requirements to Structure Mapping
 
-| FR Category | Primary Location | Supporting Locations |
-|-------------|------------------|---------------------|
-| User Management (FR1-10) | `convex/members/`, `components/members/` | `convex/_lib/auth.ts` |
-| Community & Content (FR11-24) | `convex/spaces/`, `convex/posts/`, `components/feed/` | `convex/_lib/search.ts` |
-| Courses & Learning (FR25-34) | `convex/courses/`, `components/courses/` | `convex/_lib/progress.ts` |
-| Events & Calendar (FR35-42) | `convex/events/`, `components/events/` | - |
-| Payments (FR43-51) | `convex/payments/`, `app/api/webhooks/` | `convex/_lib/access.ts` |
-| Gamification (FR52-58) | `convex/gamification/`, `components/gamification/` | `convex/_lib/points.ts` |
-| Notifications (FR59-63) | `convex/notifications/`, `components/notifications/` | - |
-| Administration (FR64-71) | `convex/admin/`, `app/admin/` | - |
-| Direct Messaging (FR72-75) | `convex/messaging/`, `components/messaging/` | - |
+| FR Category                   | Primary Location                                      | Supporting Locations      |
+| ----------------------------- | ----------------------------------------------------- | ------------------------- |
+| User Management (FR1-10)      | `convex/members/`, `components/members/`              | `convex/_lib/auth.ts`     |
+| Community & Content (FR11-24) | `convex/spaces/`, `convex/posts/`, `components/feed/` | `convex/_lib/search.ts`   |
+| Courses & Learning (FR25-34)  | `convex/courses/`, `components/courses/`              | `convex/_lib/progress.ts` |
+| Events & Calendar (FR35-42)   | `convex/events/`, `components/events/`                | -                         |
+| Payments (FR43-51)            | `convex/payments/`, `app/api/webhooks/`               | `convex/_lib/access.ts`   |
+| Gamification (FR52-58)        | `convex/gamification/`, `components/gamification/`    | `convex/_lib/points.ts`   |
+| Notifications (FR59-63)       | `convex/notifications/`, `components/notifications/`  | -                         |
+| Administration (FR64-71)      | `convex/admin/`, `app/admin/`                         | -                         |
+| Direct Messaging (FR72-75)    | `convex/messaging/`, `components/messaging/`          | -                         |
 
 ### Complete Project Directory Structure
 
@@ -798,54 +856,57 @@ OpenTribe/
 
 **API Boundaries:**
 
-| Boundary | Location | Purpose |
-|----------|----------|---------|
-| Auth API | `/api/auth/*` | Better Auth endpoints (proxy to Convex) |
-| Stripe Webhooks | `/api/webhooks/stripe` | Payment event processing |
-| Convex Functions | `convex/**/queries.ts`, `mutations.ts` | All data operations |
+| Boundary         | Location                               | Purpose                                 |
+| ---------------- | -------------------------------------- | --------------------------------------- |
+| Auth API         | `/api/auth/*`                          | Better Auth endpoints (proxy to Convex) |
+| Stripe Webhooks  | `/api/webhooks/stripe`                 | Payment event processing                |
+| Convex Functions | `convex/**/queries.ts`, `mutations.ts` | All data operations                     |
 
 **Component Boundaries:**
 
-| Boundary | Communication Pattern |
-|----------|----------------------|
-| Pages ↔ Components | Props + Convex hooks |
-| Components ↔ Convex | `useQuery`, `useMutation` direct calls |
-| Layout ↔ Children | React context (auth, theme) |
-| Admin ↔ Community | Separate route groups, shared components via `/shared` |
+| Boundary            | Communication Pattern                                  |
+| ------------------- | ------------------------------------------------------ |
+| Pages ↔ Components  | Props + Convex hooks                                   |
+| Components ↔ Convex | `useQuery`, `useMutation` direct calls                 |
+| Layout ↔ Children   | React context (auth, theme)                            |
+| Admin ↔ Community   | Separate route groups, shared components via `/shared` |
 
 **Data Boundaries:**
 
-| Boundary | Pattern |
-|----------|---------|
-| Convex Tables | Domain modules own their tables |
+| Boundary             | Pattern                                              |
+| -------------------- | ---------------------------------------------------- |
+| Convex Tables        | Domain modules own their tables                      |
 | Cross-domain queries | Use `_lib/` helpers, not direct cross-module imports |
-| File storage | Convex file storage via mutations in owning domain |
+| File storage         | Convex file storage via mutations in owning domain   |
 
 ### Integration Points
 
 **Internal Communication:**
+
 - React Pages/Components ↔ Convex Backend via `useQuery`/`useMutation`
 - Real-time subscriptions automatically managed by Convex
 - Child components receive data via props from parent queries
 
 **External Integrations:**
 
-| Service | Integration Point | Pattern |
-|---------|-------------------|---------|
-| Stripe | `convex/payments/actions.ts` | Convex action → Stripe API |
-| Stripe Webhooks | `app/api/webhooks/stripe/route.ts` | HTTP → Convex mutation |
-| Resend (Email) | `convex/notifications/actions.ts` | Convex action → Resend API |
-| Better Auth | `convex/http.ts` | HTTP routes via Convex component |
-| Presence | `convex/presence/index.ts` | Convex component |
+| Service         | Integration Point                  | Pattern                          |
+| --------------- | ---------------------------------- | -------------------------------- |
+| Stripe          | `convex/payments/actions.ts`       | Convex action → Stripe API       |
+| Stripe Webhooks | `app/api/webhooks/stripe/route.ts` | HTTP → Convex mutation           |
+| Resend (Email)  | `convex/notifications/actions.ts`  | Convex action → Resend API       |
+| Better Auth     | `convex/http.ts`                   | HTTP routes via Convex component |
+| Presence        | `convex/presence/index.ts`         | Convex component                 |
 
 ### Development Workflow
 
 **Local Development:**
+
 ```bash
 pnpm run dev  # Runs Next.js + Convex dev servers in parallel
 ```
 
 **Testing:**
+
 ```bash
 pnpm run test           # Vitest watch mode
 pnpm run test:once      # Single run
@@ -853,6 +914,7 @@ pnpm run test:coverage  # With coverage
 ```
 
 **Deployment:**
+
 - Vercel: Auto-deploy on push to main
 - Convex: Auto-deploy via `convex deploy` in CI
 
@@ -862,6 +924,7 @@ pnpm run test:coverage  # With coverage
 
 **Decision Compatibility:**
 All technology choices work together without conflicts:
+
 - Next.js 16 + React 19 with App Router
 - Convex real-time backend with native TypeScript generation
 - Better Auth via official Convex component
@@ -870,6 +933,7 @@ All technology choices work together without conflicts:
 
 **Pattern Consistency:**
 Implementation patterns fully support architectural decisions:
+
 - Convex naming (camelCase) aligns with function organization
 - React component patterns (PascalCase) align with file structure
 - Error handling (ConvexError) consistent across stack
@@ -877,6 +941,7 @@ Implementation patterns fully support architectural decisions:
 
 **Structure Alignment:**
 Project structure enables all architectural decisions:
+
 - Domain modules map directly to FR categories
 - Boundaries support clean separation of concerns
 - Integration points clearly defined and structured
@@ -887,6 +952,7 @@ Project structure enables all architectural decisions:
 All 9 FR categories have complete architectural support with dedicated Convex modules, React components, and integration points.
 
 **Non-Functional Requirements (29 NFRs):**
+
 - Performance: Convex reactive queries + strategic denormalization
 - Security: Better Auth + rate limiting + webhook validation
 - Scalability: Convex auto-scaling infrastructure
@@ -897,6 +963,7 @@ All 9 FR categories have complete architectural support with dedicated Convex mo
 
 **Decision Completeness:**
 All critical architectural decisions documented with:
+
 - Technology versions and compatibility
 - Implementation rationale
 - Code examples and patterns
@@ -904,6 +971,7 @@ All critical architectural decisions documented with:
 
 **Structure Completeness:**
 Complete project directory with:
+
 - All routes and pages defined
 - All component folders specified
 - All Convex domain modules listed
@@ -911,6 +979,7 @@ Complete project directory with:
 
 **Pattern Completeness:**
 Comprehensive consistency rules covering:
+
 - 23 potential conflict points addressed
 - Naming conventions for all areas
 - Process patterns for error/loading/gamification
@@ -919,18 +988,21 @@ Comprehensive consistency rules covering:
 ### Architecture Completeness Checklist
 
 **✅ Requirements Analysis**
+
 - [x] Project context thoroughly analyzed
 - [x] 75 FRs mapped to architectural components
 - [x] 29 NFRs addressed architecturally
 - [x] Cross-cutting concerns identified (auth, gamification, notifications)
 
 **✅ Architectural Decisions**
+
 - [x] Technology stack fully specified
 - [x] Data architecture patterns defined
 - [x] Authorization model documented
 - [x] Integration patterns established
 
 **✅ Implementation Patterns**
+
 - [x] Convex naming conventions
 - [x] React component conventions
 - [x] Error handling patterns
@@ -938,6 +1010,7 @@ Comprehensive consistency rules covering:
 - [x] Gamification patterns
 
 **✅ Project Structure**
+
 - [x] Complete directory tree
 - [x] FR-to-module mapping
 - [x] Architectural boundaries
@@ -950,12 +1023,14 @@ Comprehensive consistency rules covering:
 **Confidence Level:** HIGH
 
 **Key Strengths:**
+
 - Complete Convex ecosystem leverage (Presence, helpers, components)
 - Clear domain module organization matching PRD categories
 - Comprehensive consistency rules preventing AI agent conflicts
 - Strong typing from database to UI via Convex + TypeScript
 
 **Areas for Future Enhancement:**
+
 - Add additional social login providers post-MVP
 - Expand presence to rich presence (typing indicators)
 - Consider search index optimization as data grows
@@ -963,6 +1038,7 @@ Comprehensive consistency rules covering:
 ### Implementation Handoff
 
 **AI Agent Guidelines:**
+
 1. Follow all architectural decisions exactly as documented
 2. Use implementation patterns consistently across all components
 3. Respect project structure and domain module boundaries
@@ -971,6 +1047,7 @@ Comprehensive consistency rules covering:
 6. Award points through centralized `awardPoints` function only
 
 **First Implementation Priority:**
+
 1. Extend `convex/schema.ts` with all domain tables
 2. Implement `convex/_lib/` utilities (auth, permissions, points)
 3. Build core modules: spaces, posts, members
@@ -989,6 +1066,7 @@ Comprehensive consistency rules covering:
 ### Final Architecture Deliverables
 
 **Complete Architecture Document**
+
 - All architectural decisions documented with specific versions
 - Implementation patterns ensuring AI agent consistency
 - Complete project structure with all files and directories
@@ -996,12 +1074,14 @@ Comprehensive consistency rules covering:
 - Validation confirming coherence and completeness
 
 **Implementation Ready Foundation**
+
 - 15+ architectural decisions made
 - 23 implementation patterns defined
 - 11 domain modules specified
 - 75 functional requirements + 29 NFRs fully supported
 
 **AI Agent Implementation Guide**
+
 - Technology stack with verified versions
 - Consistency rules that prevent implementation conflicts
 - Project structure with clear boundaries
@@ -1021,18 +1101,21 @@ Comprehensive consistency rules covering:
 ### Quality Assurance Checklist
 
 **✅ Architecture Coherence**
+
 - [x] All decisions work together without conflicts
 - [x] Technology choices are compatible
 - [x] Patterns support the architectural decisions
 - [x] Structure aligns with all choices
 
 **✅ Requirements Coverage**
+
 - [x] All 75 functional requirements are supported
 - [x] All 29 non-functional requirements are addressed
 - [x] Cross-cutting concerns are handled
 - [x] Integration points are defined
 
 **✅ Implementation Readiness**
+
 - [x] Decisions are specific and actionable
 - [x] Patterns prevent agent conflicts
 - [x] Structure is complete and unambiguous

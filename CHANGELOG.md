@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0] - 2025-11-10
 
 ### Added
+
 - Initial release of AI Starter Kit
 - Next.js 16 with React 19 and App Router
 - Convex real-time database integration
@@ -40,6 +41,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Dark mode support
 
 ### Developer Experience
+
 - Hot module replacement with Turbo mode
 - Parallel dev servers (frontend + backend)
 - Automatic TypeScript generation from schema
@@ -47,6 +49,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Path aliases (@/components, @/lib, etc.)
 
 ### Documentation
+
 - README with comprehensive project overview
 - Step-by-step setup instructions
 - Code examples and patterns
@@ -66,19 +69,25 @@ See [ROADMAP.md](./ROADMAP.md) for planned features and enhancements.
 ### [Version] - YYYY-MM-DD
 
 #### Added
+
 - New features
 
 #### Changed
+
 - Changes to existing functionality
 
 #### Deprecated
+
 - Features that will be removed
 
 #### Removed
+
 - Removed features
 
 #### Fixed
+
 - Bug fixes
 
 #### Security
+
 - Security improvements

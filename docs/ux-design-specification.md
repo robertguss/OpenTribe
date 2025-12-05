@@ -2,11 +2,11 @@
 stepsCompleted: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
 inputDocuments:
   - docs/prd.md
-workflowType: 'ux-design'
+workflowType: "ux-design"
 lastStep: 14
-project_name: 'OpenTribe'
-user_name: 'Robert'
-date: '2025-12-04'
+project_name: "OpenTribe"
+user_name: "Robert"
+date: "2025-12-04"
 status: complete
 ---
 
@@ -26,6 +26,7 @@ OpenTribe is a free, open-source community platform designed to liberate creator
 ### Target Users
 
 **Primary: Community Creators (Sarah)**
+
 - Business coaches, educators, course creators
 - Semi-technical (comfortable with web tools, not developers)
 - Currently paying $50-360/month for community platforms
@@ -33,6 +34,7 @@ OpenTribe is a free, open-source community platform designed to liberate creator
 - Success metric: "My community looks and feels like MY brand"
 
 **Secondary: Technical Founders (Marcus)**
+
 - Developers running open-source or technical communities
 - Highly technical, will customize and extend
 - Coming from Discord/Slack chaos seeking organization
@@ -40,6 +42,7 @@ OpenTribe is a free, open-source community platform designed to liberate creator
 - Success metric: "I own the infrastructure and can make it do what I need"
 
 **End Users: Community Members (Priya)**
+
 - Joining communities built on OpenTribe
 - Varying technical ability
 - Expect polished, intuitive experience
@@ -71,12 +74,14 @@ The critical success loop: Creator posts → Member engages → Creator sees eng
 ### Platform Strategy
 
 **Web-First Architecture:**
+
 - Primary: Desktop/laptop browser for management and learning
 - Secondary: Mobile-responsive for feed browsing, quick engagement, and notifications
 - Real-time: All content updates appear instantly without page refresh
 - No native apps required for MVP; responsive web provides sufficient mobile experience
 
 **Platform Requirements:**
+
 - Touch-friendly targets (44px minimum) for mobile interactions
 - Keyboard shortcuts for power users on desktop
 - Responsive breakpoints: Mobile (<768px), Tablet (768-1024px), Desktop (>1024px)
@@ -85,6 +90,7 @@ The critical success loop: Creator posts → Member engages → Creator sees eng
 ### Effortless Interactions
 
 **Zero-Friction Design Targets:**
+
 - Post creation feels like messaging friends (rich text, drag-drop media)
 - Space navigation feels like switching channels (instant, memorable)
 - Search returns results in under 1 second
@@ -94,6 +100,7 @@ The critical success loop: Creator posts → Member engages → Creator sees eng
 - Member invitation via shareable link (no email collection required)
 
 **Friction Points Eliminated:**
+
 - Auto-save replaces manual save buttons
 - Real-time updates eliminate page refreshes
 - Contextual menus eliminate settings hunting
@@ -102,18 +109,21 @@ The critical success loop: Creator posts → Member engages → Creator sees eng
 ### Critical Success Moments
 
 **Creator Success Moments:**
+
 1. Deployment complete — seeing their brand on their domain
 2. First member arrives — someone joins and engages
 3. First payment received — revenue hits their Stripe dashboard
 4. Efficiency realized — managing community takes less time than previous platform
 
 **Member Success Moments:**
+
 1. Belonging established — welcomed and connected within first hour
 2. Learning progress — completing lessons with visible advancement
 3. Recognition earned — level-up or leaderboard appearance
 4. Community found — meaningful connection with like-minded member
 
 **Critical Flows (Failure = Churn):**
+
 - Member: Signup → Onboarding → First engagement (target: 24 hours)
 - Creator: Deploy → Configure → First invite (target: 30 minutes)
 - Payment: Purchase → Instant access grant (target: immediate)
@@ -135,12 +145,14 @@ The critical success loop: Creator posts → Member engages → Creator sees eng
 ### Primary Emotional Goals
 
 **For Creators (Sarah):**
+
 - **Liberation:** Freedom from platform rent and restrictions
 - **Pride:** A community that reflects their professional brand
 - **Confidence:** Certainty that they made the right choice
 - **Control:** Complete ownership of data, revenue, and member relationships
 
 **For Members (Priya):**
+
 - **Belonging:** Feeling welcomed and part of something meaningful
 - **Progress:** Visible growth through learning and engagement
 - **Recognition:** Contributions acknowledged and celebrated
@@ -148,24 +160,26 @@ The critical success loop: Creator posts → Member engages → Creator sees eng
 
 ### Emotional Journey Mapping
 
-| Stage | Creator Emotion | Member Emotion |
-|-------|-----------------|----------------|
-| Discovery | Hope + Skepticism | Curiosity |
-| First Use | Anxiety → Relief → Pride | Welcome → Belonging |
-| Core Loop | Empowerment, Efficiency | Engagement, Anticipation |
-| Achievement | Pride, Vindication | Recognition, Accomplishment |
-| Return Visit | Anticipation | Habit, FOMO |
-| Problem Moment | Supported, Capable | Guided, Confident |
+| Stage          | Creator Emotion          | Member Emotion              |
+| -------------- | ------------------------ | --------------------------- |
+| Discovery      | Hope + Skepticism        | Curiosity                   |
+| First Use      | Anxiety → Relief → Pride | Welcome → Belonging         |
+| Core Loop      | Empowerment, Efficiency  | Engagement, Anticipation    |
+| Achievement    | Pride, Vindication       | Recognition, Accomplishment |
+| Return Visit   | Anticipation             | Habit, FOMO                 |
+| Problem Moment | Supported, Capable       | Guided, Confident           |
 
 ### Micro-Emotions
 
 **Critical Emotional States to Cultivate:**
+
 - **Confidence:** Every action confirms success; clear feedback loops
 - **Trust:** Visible ownership signals; no hidden agendas
 - **Delight:** Celebration of milestones; moments of pleasant surprise
 - **Belonging:** Presence awareness; never posting to silence
 
 **Emotional States to Prevent:**
+
 - **Embarrassment:** Community must look premium, not amateur
 - **Overwhelm:** Progressive complexity; simple defaults
 - **Abandonment:** Clear help paths; responsive guidance
@@ -174,16 +188,16 @@ The critical success loop: Creator posts → Member engages → Creator sees eng
 
 ### Design Implications
 
-| Emotion | Design Implementation |
-|---------|----------------------|
-| Liberation | Custom domain prominent; zero platform branding |
-| Pride | Beautiful defaults; screenshot-worthy design |
-| Confidence | Success confirmations; undo capabilities; clear status |
-| Belonging | Welcome sequences; presence indicators; quick connections |
-| Progress | Completion tracking; visual advancement; streak displays |
-| Recognition | Achievement announcements; leaderboard features |
-| Control | Accessible settings; export options; permission transparency |
-| Trust | No upsells; clear data handling; honest communication |
+| Emotion     | Design Implementation                                        |
+| ----------- | ------------------------------------------------------------ |
+| Liberation  | Custom domain prominent; zero platform branding              |
+| Pride       | Beautiful defaults; screenshot-worthy design                 |
+| Confidence  | Success confirmations; undo capabilities; clear status       |
+| Belonging   | Welcome sequences; presence indicators; quick connections    |
+| Progress    | Completion tracking; visual advancement; streak displays     |
+| Recognition | Achievement announcements; leaderboard features              |
+| Control     | Accessible settings; export options; permission transparency |
+| Trust       | No upsells; clear data handling; honest communication        |
 
 ### Emotional Design Principles
 
@@ -202,6 +216,7 @@ The critical success loop: Creator posts → Member engages → Creator sees eng
 ### Inspiring Products Analysis
 
 **Circle (Aesthetic Benchmark):**
+
 - Visual hierarchy with deliberate whitespace
 - Familiar modern web app patterns
 - Space navigation via clear sidebar iconography
@@ -209,6 +224,7 @@ The critical success loop: Creator posts → Member engages → Creator sees eng
 - Professional, screenshot-worthy aesthetic
 
 **Linear (Speed & Simplicity Benchmark):**
+
 - Optimistic UI creates feeling of instant response
 - Keyboard-first design with full mouse support
 - Minimal chrome that reveals controls contextually
@@ -219,17 +235,20 @@ The critical success loop: Creator posts → Member engages → Creator sees eng
 ### Transferable UX Patterns
 
 **Navigation:**
+
 - Persistent sidebar for one-click space access
 - Command palette (⌘K) for search and quick actions
 - Breadcrumbs for hierarchical content (courses)
 
 **Interaction:**
+
 - Optimistic UI — actions appear instant, sync in background
 - Inline editing — no separate "edit mode"
 - Contextual actions on hover
 - Keyboard shortcuts for power users (j/k, r, l)
 
 **Visual:**
+
 - Generous whitespace allowing content to breathe
 - Subtle depth through shadows, not heavy borders
 - Fast functional motion (150-200ms, ease-out)
@@ -250,6 +269,7 @@ The critical success loop: Creator posts → Member engages → Creator sees eng
 **Core Philosophy:** Circle's aesthetic polish + Linear's speed discipline = "Premium but fast"
 
 **Adopt:**
+
 - Command palette for universal access
 - Optimistic UI for all user actions
 - Persistent sidebar navigation
@@ -257,11 +277,13 @@ The critical success loop: Creator posts → Member engages → Creator sees eng
 - 150-200ms functional transitions
 
 **Adapt:**
+
 - Gamification visible but balanced (not Skool's leaderboard dominance)
 - Admin features accessible without cluttering member experience
 - Brand customization prominent without sacrificing usability
 
 **Avoid:**
+
 - Right-side sliding panels (Mighty Networks pattern)
 - Any pattern that creates "where am I?" confusion
 - Animations that delay user actions
@@ -287,16 +309,19 @@ The critical success loop: Creator posts → Member engages → Creator sees eng
 ### Implementation Approach
 
 **Use Existing:**
+
 - All shadcn/ui primitives (Button, Card, Dialog, Input, etc.)
 - Tailwind utility classes for layout and spacing
 - Lucide icons exclusively for visual consistency
 
 **Build Custom:**
+
 - Community components (ActivityFeedItem, SpaceCard, MemberCard)
 - Gamification components (LevelBadge, ProgressRing, LeaderboardRow)
 - Admin components (StatCard, ModerationItem)
 
 **Composition Pattern:**
+
 - Custom components built from shadcn/ui primitives
 - Consistent API patterns (className, variant, size props)
 - Reusable across member and admin experiences
@@ -304,17 +329,20 @@ The critical success loop: Creator posts → Member engages → Creator sees eng
 ### Customization Strategy
 
 **Theming Architecture:**
+
 - CSS custom properties for all brand-impacting colors
 - Single source of truth in tailwind.config.ts
 - Dark mode ready via class-based toggle
 
 **Creator Branding Flow:**
+
 - Logo upload with automatic sizing
 - Primary color selection (picker + presets)
 - Automatic palette generation for complementary colors
 - Real-time preview before applying
 
 **Customizable Properties:**
+
 - Primary and accent brand colors
 - Logo and favicon
 - Community name and tagline
@@ -333,23 +361,27 @@ The defining moment is the "Level Up!" notification — the tangible proof that 
 ### User Mental Models
 
 **Creator Mental Model:**
+
 - Expectation to break: "Free means limited" and "Setup is technical"
 - Familiar concepts: Stripe dashboards, web hosting, Vercel deploys
 - Key insight: Creators expect complexity; simplicity creates delight
 
 **Member Mental Model:**
+
 - Familiar patterns: Social feeds (Twitter), courses (Udemy), gamification (Duolingo)
 - Key insight: Members expect polished experiences; matching premium platforms creates trust
 
 ### Success Criteria
 
 **Creator Deployment:**
+
 - Time to live: <30 minutes
 - Technical steps: Zero
 - Confusion moments: Zero
 - Completion emotion: Pride and excitement
 
 **Member Engagement:**
+
 - Time to first interaction: <1 hour
 - Posts to feel welcomed: 1
 - Days to first level-up: 1-3
@@ -358,6 +390,7 @@ The defining moment is the "Level Up!" notification — the tangible proof that 
 ### Pattern Usage
 
 **Established Patterns:**
+
 - Activity feed (social media standard)
 - Course modules (e-learning standard)
 - Points/levels (gamification standard)
@@ -365,6 +398,7 @@ The defining moment is the "Level Up!" notification — the tangible proof that 
 - Command palette (power user standard)
 
 **Novel Combinations:**
+
 - Self-hosted + Polished UX (breaking "self-hosted = ugly")
 - Free + Complete features (breaking "free = crippled")
 - Ownership signals throughout (custom domain, brand, Stripe)
@@ -372,6 +406,7 @@ The defining moment is the "Level Up!" notification — the tangible proof that 
 ### Experience Mechanics
 
 **Creator Deploy Flow:**
+
 1. Discovery → "Deploy to Vercel" click
 2. Configuration → Guided wizard (name, domain, Stripe)
 3. Personalization → Logo, colors, preview
@@ -379,6 +414,7 @@ The defining moment is the "Level Up!" notification — the tangible proof that 
 5. First member → Invite link → Real-time join → Achievement
 
 **Member Engagement Loop:**
+
 1. Join → Signup via invite link
 2. Onboard → Welcome checklist, AI profile builder
 3. First post → Intro post → Welcomes → Points earned
@@ -390,12 +426,14 @@ The defining moment is the "Level Up!" notification — the tangible proof that 
 ### Color System
 
 **Primary Palette (Warm Sage Green):**
+
 - Primary: #4A7C59 — Main brand color for buttons, CTAs, active states
 - Primary Hover: #3D6B4A — Darker shade for interactive hover states
 - Primary Light: #E8F0EA — Tinted backgrounds, active sidebar items
 - Primary Subtle: #F4F8F5 — Very light hover states
 
 **Neutral Palette:**
+
 - Background: #FFFFFF — Main content areas
 - Surface: #F8F9FA — Sidebar, secondary surfaces
 - Border: #E5E7EB — Dividers, card borders
@@ -404,6 +442,7 @@ The defining moment is the "Level Up!" notification — the tangible proof that 
 - Text Muted: #9CA3AF — Placeholders, disabled states
 
 **Semantic Colors:**
+
 - Success: #10B981 — Confirmations, positive actions
 - Warning: #F59E0B — Cautions, attention needed
 - Error: #EF4444 — Errors, destructive actions
@@ -412,10 +451,12 @@ The defining moment is the "Level Up!" notification — the tangible proof that 
 ### Typography System
 
 **Font Stack:**
+
 - Primary: Inter (system-ui fallback)
 - Monospace: JetBrains Mono (code blocks)
 
 **Type Scale:**
+
 - H1: 24px / 600 weight / 1.3 line-height
 - H2: 20px / 600 weight / 1.35 line-height
 - H3: 16px / 600 weight / 1.4 line-height
@@ -426,6 +467,7 @@ The defining moment is the "Level Up!" notification — the tangible proof that 
 ### Spacing & Layout Foundation
 
 **Spacing Scale (4px base):**
+
 - xs: 4px — Tight spacing between related items
 - sm: 8px — Standard gap between elements
 - md: 16px — Component padding
@@ -434,12 +476,14 @@ The defining moment is the "Level Up!" notification — the tangible proof that 
 - 2xl: 48px — Page margins
 
 **Layout Structure:**
+
 - Header: 56px fixed height
 - Sidebar: 240px width (collapsible on mobile)
 - Right sidebar: 280px width (hidden on tablet/mobile)
 - Main content: Flexible, centered max-width 720px for readability
 
 **Responsive Breakpoints:**
+
 - Desktop: >1280px (three columns)
 - Tablet: 768-1280px (two columns, no right sidebar)
 - Mobile: <768px (single column, bottom navigation)
@@ -447,16 +491,19 @@ The defining moment is the "Level Up!" notification — the tangible proof that 
 ### Accessibility Considerations
 
 **Contrast Requirements:**
+
 - All text meets WCAG AA minimum (4.5:1)
 - Large text and UI components meet 3:1 minimum
 - Focus indicators visible in all contexts
 
 **Motion Design:**
+
 - Default transitions: 150-200ms ease-out
 - Respects prefers-reduced-motion media query
 - No essential information conveyed through motion alone
 
 **Interactive Elements:**
+
 - Minimum touch target: 44x44px on mobile
 - Visible focus rings on all interactive elements
 - Full keyboard navigation support
@@ -468,6 +515,7 @@ The defining moment is the "Level Up!" notification — the tangible proof that 
 The chosen design direction follows a three-column layout inspired by Circle and LinkedIn, with OpenTribe's warm sage green brand identity throughout.
 
 **Layout Structure:**
+
 - Header: 56px with logo, search, and user actions
 - Left Sidebar: 240px navigation with user profile and primary actions
 - Main Content: Flexible width feed area with post composer
@@ -476,18 +524,21 @@ The chosen design direction follows a three-column layout inspired by Circle and
 ### Key Design Elements
 
 **Navigation Pattern:**
+
 - Persistent left sidebar with icon + label navigation
 - Active states indicated by green background tint
 - "Create Space" CTA prominently placed in sidebar
 - Collapsible on tablet, bottom nav on mobile
 
 **Content Presentation:**
+
 - Card-based post design with consistent structure
 - Post composer always visible at top of feed
 - Filter tabs for feed customization (All, Following, Popular)
 - Generous whitespace for visual breathing room
 
 **Interactive Elements:**
+
 - Green primary buttons for CTAs
 - Subtle hover states with green tints
 - Engagement actions inline with content
@@ -504,6 +555,7 @@ The chosen design direction follows a three-column layout inspired by Circle and
 ### Implementation Approach
 
 **Component Priority:**
+
 1. App shell (header, sidebars, main area)
 2. Navigation and routing
 3. Post composer and feed
@@ -517,18 +569,21 @@ The chosen design direction follows a three-column layout inspired by Circle and
 The creator setup flow transforms a new user from "clicked deploy" to "community live" in under 30 minutes.
 
 **Flow Stages:**
+
 1. Vercel deployment (automated)
 2. Setup wizard (6 steps: name, logo, color, Stripe, space, preview)
 3. Launch celebration
 4. First member invite
 
 **Key Design Decisions:**
+
 - Wizard format with clear progress (Step X of 6)
 - Every step has "Skip for now" where appropriate
 - Live preview updates as creator configures
 - Celebration screen with shareable moment
 
 **Creator Setup Flow Diagram:**
+
 ```
 Discovery → Deploy to Vercel → Setup Wizard
     ↓
@@ -546,6 +601,7 @@ Share & Invite → First Member Joins → Achievement Unlocked!
 The member onboarding flow establishes belonging within the first hour.
 
 **Flow Stages:**
+
 1. Invite link → Landing page preview
 2. Signup (email/password or social)
 3. Welcome screen with onboarding checklist
@@ -554,18 +610,21 @@ The member onboarding flow establishes belonging within the first hour.
 6. First engagement (like/comment)
 
 **Key Design Decisions:**
+
 - Checklist visible but not blocking
 - AI profile builder reduces friction
 - Points awarded for each completed task
 - Welcome comments create immediate social proof
 
 **Onboarding Checklist:**
+
 - Complete your profile (+10 pts)
 - Introduce yourself (+15 pts)
 - Like your first post (+5 pts)
 - Progress indicator shows completion
 
 **AI Profile Builder:**
+
 - 3 simple questions generate personalized bio
 - User can edit before saving
 - Reduces blank profile syndrome
@@ -575,17 +634,20 @@ The member onboarding flow establishes belonging within the first hour.
 The daily engagement loop keeps both creators and members returning.
 
 **Entry Points:**
+
 - Push/email notifications
 - Direct navigation
 - Habit (morning routine)
 
 **Core Actions:**
+
 - Browse feed → Engage with posts
 - Take course lessons → Track progress
 - Check events → RSVP/attend
 - Read/send DMs → Build connections
 
 **Feedback Loops:**
+
 - Points for every action
 - Level-up celebrations
 - Leaderboard visibility
@@ -620,29 +682,35 @@ The daily engagement loop keeps both creators and members returning.
 ### Custom Components
 
 **Feed Components:**
+
 - PostCard — Feed post display with author, content, media, engagement
 - PostComposer — Rich text post creation with media upload
 
 **Community Components:**
+
 - SpaceCard — Space preview with icon, description, member count
 - MemberCard — Member profile card with avatar, level, bio
 - LeaderboardRow — Ranked member entry with position, points
 
 **Gamification Components:**
+
 - LevelBadge — User level indicator (1-10) with title
 - PointsToast — "+X pts" celebratory feedback notification
 - ProgressRing — Circular progress indicator for courses
 
 **Onboarding Components:**
+
 - OnboardingChecklist — New member task list with progress
 
 **Admin Components:**
+
 - StatCard — Dashboard metric card with trend indicator
 - NotificationItem — Single notification in dropdown list
 
 ### Component Specifications
 
 **PostCard Anatomy:**
+
 - Header: Avatar + Author name + Space link + Timestamp
 - Body: Title (optional) + Content preview + Media
 - Footer: Engagement actions (like, comment, share) with counts
@@ -650,10 +718,12 @@ The daily engagement loop keeps both creators and members returning.
 - Variants: default, compact, expanded
 
 **LevelBadge Levels:**
+
 1. Newcomer, 2. Contributor, 3. Active Member, 4. Rising Star, 5. Engaged
-6. Valued, 7. Expert, 8. Leader, 9. Champion, 10. Legend
+2. Valued, 7. Expert, 8. Leader, 9. Champion, 10. Legend
 
 **PointsToast Behavior:**
+
 - Auto-dismiss after 3 seconds
 - Stacks when multiple earned
 - Shows action that earned points
@@ -661,6 +731,7 @@ The daily engagement loop keeps both creators and members returning.
 ### Implementation Approach
 
 **Build Pattern:**
+
 - Compose from shadcn/ui primitives
 - Use CSS variables for theming
 - Consistent API (size, variant, className props)
@@ -668,6 +739,7 @@ The daily engagement loop keeps both creators and members returning.
 - Storybook documentation
 
 **Implementation Phases:**
+
 1. Foundation (LevelBadge, PointsToast, ProgressRing)
 2. Core Feed (PostCard, PostComposer, NotificationItem)
 3. Community (SpaceCard, MemberCard, LeaderboardRow)
@@ -695,7 +767,7 @@ The daily engagement loop keeps both creators and members returning.
 ### Form Patterns
 
 **Validation:** On blur, then on change after error
-**Layout:** Labels above inputs, required marked with *
+**Layout:** Labels above inputs, required marked with \*
 **States:** Default (gray), Focus (green ring), Error (red), Disabled (gray bg)
 **Auto-save:** 500ms debounce, "Saving..." → "Saved" indicator
 
@@ -728,30 +800,34 @@ The daily engagement loop keeps both creators and members returning.
 
 ### Breakpoints
 
-| Breakpoint | Width | Layout |
-|------------|-------|--------|
-| Mobile | <768px | Single column, bottom nav |
-| Tablet | 768-1024px | Two columns, no right sidebar |
-| Desktop | 1024-1280px | Three columns, compact |
-| Large Desktop | >1280px | Three columns, comfortable |
+| Breakpoint    | Width       | Layout                        |
+| ------------- | ----------- | ----------------------------- |
+| Mobile        | <768px      | Single column, bottom nav     |
+| Tablet        | 768-1024px  | Two columns, no right sidebar |
+| Desktop       | 1024-1280px | Three columns, compact        |
+| Large Desktop | >1280px     | Three columns, comfortable    |
 
 ### Mobile Adaptations
 
 **Navigation:**
+
 - Left sidebar → Bottom tab bar (Home, Spaces, Messages, Profile)
 - Right sidebar content → Accessible via tabs or separate pages
 - Command palette → Full-screen search
 
 **Feed:**
+
 - Full-width cards
 - Swipe actions (like, bookmark)
 - Pull-to-refresh
 
 **Post Composer:**
+
 - Expands to full screen on mobile
 - Floating action button (FAB) to trigger
 
 **Touch Targets:**
+
 - Minimum 44x44px for all interactive elements
 - Adequate spacing between tappable items
 
@@ -766,17 +842,20 @@ The daily engagement loop keeps both creators and members returning.
 ### WCAG 2.1 AA Compliance
 
 **Color Contrast:**
+
 - Text on backgrounds: Minimum 4.5:1 ratio
 - Large text (18px+): Minimum 3:1 ratio
 - Interactive elements: Minimum 3:1 against adjacent colors
 
 **Keyboard Navigation:**
+
 - All interactive elements focusable
 - Logical tab order
 - Visible focus indicators (green ring)
 - Skip links for main content
 
 **Screen Reader Support:**
+
 - Semantic HTML (nav, main, article, aside)
 - ARIA labels on icons and buttons
 - Live regions for dynamic content
@@ -806,17 +885,20 @@ The daily engagement loop keeps both creators and members returning.
 ### Phase 1: Foundation (MVP Core)
 
 **App Shell:**
+
 - [ ] Header with logo, search, notifications, profile
 - [ ] Sidebar navigation with routing
 - [ ] Main content area with responsive layout
 - [ ] Mobile bottom navigation
 
 **Authentication:**
+
 - [ ] Login/signup pages
 - [ ] Protected route middleware
 - [ ] User session management
 
 **Core Components:**
+
 - [ ] PostCard component
 - [ ] PostComposer component
 - [ ] LevelBadge component
@@ -824,17 +906,20 @@ The daily engagement loop keeps both creators and members returning.
 ### Phase 2: Community Features
 
 **Spaces:**
+
 - [ ] Space listing page
 - [ ] Space detail page with feed
 - [ ] Create/edit space functionality
 - [ ] Space settings
 
 **Members:**
+
 - [ ] Member directory
 - [ ] Member profile pages
 - [ ] Follow/connection system
 
 **Feed:**
+
 - [ ] Activity feed with filtering
 - [ ] Real-time updates (Convex)
 - [ ] Infinite scroll
@@ -842,18 +927,21 @@ The daily engagement loop keeps both creators and members returning.
 ### Phase 3: Engagement Features
 
 **Gamification:**
+
 - [ ] Points system implementation
 - [ ] Level progression
 - [ ] Leaderboard
 - [ ] Achievements/badges
 
 **Courses:**
+
 - [ ] Course listing
 - [ ] Module/lesson structure
 - [ ] Progress tracking
 - [ ] Completion certificates
 
 **Events:**
+
 - [ ] Event creation
 - [ ] RSVP system
 - [ ] Calendar integration
@@ -861,17 +949,20 @@ The daily engagement loop keeps both creators and members returning.
 ### Phase 4: Advanced Features
 
 **Direct Messaging:**
+
 - [ ] Conversation threads
 - [ ] Real-time chat
 - [ ] Message notifications
 
 **Admin Dashboard:**
+
 - [ ] Analytics overview
 - [ ] Member management
 - [ ] Content moderation
 - [ ] Settings management
 
 **Payments:**
+
 - [ ] Stripe integration
 - [ ] Subscription management
 - [ ] Payment history
@@ -879,16 +970,19 @@ The daily engagement loop keeps both creators and members returning.
 ### Phase 5: Polish & Optimization
 
 **Performance:**
+
 - [ ] Image optimization
 - [ ] Code splitting
 - [ ] Caching strategy
 
 **Onboarding:**
+
 - [ ] Setup wizard
 - [ ] Member onboarding checklist
 - [ ] AI profile builder
 
 **Creator Tools:**
+
 - [ ] Brand customization
 - [ ] Custom domain setup
 - [ ] Export functionality
@@ -900,6 +994,7 @@ The daily engagement loop keeps both creators and members returning.
 This UX Design Specification defines the complete user experience for OpenTribe — a free, open-source community platform that empowers creators to own their communities.
 
 **Key Design Principles:**
+
 1. Instant Gratification — Fast feedback on every action
 2. Progressive Disclosure — Simple first, complexity on demand
 3. Ownership Reinforcement — Every screen shows "this is YOUR community"
@@ -907,18 +1002,21 @@ This UX Design Specification defines the complete user experience for OpenTribe 
 5. Smart Defaults — Works out of the box, customizable when needed
 
 **Visual Identity:**
+
 - Warm sage green (#4A7C59) primary color
 - Clean, minimal design inspired by Circle and Linear
 - Three-column layout with persistent navigation
 - Professional aesthetic that screenshots well
 
 **Technical Foundation:**
+
 - shadcn/ui + Tailwind CSS 4 design system
 - Real-time updates via Convex
 - Mobile-responsive with bottom navigation
 - WCAG 2.1 AA accessibility compliance
 
 **Critical Success Metrics:**
+
 - Creator: Deploy to live in <30 minutes
 - Member: First engagement in <1 hour
 - Member: Level up within 1-3 days
@@ -926,5 +1024,5 @@ This UX Design Specification defines the complete user experience for OpenTribe 
 
 ---
 
-*Document Status: Complete*
-*Next Steps: Architecture design, then implementation per roadmap*
+_Document Status: Complete_
+_Next Steps: Architecture design, then implementation per roadmap_

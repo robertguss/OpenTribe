@@ -33,13 +33,11 @@ So that the database foundation is ready for all features.
 ## Tasks / Subtasks
 
 - [x] **Task 1: Replace demo schema** (AC: #1)
-
   - [x] 1.1: Delete or replace the existing `numbers` table
   - [x] 1.2: Add `users` table with profile fields (bio, avatarStorageId, visibility, role, points, level, notificationPrefs)
   - [x] 1.3: Add index `by_role` and `by_points` for user queries
 
 - [x] **Task 2: Add community content tables** (AC: #1, #5)
-
   - [x] 2.1: Add `spaces` table (name, description, icon, visibility, postPermission, requiredTier, order, deletedAt)
   - [x] 2.2: Add `posts` table with denormalized author info (authorName, authorAvatar, likeCount, commentCount)
   - [x] 2.3: Add `comments` table with parentId for 2-level nesting
@@ -47,7 +45,6 @@ So that the database foundation is ready for all features.
   - [x] 2.5: Add indexes: by_spaceId, by_authorId, by_postId, by_target
 
 - [x] **Task 3: Add courses & learning tables** (AC: #1, #4, #5)
-
   - [x] 3.1: Add `courses` table (title, description, thumbnail, visibility, status, enrollmentCount)
   - [x] 3.2: Add `modules` table (courseId, title, order)
   - [x] 3.3: Add `lessons` table (moduleId, title, content, videoUrl, attachments, order)
@@ -56,32 +53,27 @@ So that the database foundation is ready for all features.
   - [x] 3.6: Add indexes for course/module/lesson hierarchical queries
 
 - [x] **Task 4: Add events & calendar tables** (AC: #1, #4)
-
   - [x] 4.1: Add `events` table (title, description, startTime, endTime, location, capacity, recurrence)
   - [x] 4.2: Add `rsvps` table (eventId, userId, status)
   - [x] 4.3: Add indexes: by_startTime, by_eventId
 
 - [x] **Task 5: Add payments & memberships tables** (AC: #1)
-
   - [x] 5.1: Add `memberships` table (userId, tier, stripeCustomerId, stripeSubscriptionId, status, currentPeriodEnd)
   - [x] 5.2: Add index: by_userId, by_stripeCustomerId
 
 - [x] **Task 6: Add notifications & messaging tables** (AC: #1, #4, #5)
-
   - [x] 6.1: Add `notifications` table (userId, type, actorId, actorName, data, read, createdAt)
   - [x] 6.2: Add `conversations` table (participantIds, lastMessageAt, lastMessagePreview)
   - [x] 6.3: Add `messages` table (conversationId, senderId, senderName, content, readAt)
   - [x] 6.4: Add indexes for notification and message queries
 
 - [x] **Task 7: Add gamification tables** (AC: #1, #4)
-
   - [x] 7.1: Add `points` table (userId, action, amount, referenceType, referenceId, createdAt)
   - [x] 7.2: Add `gamificationConfig` table (action, pointValue)
   - [x] 7.3: Add `levels` table (name, threshold, order, color)
   - [x] 7.4: Add indexes: by_userId, by_action, by_order
 
 - [x] **Task 8: Add supporting tables** (AC: #1)
-
   - [x] 8.1: Add `follows` table (followerId, followingId)
   - [x] 8.2: Add `reports` table (reporterId, targetType, targetId, reason, status, resolvedAt)
   - [x] 8.3: Add `spaceVisits` table (userId, spaceId, lastVisitedAt) for unread indicators
@@ -197,6 +189,7 @@ Claude Opus 4.5 (claude-opus-4-5-20251101)
 **Reviewed by:** AI Code Review Agent
 
 **Findings Addressed:**
+
 1. **Table count corrected:** 23 tables, not 24 (original count was off by one)
 2. **Polymorphic ID pattern (AC #5 exception):** The `likes.targetId` and `reports.targetId` fields use `v.string()` instead of `v.id()`. This is an intentional design decision for polymorphic references where the target can be multiple table types (post/comment/user). The alternative (separate tables per target type) would add complexity without significant benefit for this use case.
 3. **by_email index:** The epic-1-context.md spec incorrectly specified this index on the `users` table, but our `users` table doesn't have an email field - Better Auth manages email in its own component tables. Implementation is CORRECT.
@@ -223,19 +216,22 @@ Claude Opus 4.5 (claude-opus-4-5-20251101)
 9. **Task 9 Complete:** Schema validated via TypeScript compilation. Lint passed. 23 tables and 51 indexes created. Full type generation will occur on `npx convex dev` when connected to deployment.
 
 **All Acceptance Criteria Met:**
+
 - AC #1: 23 domain tables created (exceeds 18+ requirement)
 - AC #2: TypeScript validation passed; types will generate on `npx convex dev`
 - AC #3: 51 indexes created for common query patterns
 - AC #4: All date fields use `v.number()` for Unix timestamps
-- AC #5: All foreign key references use `v.id("tableName")` - *Exception: polymorphic `targetId` fields in `likes` and `reports` tables use `v.string()` for flexibility (documented design decision)*
+- AC #5: All foreign key references use `v.id("tableName")` - _Exception: polymorphic `targetId` fields in `likes` and `reports` tables use `v.string()` for flexibility (documented design decision)_
 
 ### File List
 
 **Modified:**
 **Modified:**
+
 - `convex/schema.ts` - Replaced demo schema with full domain schema (23 tables, 51 indexes)
 
 **Deleted:**
+
 - `convex/myFunctions.ts` - Removed demo functions that referenced deleted `numbers` table
 - `convex/myFunctions.test.ts` - Removed demo tests for deleted functions
 

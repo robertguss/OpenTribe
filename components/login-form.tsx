@@ -1,24 +1,24 @@
 "use client";
 
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
+} from "@/components/ui/card";
 import {
   Field,
   FieldDescription,
   FieldGroup,
   FieldLabel,
-} from "@/components/ui/field"
-import { Input } from "@/components/ui/input"
-import { authClient } from "@/lib/auth-client"
-import { useRouter } from "next/navigation"
-import { useState } from "react"
+} from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
+import { authClient } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export function LoginForm({
   className,
@@ -45,8 +45,11 @@ export function LoginForm({
 
       // After successful login, redirect to dashboard
       router.push("/dashboard");
-    } catch (err: any) {
-      setError(err?.message || "Invalid email or password. Please try again.");
+    } catch (err: unknown) {
+      const error = err as { message?: string };
+      setError(
+        error?.message || "Invalid email or password. Please try again."
+      );
       setLoading(false);
     }
   };
@@ -64,7 +67,7 @@ export function LoginForm({
           <form onSubmit={handleSubmit}>
             <FieldGroup>
               {error && (
-                <div className="rounded-md bg-destructive/15 p-3 text-sm text-destructive">
+                <div className="bg-destructive/15 text-destructive rounded-md p-3 text-sm">
                   {error}
                 </div>
               )}
@@ -89,7 +92,13 @@ export function LoginForm({
                     Forgot your password?
                   </a>
                 </div>
-                <Input id="password" name="password" type="password" required disabled={loading} />
+                <Input
+                  id="password"
+                  name="password"
+                  type="password"
+                  required
+                  disabled={loading}
+                />
               </Field>
               <Field>
                 <Button type="submit" disabled={loading}>
@@ -99,7 +108,10 @@ export function LoginForm({
                   Login with Google
                 </Button>
                 <FieldDescription className="text-center">
-                  Don&apos;t have an account? <a href="/signup" className="underline">Sign up</a>
+                  Don&apos;t have an account?{" "}
+                  <a href="/signup" className="underline">
+                    Sign up
+                  </a>
                 </FieldDescription>
               </Field>
             </FieldGroup>
@@ -107,5 +119,5 @@ export function LoginForm({
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }

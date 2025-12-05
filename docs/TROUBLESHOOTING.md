@@ -104,6 +104,7 @@ npx convex codegen
 1. Open `.env.local`
 2. Find or add `NEXT_PUBLIC_CONVEX_SITE_URL`
 3. Set it to your Convex site URL:
+
    ```bash
    # WRONG - causes infinite loop:
    NEXT_PUBLIC_CONVEX_SITE_URL=http://localhost:3000
@@ -111,6 +112,7 @@ npx convex codegen
    # CORRECT - use your Convex HTTP endpoint:
    NEXT_PUBLIC_CONVEX_SITE_URL=https://your-deployment.convex.site
    ```
+
 4. The deployment name should match `NEXT_PUBLIC_CONVEX_URL` but with `.site` instead of `.cloud`
 5. Restart your dev server
 

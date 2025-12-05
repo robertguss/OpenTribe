@@ -88,28 +88,24 @@ A modern, production-ready starter kit for building full-stack applications with
 ### Core Capabilities
 
 - **Authentication** - Complete auth system with Better Auth + Convex integration
-
   - Email/password authentication (no verification required for quick setup)
   - Protected routes with middleware
   - Session management
   - Ready for OAuth providers (see [Roadmap](./ROADMAP.md))
 
 - **Real-time Database** - Powered by Convex
-
   - Serverless backend with zero infrastructure management
   - Automatic TypeScript generation
   - Real-time subscriptions out of the box
   - ACID transactions
 
 - **Modern UI Components** - 20+ shadcn/ui components pre-installed
-
   - Buttons, Forms, Modals, Tables, Charts, Sidebar
   - Fully customizable with Tailwind CSS 4
   - Dark mode support with next-themes
   - Responsive design patterns
 
 - **Testing Infrastructure** - Complete testing setup
-
   - Vitest for unit and integration tests
   - convex-test for isolated backend testing
   - Example tests included
@@ -144,6 +140,7 @@ cd ai-starter-kit
 ```
 
 The setup script will:
+
 1. Check and install prerequisites (including pnpm if missing)
 2. Install all dependencies
 3. Guide you through Convex authentication (opens browser)
@@ -459,7 +456,6 @@ it("should test something", async () => {
    ```
 
 2. **Deploy Frontend**
-
    - Go to [vercel.com](https://vercel.com)
    - Import your GitHub repository
    - Vercel will auto-detect Next.js

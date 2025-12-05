@@ -366,7 +366,7 @@ export const list = query({
       _id: v.id("todos"),
       text: v.string(),
       completed: v.boolean(),
-    }),
+    })
   ),
   handler: async (ctx) => {
     return await ctx.db.query("todos").collect();

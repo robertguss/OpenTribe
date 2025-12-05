@@ -1,4 +1,4 @@
-import { defineConfig, devices } from '@playwright/test';
+import { defineConfig, devices } from "@playwright/test";
 
 /**
  * OpenTribe E2E Test Configuration
@@ -11,7 +11,7 @@ import { defineConfig, devices } from '@playwright/test';
  * Debug: pnpm run test:e2e:ui
  */
 export default defineConfig({
-  testDir: './tests/e2e',
+  testDir: "./tests/e2e",
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
@@ -24,68 +24,68 @@ export default defineConfig({
   },
 
   use: {
-    baseURL: process.env.BASE_URL || 'http://localhost:3000',
-    trace: 'retain-on-failure',
-    screenshot: 'only-on-failure',
-    video: 'retain-on-failure',
+    baseURL: process.env.BASE_URL || "http://localhost:3000",
+    trace: "retain-on-failure",
+    screenshot: "only-on-failure",
+    video: "retain-on-failure",
     actionTimeout: 15 * 1000, // Action timeout: 15s
     navigationTimeout: 30 * 1000, // Navigation timeout: 30s
   },
 
   reporter: [
-    ['html', { outputFolder: 'test-results/html' }],
-    ['junit', { outputFile: 'test-results/junit.xml' }],
-    ['list'],
+    ["html", { outputFolder: "test-results/html" }],
+    ["junit", { outputFile: "test-results/junit.xml" }],
+    ["list"],
   ],
 
   projects: [
     // Auth setup project - runs once, saves session state
     {
-      name: 'setup',
+      name: "setup",
       testMatch: /.*\.setup\.ts/,
     },
 
     // Critical path tests (always run)
     {
-      name: 'critical',
+      name: "critical",
       testMatch: /.*\.critical\.spec\.ts/,
       use: {
-        ...devices['Desktop Chrome'],
+        ...devices["Desktop Chrome"],
       },
     },
 
     // Chromium tests (default)
     {
-      name: 'chromium',
+      name: "chromium",
       use: {
-        ...devices['Desktop Chrome'],
+        ...devices["Desktop Chrome"],
       },
-      dependencies: ['setup'],
+      dependencies: ["setup"],
     },
 
     // Firefox tests (CI only)
     {
-      name: 'firefox',
+      name: "firefox",
       use: {
-        ...devices['Desktop Firefox'],
+        ...devices["Desktop Firefox"],
       },
-      dependencies: ['setup'],
+      dependencies: ["setup"],
     },
 
     // WebKit tests (CI only)
     {
-      name: 'webkit',
+      name: "webkit",
       use: {
-        ...devices['Desktop Safari'],
+        ...devices["Desktop Safari"],
       },
-      dependencies: ['setup'],
+      dependencies: ["setup"],
     },
   ],
 
   // Web server configuration
   webServer: {
-    command: 'pnpm run dev',
-    url: 'http://localhost:3000',
+    command: "pnpm run dev",
+    url: "http://localhost:3000",
     reuseExistingServer: !process.env.CI,
     timeout: 120 * 1000, // 2 minutes for dev server startup
   },

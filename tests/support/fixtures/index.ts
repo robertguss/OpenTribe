@@ -12,7 +12,10 @@
  *   - authenticatedPage: Pre-authenticated page (requires auth.setup.ts)
  *   - testUser: Factory for creating test users
  */
-import { test as base, expect, Page } from '@playwright/test';
+
+// Playwright's `use` function in fixtures is not a React hook - disable the false positive
+/* eslint-disable react-hooks/rules-of-hooks */
+import { test as base, expect, Page } from "@playwright/test";
 
 // Test user data type
 export type TestUser = {
@@ -46,7 +49,7 @@ export const test = base.extend<TestFixtures>({
   authenticatedPage: async ({ browser }, use) => {
     // Create context with stored auth state
     const context = await browser.newContext({
-      storageState: 'tests/.auth/user.json',
+      storageState: "tests/.auth/user.json",
     });
     const page = await context.newPage();
     await use(page);
@@ -69,12 +72,16 @@ export const test = base.extend<TestFixtures>({
 
   // API request helper
   apiRequest: async ({ baseURL }, use) => {
-    const makeRequest = async (method: string, path: string, data?: unknown) => {
+    const makeRequest = async (
+      method: string,
+      path: string,
+      data?: unknown
+    ) => {
       const url = `${baseURL}${path}`;
       const options: RequestInit = {
         method,
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       };
       if (data) {
@@ -84,9 +91,9 @@ export const test = base.extend<TestFixtures>({
     };
 
     await use({
-      get: (path: string) => makeRequest('GET', path),
-      post: (path: string, data: unknown) => makeRequest('POST', path, data),
-      delete: (path: string) => makeRequest('DELETE', path),
+      get: (path: string) => makeRequest("GET", path),
+      post: (path: string, data: unknown) => makeRequest("POST", path, data),
+      delete: (path: string) => makeRequest("DELETE", path),
     });
   },
 });

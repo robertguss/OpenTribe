@@ -2,12 +2,12 @@
 
 ## Document Info
 
-| Field | Value |
-|-------|-------|
-| Product Name | OpenTribe |
-| Author | Robert Guss |
-| Version | 1.0 |
-| Status | Draft |
+| Field        | Value         |
+| ------------ | ------------- |
+| Product Name | OpenTribe     |
+| Author       | Robert Guss   |
+| Version      | 1.0           |
+| Status       | Draft         |
 | Last Updated | December 2024 |
 
 ---
@@ -36,6 +36,7 @@ OpenTribe is a free, open-source community platform that provides creators, coac
 The platform combines community discussions, course hosting, event management, member directories, and AI-powered engagement features—all deployable for free on Vercel and Convex.
 
 **Key Differentiators:**
+
 - 100% free and open source
 - Self-hosted (you own your data)
 - Zero transaction fees (use your own Stripe)
@@ -53,6 +54,7 @@ The platform combines community discussions, course hosting, event management, m
 Creators, coaches, and community builders are paying $50-360/month for community platforms. Over a year, that's $600-4,300+ gone—just to have a place for their people to gather.
 
 These platforms also:
+
 - Charge transaction fees (2.9-10%) on top of Stripe's fees
 - Lock you into their subdomain (no custom domains on lower tiers)
 - Own your member data and relationships
@@ -64,6 +66,7 @@ These platforms also:
 Modern deployment platforms (Vercel, Convex) offer generous free tiers. A well-built community platform can run essentially for free at small-to-medium scale.
 
 By open-sourcing a production-ready community platform, we can:
+
 1. Free creators from recurring SaaS fees
 2. Give them full ownership of their community and data
 3. Provide a marketing vehicle for DevFast (custom development services)
@@ -81,12 +84,14 @@ By open-sourcing a production-ready community platform, we can:
 **Technical Skill:** Low to moderate (can follow deployment instructions)
 
 **Pain Points:**
+
 - Paying $99/mo for Skool feels excessive for her community size
 - Frustrated by transaction fees eating into her course sales
 - Wants her community to feel like "hers," not a Skool subdomain
 - Worried about platform lock-in
 
 **Goals:**
+
 - Reduce monthly costs
 - Own her member relationships
 - Have a professional-looking community space
@@ -100,12 +105,14 @@ By open-sourcing a production-ready community platform, we can:
 **Technical Skill:** High (developer)
 
 **Pain Points:**
+
 - Doesn't want to build community features from scratch
 - Needs something customizable and extensible
 - Values open source for transparency and control
 - Wants to integrate with existing tools
 
 **Goals:**
+
 - Get a community up fast without building from zero
 - Customize and extend as needed
 - Maintain full control of the codebase
@@ -114,6 +121,7 @@ By open-sourcing a production-ready community platform, we can:
 ### Anti-Persona: Enterprise / Large Scale
 
 **Not targeting (for v1):**
+
 - Organizations needing 10,000+ member support
 - Enterprises requiring SLAs and dedicated support
 - Users who need native mobile apps immediately
@@ -125,25 +133,25 @@ By open-sourcing a production-ready community platform, we can:
 
 ### Direct Competitors
 
-| Platform | Price | Transaction Fee | Custom Domain | Key Strength | Key Weakness |
-|----------|-------|-----------------|---------------|--------------|--------------|
-| **Skool** | $99/mo | 2.9-10% | Subdomain only | Simplicity, gamification | No customization, no custom domain |
-| **Circle** | $49-199/mo | 0.5-4% | Yes (higher tiers) | Flexibility, courses | Gets expensive, complex |
-| **Mighty Networks** | $41-360/mo | Varies | Yes (higher tiers) | AI features ("People Magic") | Expensive, overwhelming |
-| **Discord** | Free | N/A | N/A | Real-time chat | Not built for courses/content |
-| **Facebook Groups** | Free | N/A | N/A | Familiar UX | No monetization, no ownership |
+| Platform            | Price      | Transaction Fee | Custom Domain      | Key Strength                 | Key Weakness                       |
+| ------------------- | ---------- | --------------- | ------------------ | ---------------------------- | ---------------------------------- |
+| **Skool**           | $99/mo     | 2.9-10%         | Subdomain only     | Simplicity, gamification     | No customization, no custom domain |
+| **Circle**          | $49-199/mo | 0.5-4%          | Yes (higher tiers) | Flexibility, courses         | Gets expensive, complex            |
+| **Mighty Networks** | $41-360/mo | Varies          | Yes (higher tiers) | AI features ("People Magic") | Expensive, overwhelming            |
+| **Discord**         | Free       | N/A             | N/A                | Real-time chat               | Not built for courses/content      |
+| **Facebook Groups** | Free       | N/A             | N/A                | Familiar UX                  | No monetization, no ownership      |
 
 ### OpenTribe Positioning
 
-| Feature | OpenTribe | Competitors |
-|---------|-----------|-------------|
-| Price | Free | $49-360/mo |
-| Transaction fees | 0% (your Stripe) | 0.5-10% |
-| Custom domain | Yes | Higher tiers only |
-| Data ownership | 100% yours | Platform owns |
-| Open source | Yes | No |
-| AI engagement | Yes | Mighty only |
-| Self-hosted | Yes | No |
+| Feature          | OpenTribe        | Competitors       |
+| ---------------- | ---------------- | ----------------- |
+| Price            | Free             | $49-360/mo        |
+| Transaction fees | 0% (your Stripe) | 0.5-10%           |
+| Custom domain    | Yes              | Higher tiers only |
+| Data ownership   | 100% yours       | Platform owns     |
+| Open source      | Yes              | No                |
+| AI engagement    | Yes              | Mighty only       |
+| Self-hosted      | Yes              | No                |
 
 ---
 
@@ -182,6 +190,7 @@ OpenTribe is a free, open-source alternative to Skool, Circle, and Mighty Networ
 Spaces are containers for organizing community content by topic or purpose.
 
 **Requirements:**
+
 - Create, edit, delete spaces
 - Space types: Posts, Events, Courses
 - Space visibility: Public, Private (members only), Secret (invite only)
@@ -192,6 +201,7 @@ Spaces are containers for organizing community content by topic or purpose.
 #### 1.2 Posts & Discussions
 
 **Requirements:**
+
 - Create posts with rich text editor
 - Support for: text formatting, images, video embeds, file attachments, code blocks
 - Comments on posts
@@ -206,6 +216,7 @@ Spaces are containers for organizing community content by topic or purpose.
 #### 1.3 Activity Feed
 
 **Requirements:**
+
 - Aggregated feed of all spaces
 - Filter by space
 - Filter by: All, Following, Popular
@@ -218,6 +229,7 @@ Spaces are containers for organizing community content by topic or purpose.
 #### 2.1 Member Profiles
 
 **Requirements:**
+
 - Profile photo
 - Display name
 - Bio/about
@@ -230,6 +242,7 @@ Spaces are containers for organizing community content by topic or purpose.
 #### 2.2 Member Directory
 
 **Requirements:**
+
 - Searchable member list
 - Filter by custom fields
 - Sort by: Name, Join date, Activity, Points
@@ -239,6 +252,7 @@ Spaces are containers for organizing community content by topic or purpose.
 #### 2.3 Member Roles
 
 **Requirements:**
+
 - Default roles: Admin, Moderator, Member
 - Custom roles (admin-defined)
 - Role-based permissions:
@@ -255,6 +269,7 @@ Spaces are containers for organizing community content by topic or purpose.
 #### 3.1 Course Structure
 
 **Requirements:**
+
 - Create courses with title, description, thumbnail
 - Organize into modules/sections
 - Lessons within modules
@@ -265,6 +280,7 @@ Spaces are containers for organizing community content by topic or purpose.
 #### 3.2 Course Content
 
 **Requirements:**
+
 - Rich text lesson content
 - Video embedding (YouTube, Vimeo, or direct upload)
 - File attachments
@@ -274,6 +290,7 @@ Spaces are containers for organizing community content by topic or purpose.
 #### 3.3 Course Progress
 
 **Requirements:**
+
 - Mark lessons complete
 - Progress bar per course
 - Progress bar per module
@@ -287,6 +304,7 @@ Spaces are containers for organizing community content by topic or purpose.
 #### 4.1 Event Creation
 
 **Requirements:**
+
 - Event title, description, thumbnail
 - Date and time (with timezone support)
 - Duration
@@ -297,6 +315,7 @@ Spaces are containers for organizing community content by topic or purpose.
 #### 4.2 Event Discovery
 
 **Requirements:**
+
 - Calendar view (month, week, list)
 - Upcoming events list
 - Past events archive
@@ -305,6 +324,7 @@ Spaces are containers for organizing community content by topic or purpose.
 #### 4.3 Event Engagement
 
 **Requirements:**
+
 - RSVP: Going, Maybe, Not going
 - Add to calendar (Google, Apple, Outlook)
 - Event reminders (email)
@@ -317,6 +337,7 @@ Spaces are containers for organizing community content by topic or purpose.
 #### 5.1 Stripe Integration
 
 **Requirements:**
+
 - Connect your own Stripe account
 - Zero platform transaction fees
 - Test mode for development
@@ -324,6 +345,7 @@ Spaces are containers for organizing community content by topic or purpose.
 #### 5.2 Pricing Options
 
 **Requirements:**
+
 - Free tier (no payment required)
 - One-time payment
 - Recurring subscription (monthly, yearly)
@@ -334,6 +356,7 @@ Spaces are containers for organizing community content by topic or purpose.
 #### 5.3 Access Control
 
 **Requirements:**
+
 - Gate spaces by payment tier
 - Gate courses by payment tier
 - Gate content within spaces
@@ -343,6 +366,7 @@ Spaces are containers for organizing community content by topic or purpose.
 #### 5.4 Member Billing
 
 **Requirements:**
+
 - Member billing portal (Stripe Customer Portal)
 - Update payment method
 - View invoices
@@ -355,6 +379,7 @@ Spaces are containers for organizing community content by topic or purpose.
 #### 6.1 Points System
 
 **Requirements:**
+
 - Earn points for actions:
   - Creating posts
   - Commenting
@@ -368,6 +393,7 @@ Spaces are containers for organizing community content by topic or purpose.
 #### 6.2 Levels
 
 **Requirements:**
+
 - Level progression based on points
 - Level names (customizable by admin)
 - Level badges displayed on profile
@@ -376,6 +402,7 @@ Spaces are containers for organizing community content by topic or purpose.
 #### 6.3 Leaderboard
 
 **Requirements:**
+
 - Community leaderboard
 - Filter: All time, This month, This week
 - Top 10/25/50 display
@@ -385,11 +412,12 @@ Spaces are containers for organizing community content by topic or purpose.
 
 ### 7. AI-Powered Engagement (P0)
 
-*Competing with Mighty Networks' "People Magic"*
+_Competing with Mighty Networks' "People Magic"_
 
 #### 7.1 AI Member Matching
 
 **Requirements:**
+
 - "Members like you" suggestions
 - Based on: profile fields, interests, activity patterns
 - Display common interests/connections
@@ -398,6 +426,7 @@ Spaces are containers for organizing community content by topic or purpose.
 #### 7.2 AI Profile Builder
 
 **Requirements:**
+
 - Answer 3-5 questions
 - Generate complete profile bio
 - Regenerate option
@@ -406,6 +435,7 @@ Spaces are containers for organizing community content by topic or purpose.
 #### 7.3 AI Conversation Starters
 
 **Requirements:**
+
 - Suggest DM openers based on shared interests
 - Suggest icebreakers for new members
 - Generate discussion prompts for spaces
@@ -413,6 +443,7 @@ Spaces are containers for organizing community content by topic or purpose.
 #### 7.4 AI Re-engagement
 
 **Requirements:**
+
 - Identify inactive members
 - Generate personalized re-engagement messages
 - Admin dashboard for bulk outreach
@@ -421,6 +452,7 @@ Spaces are containers for organizing community content by topic or purpose.
 #### 7.5 AI Content Assistant
 
 **Requirements:**
+
 - Improve post writing (grammar, clarity, tone)
 - Suggest hashtags
 - Generate post ideas based on trending topics
@@ -432,6 +464,7 @@ Spaces are containers for organizing community content by topic or purpose.
 #### 8.1 Overview
 
 **Requirements:**
+
 - Total members (and growth trend)
 - Active members (DAU, WAU, MAU)
 - New members (today, this week, this month)
@@ -442,6 +475,7 @@ Spaces are containers for organizing community content by topic or purpose.
 #### 8.2 Member Management
 
 **Requirements:**
+
 - View all members
 - Search and filter
 - Edit member details
@@ -452,6 +486,7 @@ Spaces are containers for organizing community content by topic or purpose.
 #### 8.3 Content Moderation
 
 **Requirements:**
+
 - Reported content queue
 - Approve/reject/delete content
 - Member warnings
@@ -460,6 +495,7 @@ Spaces are containers for organizing community content by topic or purpose.
 #### 8.4 Settings
 
 **Requirements:**
+
 - Community name, description, logo
 - Custom domain configuration
 - Color theme / branding
@@ -475,6 +511,7 @@ Spaces are containers for organizing community content by topic or purpose.
 #### 9.1 In-App Notifications
 
 **Requirements:**
+
 - Notification bell with unread count
 - Notification types:
   - New comment on your post
@@ -490,6 +527,7 @@ Spaces are containers for organizing community content by topic or purpose.
 #### 9.2 Email Notifications
 
 **Requirements:**
+
 - Configurable email preferences
 - Digest options: Immediate, Daily, Weekly, Off
 - Transactional emails:
@@ -506,6 +544,7 @@ Spaces are containers for organizing community content by topic or purpose.
 #### 10.1 Visual Branding
 
 **Requirements:**
+
 - Logo upload
 - Favicon
 - Primary color
@@ -516,6 +555,7 @@ Spaces are containers for organizing community content by topic or purpose.
 #### 10.2 Custom Domain
 
 **Requirements:**
+
 - Connect custom domain
 - SSL certificate (automatic via Vercel)
 - Subdomain support
@@ -523,6 +563,7 @@ Spaces are containers for organizing community content by topic or purpose.
 #### 10.3 Custom Fields
 
 **Requirements:**
+
 - Create custom profile fields
 - Field types: Text, Select, Multi-select, URL
 - Required vs optional
@@ -533,6 +574,7 @@ Spaces are containers for organizing community content by topic or purpose.
 ### 11. Authentication (P0)
 
 **Requirements:**
+
 - Email/password registration
 - Social login: Google, GitHub, (others via Clerk)
 - Magic link login
@@ -545,6 +587,7 @@ Spaces are containers for organizing community content by topic or purpose.
 ### 12. Search (P1)
 
 **Requirements:**
+
 - Global search
 - Search posts and comments
 - Search members
@@ -557,6 +600,7 @@ Spaces are containers for organizing community content by topic or purpose.
 ### 13. Direct Messaging (P1)
 
 **Requirements:**
+
 - 1:1 messaging between members
 - Message threads
 - Read receipts
@@ -568,6 +612,7 @@ Spaces are containers for organizing community content by topic or purpose.
 ### 14. Mobile Responsiveness (P0)
 
 **Requirements:**
+
 - Fully responsive design
 - Touch-friendly interactions
 - Mobile navigation
@@ -579,18 +624,18 @@ Spaces are containers for organizing community content by topic or purpose.
 
 ### Tech Stack
 
-| Layer | Technology |
-|-------|------------|
-| Framework | Next.js 15 (App Router) |
-| Database & Backend | Convex |
-| Authentication | Clerk |
-| Payments | Stripe |
-| Styling | Tailwind CSS |
-| UI Components | shadcn/ui |
-| AI | OpenAI API (or Claude API) |
-| File Storage | Convex file storage |
-| Deployment | Vercel + Convex Cloud |
-| Email | Resend (or SendGrid) |
+| Layer              | Technology                 |
+| ------------------ | -------------------------- |
+| Framework          | Next.js 15 (App Router)    |
+| Database & Backend | Convex                     |
+| Authentication     | Clerk                      |
+| Payments           | Stripe                     |
+| Styling            | Tailwind CSS               |
+| UI Components      | shadcn/ui                  |
+| AI                 | OpenAI API (or Claude API) |
+| File Storage       | Convex file storage        |
+| Deployment         | Vercel + Convex Cloud      |
+| Email              | Resend (or SendGrid)       |
 
 ### Architecture Diagram
 
@@ -947,6 +992,7 @@ Home (Feed)
 ### Navigation Structure
 
 **Primary Navigation (Sidebar):**
+
 - Home (Feed)
 - Spaces (expandable)
 - Courses
@@ -955,6 +1001,7 @@ Home (Feed)
 - Leaderboard
 
 **Secondary Navigation (Header):**
+
 - Search
 - Notifications
 - Profile dropdown
@@ -969,30 +1016,30 @@ Home (Feed)
 
 ### Launch Metrics (First 30 Days)
 
-| Metric | Target |
-|--------|--------|
-| GitHub Stars | 500+ |
-| Forks | 50+ |
+| Metric                   | Target |
+| ------------------------ | ------ |
+| GitHub Stars             | 500+   |
+| Forks                    | 50+    |
 | Email signups (Hit List) | 1,000+ |
-| Successful deployments | 100+ |
-| Social shares/mentions | 200+ |
+| Successful deployments   | 100+   |
+| Social shares/mentions   | 200+   |
 
 ### Engagement Metrics (Ongoing)
 
-| Metric | Target |
-|--------|--------|
-| Monthly active deployments | Growing MoM |
-| GitHub contributors | 10+ |
-| Community Discord members | 500+ |
-| DevFast inquiries from OpenTribe | 2+/month |
+| Metric                           | Target      |
+| -------------------------------- | ----------- |
+| Monthly active deployments       | Growing MoM |
+| GitHub contributors              | 10+         |
+| Community Discord members        | 500+        |
+| DevFast inquiries from OpenTribe | 2+/month    |
 
 ### Business Metrics
 
-| Metric | Target |
-|--------|--------|
-| DevFast clients attributed to OpenTribe | 1-2/month |
-| Email list growth | 500+/month |
-| "Kill Your SaaS" brand awareness | Qualitative |
+| Metric                                  | Target      |
+| --------------------------------------- | ----------- |
+| DevFast clients attributed to OpenTribe | 1-2/month   |
+| Email list growth                       | 500+/month  |
+| "Kill Your SaaS" brand awareness        | Qualitative |
 
 ---
 
@@ -1040,16 +1087,19 @@ Home (Feed)
 ## Future Roadmap
 
 ### Version 1.1
+
 - Direct messaging
 - Advanced search
 - Completion certificates
 
 ### Version 1.2
+
 - Real-time chat rooms
 - Polls and surveys
 - Quizzes and assessments
 
 ### Version 2.0
+
 - Native mobile app (React Native)
 - Live streaming integration
 - White-label / multi-tenant support
@@ -1061,18 +1111,18 @@ Home (Feed)
 
 ### Competitor Feature Matrix
 
-| Feature | OpenTribe | Skool | Circle | Mighty |
-|---------|-----------|-------|--------|--------|
-| Community feed | ✅ | ✅ | ✅ | ✅ |
-| Courses | ✅ | ✅ | ✅ | ✅ |
-| Events | ✅ | ✅ | ✅ | ✅ |
-| Payments | ✅ | ✅ | ✅ | ✅ |
-| Gamification | ✅ | ✅ | ❌ | ✅ |
-| AI features | ✅ | ❌ | ❌ | ✅ |
-| Custom domain | ✅ | ❌ | ✅ | ✅ |
-| Self-hosted | ✅ | ❌ | ❌ | ❌ |
-| Open source | ✅ | ❌ | ❌ | ❌ |
-| Free | ✅ | ❌ | ❌ | ❌ |
+| Feature        | OpenTribe | Skool | Circle | Mighty |
+| -------------- | --------- | ----- | ------ | ------ |
+| Community feed | ✅        | ✅    | ✅     | ✅     |
+| Courses        | ✅        | ✅    | ✅     | ✅     |
+| Events         | ✅        | ✅    | ✅     | ✅     |
+| Payments       | ✅        | ✅    | ✅     | ✅     |
+| Gamification   | ✅        | ✅    | ❌     | ✅     |
+| AI features    | ✅        | ❌    | ❌     | ✅     |
+| Custom domain  | ✅        | ❌    | ✅     | ✅     |
+| Self-hosted    | ✅        | ❌    | ❌     | ❌     |
+| Open source    | ✅        | ❌    | ❌     | ❌     |
+| Free           | ✅        | ❌    | ❌     | ❌     |
 
 ### Reference Links
 
@@ -1086,4 +1136,4 @@ Home (Feed)
 
 ---
 
-*This is a living document. Update as requirements evolve.*
+_This is a living document. Update as requirements evolve._

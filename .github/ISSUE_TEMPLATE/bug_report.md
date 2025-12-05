@@ -1,9 +1,9 @@
 ---
 name: Bug Report
 about: Report a bug or issue with the AI Starter Kit
-title: '[BUG] '
+title: "[BUG] "
 labels: bug
-assignees: ''
+assignees: ""
 ---
 
 ## Bug Description

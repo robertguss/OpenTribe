@@ -8,19 +8,19 @@
  *
  * Run setup: pnpm run test:e2e --project=setup
  */
-import { test as setup, expect } from '@playwright/test';
+import { test as setup, expect } from "@playwright/test";
 
-const AUTH_FILE = 'tests/.auth/user.json';
+const AUTH_FILE = "tests/.auth/user.json";
 
 // Test credentials - in production, use environment variables
 const TEST_USER = {
-  email: process.env.TEST_USER_EMAIL || 'test@opentribe.test',
-  password: process.env.TEST_USER_PASSWORD || 'TestPassword123!',
+  email: process.env.TEST_USER_EMAIL || "test@opentribe.test",
+  password: process.env.TEST_USER_PASSWORD || "TestPassword123!",
 };
 
-setup('authenticate', async ({ page }) => {
+setup("authenticate", async ({ page }) => {
   // Navigate to login page
-  await page.goto('/login');
+  await page.goto("/login");
 
   // Fill login form
   // Note: Update selectors to match your actual login form
@@ -28,7 +28,7 @@ setup('authenticate', async ({ page }) => {
   await page.getByLabel(/password/i).fill(TEST_USER.password);
 
   // Submit login
-  await page.getByRole('button', { name: /sign in|log in/i }).click();
+  await page.getByRole("button", { name: /sign in|log in/i }).click();
 
   // Wait for redirect to dashboard (successful login)
   await expect(page).toHaveURL(/dashboard/);

@@ -17,14 +17,16 @@
 ## Critical Convex Rules
 
 ### Schema Conventions
+
 ```typescript
 // Tables: camelCase, plural
 defineTable({
-  authorId: v.id("users"),      // ✅ References use v.id()
-  createdAt: v.number(),        // ✅ Dates as timestamps (Date.now())
-  spaceId: v.id("spaces"),      // ✅ camelCase field names
-}).index("by_spaceId", ["spaceId"])
-  .index("by_authorId_and_createdAt", ["authorId", "createdAt"])
+  authorId: v.id("users"), // ✅ References use v.id()
+  createdAt: v.number(), // ✅ Dates as timestamps (Date.now())
+  spaceId: v.id("spaces"), // ✅ camelCase field names
+})
+  .index("by_spaceId", ["spaceId"])
+  .index("by_authorId_and_createdAt", ["authorId", "createdAt"]);
 
 // ❌ NEVER: author_id, created_at, snake_case anything
 // ❌ NEVER: v.string() for IDs - always v.id("tableName")
@@ -32,6 +34,7 @@ defineTable({
 ```
 
 ### Function Naming
+
 ```typescript
 // Queries: get* (single), list* (multiple), search*, count*
 export const getPost = query({ ... })
@@ -46,6 +49,7 @@ export const toggleLike = mutation({ ... })
 ```
 
 ### Function Structure (ALWAYS include validators)
+
 ```typescript
 export const createPost = mutation({
   args: {
@@ -56,13 +60,14 @@ export const createPost = mutation({
   handler: async (ctx, args) => {
     const user = await getAuthUser(ctx);
     if (!user) throw new ConvexError("Unauthorized");
-    
+
     // Implementation...
-  }
+  },
 });
 ```
 
 ### Error Handling
+
 ```typescript
 // ✅ Use ConvexError for user-facing errors
 throw new ConvexError("You don't have permission to post here");
@@ -71,6 +76,7 @@ throw new ConvexError("You don't have permission to post here");
 ```
 
 ### Not Found Pattern
+
 ```typescript
 // ✅ Return null, let client handle
 export const getPost = query({
@@ -78,7 +84,7 @@ export const getPost = query({
   handler: async (ctx, args) => {
     const post = await ctx.db.get(args.postId);
     return post; // null if not found
-  }
+  },
 });
 
 // ❌ NEVER: throw on not found
@@ -87,6 +93,7 @@ export const getPost = query({
 ## File Organization
 
 ### Convex Backend
+
 ```
 convex/
 ├── schema.ts                 # ALL tables in single file
@@ -102,6 +109,7 @@ convex/
 ```
 
 ### React Components
+
 ```
 components/
 ├── ui/                      # shadcn/ui primitives only
@@ -111,6 +119,7 @@ components/
 ```
 
 ### Routes
+
 ```
 app/
 ├── (community)/             # Protected routes
@@ -122,6 +131,7 @@ app/
 ## React Patterns
 
 ### Loading States
+
 ```typescript
 const posts = useQuery(api.posts.queries.listPosts, { spaceId });
 
@@ -131,10 +141,11 @@ return <PostList posts={posts} />;             // Data
 ```
 
 ### Typed Props
+
 ```typescript
 // ✅ Always use typed IDs
 type Props = {
-  postId: Id<"posts">;  // From convex/_generated/dataModel
+  postId: Id<"posts">; // From convex/_generated/dataModel
 };
 
 // ❌ NEVER: postId: string
@@ -143,13 +154,14 @@ type Props = {
 ## Gamification (Critical)
 
 **ALWAYS award points through the central function:**
+
 ```typescript
 import { awardPoints } from "../_lib/points";
 
 // In any mutation that should award points:
 await awardPoints(ctx, {
   userId: user._id,
-  action: "post_created",  // Standardized action names
+  action: "post_created", // Standardized action names
   points: 10,
   sourceId: postId,
 });
@@ -167,6 +179,7 @@ await awardPoints(ctx, {
 ## Authorization Model
 
 **Three-tier system:**
+
 1. **Global Role:** Admin > Moderator > Member
 2. **Space Permission:** Visibility, post permission, comment permission
 3. **Tier Access:** Free, paid tier requirements

@@ -56,18 +56,18 @@ export const selectors = {
  *   getSelector('auth.emailInput') // returns '[data-testid="email-input"]'
  */
 export function getSelector(path: string): string {
-  const parts = path.split('.');
+  const parts = path.split(".");
   let current: unknown = selectors;
 
   for (const part of parts) {
-    if (current && typeof current === 'object' && part in current) {
+    if (current && typeof current === "object" && part in current) {
       current = (current as Record<string, unknown>)[part];
     } else {
       throw new Error(`Selector not found: ${path}`);
     }
   }
 
-  if (typeof current !== 'string') {
+  if (typeof current !== "string") {
     throw new Error(`Invalid selector path: ${path}`);
   }
 
