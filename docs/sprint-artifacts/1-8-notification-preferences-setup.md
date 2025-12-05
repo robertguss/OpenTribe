@@ -464,13 +464,6 @@ npx shadcn@latest add radio-group
 
 5. **Note on in-app notifications** - This story focuses on EMAIL preferences only. The in-app notification toggles mentioned in the AC are NOT part of the current schema. For MVP, focus on email preferences which ARE in the schema. In-app notification preferences can be added in Epic 7 when the full notification system is built.
 
-### Design Mockups
-
-**UI implementation MUST match these mockups:**
-
-- Visual Reference: `docs/design/mockups/user_settings_page/screen.png`
-- HTML/CSS Reference: `docs/design/mockups/user_settings_page/code.html`
-
 ### References
 
 - [Source: docs/epics.md#Story-1.8] - Full acceptance criteria

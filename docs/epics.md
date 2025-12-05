@@ -201,45 +201,6 @@ Each epic delivers **user value**, not just technical capability. The structure 
 
 ---
 
-## Design Mockups Reference
-
-UI mockups are located in `docs/design/mockups/`. Each mockup folder contains:
-
-- `screen.png` - Visual reference for the UI
-- `code.html` - HTML/CSS reference implementation
-
-**When implementing stories with UI components, the Dev agent MUST reference the relevant mockup(s).**
-
-### Mockup-to-Epic Mapping
-
-| Mockup Folder            | Relevant Epics/Features   | Description                                     |
-| ------------------------ | ------------------------- | ----------------------------------------------- |
-| `user_settings_page`     | Epic 1 (Stories 1.7, 1.8) | User profile settings, notification preferences |
-| `home_feed`              | Epic 2                    | Activity feed, post stream                      |
-| `post_detail_page`       | Epic 2                    | Single post view with comments                  |
-| `space_page`             | Epic 2                    | Space/channel view with posts                   |
-| `members_directory`      | Epic 8                    | Member listing and search                       |
-| `courses_list_page`      | Epic 3                    | Course catalog/listing                          |
-| `course_detail_overview` | Epic 3                    | Course landing page with modules                |
-| `course_lesson_view`     | Epic 3                    | Lesson content viewer                           |
-| `events_page`            | Epic 4                    | Events calendar/listing                         |
-| `admin_dashboard`        | Epic 8                    | Admin analytics and management                  |
-
-### Usage in Stories
-
-When creating or updating stories, add a "Design Mockups" section:
-
-```markdown
-### Design Mockups
-
-**UI implementation MUST match these mockups:**
-
-- Visual Reference: `docs/design/mockups/{mockup_folder}/screen.png`
-- HTML/CSS Reference: `docs/design/mockups/{mockup_folder}/code.html`
-```
-
----
-
 ## FR Coverage Map
 
 | FR Range  | Epic Coverage   | Notes                                    |
