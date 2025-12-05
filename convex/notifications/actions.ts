@@ -42,13 +42,17 @@ export const sendWelcomeEmail = action({
   returns: v.boolean(),
   handler: async (ctx, args) => {
     try {
+      // Derive dashboard URL from environment
+      // SITE_URL must be set in Convex env for production deployments
+      // Falls back to localhost for local dev (safe placeholder, not production)
+      const siteUrl = process.env.SITE_URL || "http://localhost:3000";
+      const dashboardUrl = `${siteUrl}/dashboard`;
+
       // Render the React Email template to HTML
       const html = await render(
         WelcomeEmail({
           name: args.name,
-          dashboardUrl: process.env.SITE_URL
-            ? `${process.env.SITE_URL}/dashboard`
-            : "https://opentribe.com/dashboard",
+          dashboardUrl,
         })
       );
 

@@ -4,7 +4,12 @@
  * Centralized rate limit definitions for the OpenTribe platform.
  * Uses convex-helpers rate limiting with token bucket and fixed window strategies.
  *
- * Architecture requirement: 5 attempts per hour per IP for signup
+ * Architecture requirement: 5 attempts per hour per email for signup
+ * Note: Email-based limiting chosen over IP-based because:
+ * - Client IP is unreliable in serverless environments (proxies, CDNs)
+ * - Email provides consistent identity tracking across requests
+ * - Prevents signup spam per email address effectively
+ *
  * See: docs/ARCHITECTURE.md, docs/epics.md
  */
 

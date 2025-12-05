@@ -576,7 +576,7 @@ _Competing with Mighty Networks' "People Magic"_
 **Requirements:**
 
 - Email/password registration
-- Social login: Google, GitHub, (others via Clerk)
+- Social login: Google, GitHub (via Better Auth)
 - Magic link login
 - Password reset
 - Email verification
@@ -624,18 +624,19 @@ _Competing with Mighty Networks' "People Magic"_
 
 ### Tech Stack
 
-| Layer              | Technology                 |
-| ------------------ | -------------------------- |
-| Framework          | Next.js 15 (App Router)    |
-| Database & Backend | Convex                     |
-| Authentication     | Clerk                      |
-| Payments           | Stripe                     |
-| Styling            | Tailwind CSS               |
-| UI Components      | shadcn/ui                  |
-| AI                 | OpenAI API (or Claude API) |
-| File Storage       | Convex file storage        |
-| Deployment         | Vercel + Convex Cloud      |
-| Email              | Resend (or SendGrid)       |
+| Layer              | Technology                    |
+| ------------------ | ----------------------------- |
+| Framework          | Next.js 16 (App Router)       |
+| Frontend           | React 19                      |
+| Database & Backend | Convex                        |
+| Authentication     | Better Auth with Convex       |
+| Payments           | Stripe                        |
+| Styling            | Tailwind CSS 4                |
+| UI Components      | shadcn/ui                     |
+| AI                 | OpenAI API (or Claude API)    |
+| File Storage       | Convex file storage           |
+| Deployment         | Vercel + Convex Cloud         |
+| Email              | Resend (via Convex component) |
 
 ### Architecture Diagram
 
@@ -666,18 +667,17 @@ _Competing with Mighty Networks' "People Magic"_
           ┌───────────────┼───────────────┐
           ▼               ▼               ▼
     ┌──────────┐   ┌──────────┐   ┌──────────┐
-    │  Clerk   │   │  Stripe  │   │ OpenAI/  │
-    │  (Auth)  │   │(Payments)│   │ Claude   │
+    │  Better  │   │  Stripe  │   │ OpenAI/  │
+    │  Auth    │   │(Payments)│   │ Claude   │
     └──────────┘   └──────────┘   └──────────┘
 ```
 
 ### Database Schema (Convex Tables)
 
 ```typescript
-// Users
+// Users (linked to Better Auth via email)
 users: {
-  clerkId: string
-  email: string
+  email: string  // Links to Better Auth user
   name: string
   avatar: string
   bio: string
@@ -1131,7 +1131,7 @@ Home (Feed)
 - [Mighty Networks](https://mightynetworks.com)
 - [Convex Documentation](https://docs.convex.dev)
 - [Next.js Documentation](https://nextjs.org/docs)
-- [Clerk Documentation](https://clerk.com/docs)
+- [Better Auth Documentation](https://www.better-auth.com/docs)
 - [Stripe Documentation](https://stripe.com/docs)
 
 ---

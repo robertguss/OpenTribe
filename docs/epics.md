@@ -362,7 +362,7 @@ So that I can join the community.
 
 - Use React Hook Form + Zod for frontend validation
 - Better Auth handles password hashing (bcrypt)
-- Rate limiting: 5 attempts per hour per IP (Architecture 8.1)
+- Rate limiting: 5 attempts per hour per email (email-based for serverless reliability)
 - Session managed via Better Auth Convex component
 
 **Prerequisites:** Story 1.2
