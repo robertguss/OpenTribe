@@ -65,21 +65,23 @@ workflow_status:
         note: "Validated and remediated - original PRD transformed to BMAD structure"
 
       - id: "create-ux-design"
-        status: "conditional"
+        status: "docs/ux-design-specification.md"
         condition: "if_has_ui"
         agent: "ux-designer"
         command: "/bmad:bmm:agents:ux-designer then create-ux-design"
-        note: "This project has UI - recommend completing"
+        completed: "2025-12-04"
+        note: "Comprehensive UX spec with design system, components, and flows"
 
   # Phase 2: Solutioning
   - phase: 2
     name: "Solutioning"
     workflows:
       - id: "create-architecture"
-        status: "required"
+        status: "docs/architecture.md"
         agent: "architect"
         command: "/bmad:bmm:agents:architect then create-architecture"
-        note: "Complete system design for greenfield project"
+        completed: "2025-12-04"
+        note: "Complete architecture with decisions, patterns, structure, and validation"
 
       - id: "create-epics-and-stories"
         status: "required"
