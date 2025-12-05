@@ -233,17 +233,23 @@ export function ProfileForm() {
 
   return (
     <Form {...form}>
-      <form className="space-y-6">
+      <form className="space-y-6" data-testid="profile-form">
         {/* Save State Indicator */}
         <div className="text-muted-foreground flex justify-end text-sm">
           {saveState === "saving" && (
-            <span className="text-yellow-600">Saving...</span>
+            <span className="text-yellow-600" data-testid="save-state-saving">
+              Saving...
+            </span>
           )}
           {saveState === "saved" && (
-            <span className="text-green-600">Saved ✓</span>
+            <span className="text-green-600" data-testid="save-state-saved">
+              Saved ✓
+            </span>
           )}
           {saveState === "error" && (
-            <span className="text-red-600">Save failed</span>
+            <span className="text-red-600" data-testid="save-state-error">
+              Save failed
+            </span>
           )}
         </div>
 
@@ -270,7 +276,11 @@ export function ProfileForm() {
             <FormItem>
               <FormLabel>Display Name</FormLabel>
               <FormControl>
-                <Input placeholder="Your display name" {...field} />
+                <Input
+                  placeholder="Your display name"
+                  data-testid="input-display-name"
+                  {...field}
+                />
               </FormControl>
               <FormDescription>
                 How you appear to other community members.
@@ -292,6 +302,7 @@ export function ProfileForm() {
                   placeholder="Tell the community about yourself..."
                   className="resize-none"
                   rows={4}
+                  data-testid="input-bio"
                   {...field}
                 />
               </FormControl>
@@ -306,14 +317,22 @@ export function ProfileForm() {
         {/* Email (read-only) */}
         <div className="space-y-2">
           <Label>Email</Label>
-          <Input value={profile.email} disabled className="bg-muted" />
+          <Input
+            value={profile.email}
+            disabled
+            className="bg-muted"
+            data-testid="input-email"
+          />
           <p className="text-muted-foreground text-sm">
             Your email address is not publicly visible.
           </p>
         </div>
 
         {/* Visibility Toggle */}
-        <div className="flex items-center justify-between rounded-lg border p-4">
+        <div
+          className="flex items-center justify-between rounded-lg border p-4"
+          data-testid="visibility-toggle-container"
+        >
           <div className="space-y-0.5">
             <Label htmlFor="visibility-toggle">Private Profile</Label>
             <p className="text-muted-foreground text-sm">
@@ -326,6 +345,7 @@ export function ProfileForm() {
             id="visibility-toggle"
             checked={watchedVisibility === "private"}
             onCheckedChange={handleVisibilityChange}
+            data-testid="toggle-visibility"
           />
         </div>
       </form>
