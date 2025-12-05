@@ -45,7 +45,7 @@ development_status:
   1-5-magic-link-passwordless-authentication: skipped
   1-6-password-reset-flow: done
   1-7-user-profile-view-and-edit: done
-  1-8-notification-preferences-setup: ready-for-dev
+  1-8-notification-preferences-setup: done
   epic-1-retrospective: optional
 
   # Epic 2: Community Spaces & Content
