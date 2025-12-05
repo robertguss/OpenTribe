@@ -204,6 +204,7 @@ export default defineSchema({
   // Events
   // ============================================
   events: defineTable({
+    creatorId: v.id("users"),
     title: v.string(),
     description: v.optional(v.string()),
     descriptionHtml: v.optional(v.string()),
@@ -228,6 +229,7 @@ export default defineSchema({
     createdAt: v.number(),
     deletedAt: v.optional(v.number()),
   })
+    .index("by_creatorId", ["creatorId"])
     .index("by_startTime", ["startTime"])
     .index("by_endTime", ["endTime"]),
 
