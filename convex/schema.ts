@@ -1,5 +1,6 @@
 import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
+import { rateLimitTables } from "convex-helpers/server/rateLimit";
 
 export default defineSchema({
   // ============================================
@@ -410,4 +411,9 @@ export default defineSchema({
     stripeConnectedAccountId: v.optional(v.string()),
     updatedAt: v.number(),
   }),
+
+  // ============================================
+  // Rate limiting tables (from convex-helpers)
+  // ============================================
+  ...rateLimitTables,
 });

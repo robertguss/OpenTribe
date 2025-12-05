@@ -4,21 +4,21 @@ This document describes the testing architecture for OpenTribe.
 
 ## Test Stack
 
-| Tool | Purpose | Location |
-|------|---------|----------|
-| **Vitest** | Unit/Integration tests | `convex/*.test.ts` |
-| **convex-test** | Convex function testing | `convex/*.test.ts` |
-| **Playwright** | E2E browser tests | `tests/e2e/*.spec.ts` |
+| Tool            | Purpose                 | Location              |
+| --------------- | ----------------------- | --------------------- |
+| **Vitest**      | Unit/Integration tests  | `convex/*.test.ts`    |
+| **convex-test** | Convex function testing | `convex/*.test.ts`    |
+| **Playwright**  | E2E browser tests       | `tests/e2e/*.spec.ts` |
 
 ## Test Coverage Strategy
 
 Based on the TEA Test Design (60/30/10 split):
 
-| Level | Ratio | What to Test |
-|-------|-------|--------------|
-| **Unit** | 60% | Convex functions, permission helpers, business logic |
-| **Integration** | 30% | API contracts, webhook handlers, auth flows |
-| **E2E** | 10% | Critical user journeys, auth flows, payments |
+| Level           | Ratio | What to Test                                         |
+| --------------- | ----- | ---------------------------------------------------- |
+| **Unit**        | 60%   | Convex functions, permission helpers, business logic |
+| **Integration** | 30%   | API contracts, webhook handlers, auth flows          |
+| **E2E**         | 10%   | Critical user journeys, auth flows, payments         |
 
 ## Quick Start
 
@@ -107,14 +107,14 @@ it("should test with auth", async () => {
 
 ```typescript
 // tests/e2e/feature.spec.ts
-import { test, expect } from '../support/fixtures';
+import { test, expect } from "../support/fixtures";
 
-test.describe('Feature', () => {
-  test('should do something', async ({ page }) => {
+test.describe("Feature", () => {
+  test("should do something", async ({ page }) => {
     // Network-first: Set up interception BEFORE action
-    const apiResponse = page.waitForResponse('**/api/data');
+    const apiResponse = page.waitForResponse("**/api/data");
 
-    await page.goto('/feature');
+    await page.goto("/feature");
     await page.click('[data-testid="load-data"]');
 
     // Deterministic wait (no hard waits!)
@@ -122,12 +122,12 @@ test.describe('Feature', () => {
     expect(response.ok()).toBeTruthy();
 
     // Assert on UI
-    await expect(page.getByText('Data loaded')).toBeVisible();
+    await expect(page.getByText("Data loaded")).toBeVisible();
   });
 
   // Pre-authenticated test
-  test('should work for logged-in users', async ({ authenticatedPage }) => {
-    await authenticatedPage.goto('/dashboard');
+  test("should work for logged-in users", async ({ authenticatedPage }) => {
+    await authenticatedPage.goto("/dashboard");
     await expect(authenticatedPage).toHaveURL(/dashboard/);
   });
 });
@@ -142,15 +142,15 @@ test.describe('Feature', () => {
 await page.waitForTimeout(3000);
 
 // GOOD - Wait for specific condition
-await page.waitForResponse('**/api/data');
-await expect(page.getByText('Loaded')).toBeVisible();
+await page.waitForResponse("**/api/data");
+await expect(page.getByText("Loaded")).toBeVisible();
 ```
 
 ### 2. Network-First Interception
 
 ```typescript
 // Set up interception BEFORE the action
-const responsePromise = page.waitForResponse('**/api/submit');
+const responsePromise = page.waitForResponse("**/api/submit");
 await page.click('[data-testid="submit"]');
 const response = await responsePromise; // Deterministic
 ```
@@ -159,11 +159,11 @@ const response = await responsePromise; // Deterministic
 
 ```typescript
 // Each test gets a fresh convex-test environment
-it('test 1', async () => {
+it("test 1", async () => {
   const t = convexTest(schema, modules); // Fresh instance
 });
 
-it('test 2', async () => {
+it("test 2", async () => {
   const t = convexTest(schema, modules); // Fresh instance
 });
 ```
@@ -172,9 +172,9 @@ it('test 2', async () => {
 
 ```typescript
 // Keep assertions in test bodies, not hidden in helpers
-const response = await request.post('/api/users', { data: userData });
-expect(response.status()).toBe(201);  // Visible!
-expect(createdUser.email).toBe(userData.email);  // Visible!
+const response = await request.post("/api/users", { data: userData });
+expect(response.status()).toBe(201); // Visible!
+expect(createdUser.email).toBe(userData.email); // Visible!
 ```
 
 ## Environment Variables

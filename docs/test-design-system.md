@@ -21,15 +21,16 @@ OpenTribe's architecture is **highly testable** due to excellent technology choi
 
 **Can we control system state for testing?**
 
-| Aspect | Assessment | Notes |
-|--------|------------|-------|
-| API Seeding | PASS | Convex mutations provide direct data seeding via `convex-test` |
-| Database Reset | PASS | `convex-test` creates isolated in-memory environments per test |
-| Auth State | PASS | Better Auth sessions can be mocked via `withIdentity()` |
-| External Dependencies | PASS | Stripe/Resend are Convex components - mockable via actions |
-| Error Injection | PASS | Convex functions can throw `ConvexError` for controlled failures |
+| Aspect                | Assessment | Notes                                                            |
+| --------------------- | ---------- | ---------------------------------------------------------------- |
+| API Seeding           | PASS       | Convex mutations provide direct data seeding via `convex-test`   |
+| Database Reset        | PASS       | `convex-test` creates isolated in-memory environments per test   |
+| Auth State            | PASS       | Better Auth sessions can be mocked via `withIdentity()`          |
+| External Dependencies | PASS       | Stripe/Resend are Convex components - mockable via actions       |
+| Error Injection       | PASS       | Convex functions can throw `ConvexError` for controlled failures |
 
 **Evidence:**
+
 - `convex-test` already configured in `convex/test.setup.ts`
 - Pattern: `const t = convexTest(schema, modules)` provides isolated test environment
 - Auth mocking: `t.withIdentity({ subject: "user123" })` established pattern
@@ -38,15 +39,16 @@ OpenTribe's architecture is **highly testable** due to excellent technology choi
 
 **Can we inspect system state?**
 
-| Aspect | Assessment | Notes |
-|--------|------------|-------|
-| Query Inspection | PASS | Convex queries return typed results, inspectable via `t.query()` |
-| Mutation Verification | PASS | Direct database access via `t.run(async (ctx) => ctx.db.query())` |
-| Real-time State | PASS | Convex reactive subscriptions provide immediate state visibility |
-| Logs | PASS | Convex dashboard provides function execution logs |
-| Errors | PASS | `ConvexError` provides structured user-facing errors |
+| Aspect                | Assessment | Notes                                                             |
+| --------------------- | ---------- | ----------------------------------------------------------------- |
+| Query Inspection      | PASS       | Convex queries return typed results, inspectable via `t.query()`  |
+| Mutation Verification | PASS       | Direct database access via `t.run(async (ctx) => ctx.db.query())` |
+| Real-time State       | PASS       | Convex reactive subscriptions provide immediate state visibility  |
+| Logs                  | PASS       | Convex dashboard provides function execution logs                 |
+| Errors                | PASS       | `ConvexError` provides structured user-facing errors              |
 
 **Evidence:**
+
 - Architecture mandates `ConvexError` for all user-facing errors (searchable, structured)
 - Convex dashboard provides execution traces for debugging
 - TypeScript validators on all functions ensure predictable return shapes
@@ -55,14 +57,15 @@ OpenTribe's architecture is **highly testable** due to excellent technology choi
 
 **Are tests isolated and reproducible?**
 
-| Aspect | Assessment | Notes |
-|--------|------------|-------|
-| Test Isolation | PASS | `convexTest()` creates fresh environment per test |
-| Parallel Safety | PASS | In-memory mock environment prevents cross-test pollution |
-| Deterministic Results | PASS | No race conditions - Convex functions are transactional |
-| Cleanup Discipline | PASS | convex-test auto-cleans per test instance |
+| Aspect                | Assessment | Notes                                                    |
+| --------------------- | ---------- | -------------------------------------------------------- |
+| Test Isolation        | PASS       | `convexTest()` creates fresh environment per test        |
+| Parallel Safety       | PASS       | In-memory mock environment prevents cross-test pollution |
+| Deterministic Results | PASS       | No race conditions - Convex functions are transactional  |
+| Cleanup Discipline    | PASS       | convex-test auto-cleans per test instance                |
 
 **Evidence:**
+
 - Testing pattern from `CLAUDE.md`: "Create a new `convexTest(schema, modules)` instance in each test for isolation"
 - Convex's transactional model prevents partial state updates
 
@@ -72,18 +75,18 @@ OpenTribe's architecture is **highly testable** due to excellent technology choi
 
 Based on PRD NFRs and architecture decisions, these quality requirements drive testability:
 
-| ID | Requirement | Category | Probability | Impact | Score | Test Approach |
-|----|-------------|----------|-------------|--------|-------|---------------|
-| ASR-1 | 500 concurrent users without degradation | PERF | 2 | 3 | 6 | k6 load testing against staging |
-| ASR-2 | 2s page load on standard connections | PERF | 2 | 2 | 4 | Lighthouse CI, Playwright timing |
-| ASR-3 | 500ms real-time updates | PERF | 2 | 2 | 4 | Playwright network timing |
-| ASR-4 | Better Auth session validation | SEC | 2 | 3 | 6 | E2E auth flows, middleware testing |
-| ASR-5 | Role-based access (Admin/Mod/Member) | SEC | 3 | 3 | 9 | Unit tests for permission helpers |
-| ASR-6 | Stripe webhook signature validation | SEC | 2 | 3 | 6 | Integration tests with signed payloads |
-| ASR-7 | Rate limiting on mutations | SEC | 2 | 2 | 4 | Integration tests with rapid requests |
-| ASR-8 | 99.5% uptime (Convex/Vercel SLAs) | REL | 1 | 3 | 3 | Monitoring, not testing |
-| ASR-9 | Gamification point consistency | DATA | 2 | 2 | 4 | Unit tests for `awardPoints` |
-| ASR-10 | Payment-access coupling accuracy | BUS | 2 | 3 | 6 | Integration tests for webhook handlers |
+| ID     | Requirement                              | Category | Probability | Impact | Score | Test Approach                          |
+| ------ | ---------------------------------------- | -------- | ----------- | ------ | ----- | -------------------------------------- |
+| ASR-1  | 500 concurrent users without degradation | PERF     | 2           | 3      | 6     | k6 load testing against staging        |
+| ASR-2  | 2s page load on standard connections     | PERF     | 2           | 2      | 4     | Lighthouse CI, Playwright timing       |
+| ASR-3  | 500ms real-time updates                  | PERF     | 2           | 2      | 4     | Playwright network timing              |
+| ASR-4  | Better Auth session validation           | SEC      | 2           | 3      | 6     | E2E auth flows, middleware testing     |
+| ASR-5  | Role-based access (Admin/Mod/Member)     | SEC      | 3           | 3      | 9     | Unit tests for permission helpers      |
+| ASR-6  | Stripe webhook signature validation      | SEC      | 2           | 3      | 6     | Integration tests with signed payloads |
+| ASR-7  | Rate limiting on mutations               | SEC      | 2           | 2      | 4     | Integration tests with rapid requests  |
+| ASR-8  | 99.5% uptime (Convex/Vercel SLAs)        | REL      | 1           | 3      | 3     | Monitoring, not testing                |
+| ASR-9  | Gamification point consistency           | DATA     | 2           | 2      | 4     | Unit tests for `awardPoints`           |
+| ASR-10 | Payment-access coupling accuracy         | BUS      | 2           | 3      | 6     | Integration tests for webhook handlers |
 
 **Critical (Score 9):** ASR-5 - Role-based access control must be exhaustively tested. This is the authorization backbone for all features.
 
@@ -97,13 +100,14 @@ Based on the full-stack real-time architecture with Convex backend:
 
 ### Recommended Split: 60/30/10 (Unit/Integration/E2E)
 
-| Level | Ratio | Rationale |
-|-------|-------|-----------|
-| **Unit** | 60% | Convex functions are pure and isolated - ideal for unit testing via `convex-test` |
-| **Integration** | 30% | API contracts, webhook handlers, auth flows need integration validation |
-| **E2E** | 10% | Critical user journeys only - Convex handles data consistency |
+| Level           | Ratio | Rationale                                                                         |
+| --------------- | ----- | --------------------------------------------------------------------------------- |
+| **Unit**        | 60%   | Convex functions are pure and isolated - ideal for unit testing via `convex-test` |
+| **Integration** | 30%   | API contracts, webhook handlers, auth flows need integration validation           |
+| **E2E**         | 10%   | Critical user journeys only - Convex handles data consistency                     |
 
 **Why This Split:**
+
 1. **Convex functions are highly unit-testable** - They're pure functions with typed inputs/outputs
 2. **Real-time sync is handled by Convex** - No need to E2E test reactive updates
 3. **Auth flows need E2E** - Better Auth integration requires browser-based testing
@@ -111,11 +115,11 @@ Based on the full-stack real-time architecture with Convex backend:
 
 ### Test Environment Requirements
 
-| Environment | Purpose | Infrastructure |
-|-------------|---------|----------------|
-| **Local** | Unit + Integration | `convex-test` mock, `pnpm run test` |
-| **Staging** | E2E + Performance | Separate Convex project, Vercel preview |
-| **Production** | Monitoring only | Sentry, Convex dashboard |
+| Environment    | Purpose            | Infrastructure                          |
+| -------------- | ------------------ | --------------------------------------- |
+| **Local**      | Unit + Integration | `convex-test` mock, `pnpm run test`     |
+| **Staging**    | E2E + Performance  | Separate Convex project, Vercel preview |
+| **Production** | Monitoring only    | Sentry, Convex dashboard                |
 
 ---
 
@@ -125,25 +129,27 @@ Based on the full-stack real-time architecture with Convex backend:
 
 **Approach:** Playwright E2E + Convex unit tests
 
-| NFR | Test Type | Tool | Priority |
-|-----|-----------|------|----------|
-| Auth redirect for unauthenticated | E2E | Playwright | P0 |
-| RBAC enforcement (Admin/Mod/Member) | Unit | convex-test | P0 |
-| Password hashing (bcrypt) | Unit | convex-test | P1 |
-| Session expiry | E2E | Playwright | P1 |
-| Stripe webhook signature | Integration | convex-test | P0 |
-| Rate limiting | Integration | convex-test | P1 |
-| XSS prevention (Tiptap sanitization) | E2E | Playwright | P1 |
+| NFR                                  | Test Type   | Tool        | Priority |
+| ------------------------------------ | ----------- | ----------- | -------- |
+| Auth redirect for unauthenticated    | E2E         | Playwright  | P0       |
+| RBAC enforcement (Admin/Mod/Member)  | Unit        | convex-test | P0       |
+| Password hashing (bcrypt)            | Unit        | convex-test | P1       |
+| Session expiry                       | E2E         | Playwright  | P1       |
+| Stripe webhook signature             | Integration | convex-test | P0       |
+| Rate limiting                        | Integration | convex-test | P1       |
+| XSS prevention (Tiptap sanitization) | E2E         | Playwright  | P1       |
 
 **Key Tests:**
+
 ```typescript
 // Permission helper unit test (P0)
 test("member cannot access admin routes", async () => {
   const t = convexTest(schema, modules);
   const asMember = t.withIdentity({ subject: "member-123", role: "member" });
 
-  await expect(asMember.mutation(api.admin.mutations.banUser, { userId: "..." }))
-    .rejects.toThrow("Permission denied");
+  await expect(
+    asMember.mutation(api.admin.mutations.banUser, { userId: "..." })
+  ).rejects.toThrow("Permission denied");
 });
 ```
 
@@ -151,24 +157,25 @@ test("member cannot access admin routes", async () => {
 
 **Approach:** k6 for load testing, Lighthouse CI for Core Web Vitals
 
-| NFR | Test Type | Tool | Threshold |
-|-----|-----------|------|-----------|
-| 500 concurrent users | Load test | k6 | p95 < 2s, error rate < 1% |
-| 2s page load | Synthetic | Lighthouse CI | Performance score > 80 |
-| 500ms real-time | E2E | Playwright | Network timing assertion |
-| 1s search results | Integration | convex-test | Query timing assertion |
+| NFR                  | Test Type   | Tool          | Threshold                 |
+| -------------------- | ----------- | ------------- | ------------------------- |
+| 500 concurrent users | Load test   | k6            | p95 < 2s, error rate < 1% |
+| 2s page load         | Synthetic   | Lighthouse CI | Performance score > 80    |
+| 500ms real-time      | E2E         | Playwright    | Network timing assertion  |
+| 1s search results    | Integration | convex-test   | Query timing assertion    |
 
 **k6 Configuration:**
+
 ```javascript
 export const options = {
   stages: [
-    { duration: '1m', target: 100 },
-    { duration: '3m', target: 500 },
-    { duration: '1m', target: 0 },
+    { duration: "1m", target: 100 },
+    { duration: "3m", target: 500 },
+    { duration: "1m", target: 0 },
   ],
   thresholds: {
-    http_req_duration: ['p(95)<2000'],
-    errors: ['rate<0.01'],
+    http_req_duration: ["p(95)<2000"],
+    errors: ["rate<0.01"],
   },
 };
 ```
@@ -177,46 +184,50 @@ export const options = {
 
 **Approach:** Playwright E2E for graceful degradation
 
-| NFR | Test Type | Tool | Priority |
-|-----|-----------|------|----------|
-| Graceful degradation on API error | E2E | Playwright | P1 |
-| Webhook retry on failure | Integration | convex-test | P1 |
-| Offline handling | E2E | Playwright | P2 |
+| NFR                               | Test Type   | Tool        | Priority |
+| --------------------------------- | ----------- | ----------- | -------- |
+| Graceful degradation on API error | E2E         | Playwright  | P1       |
+| Webhook retry on failure          | Integration | convex-test | P1       |
+| Offline handling                  | E2E         | Playwright  | P2       |
 
 **Key Pattern:**
+
 ```typescript
 // Mock API failure, verify graceful degradation
-await context.route('**/api/**', route => route.fulfill({ status: 500 }));
-await page.goto('/dashboard');
-await expect(page.getByText('Unable to load. Please try again.')).toBeVisible();
+await context.route("**/api/**", (route) => route.fulfill({ status: 500 }));
+await page.goto("/dashboard");
+await expect(page.getByText("Unable to load. Please try again.")).toBeVisible();
 ```
 
 ### Maintainability
 
 **Approach:** CI pipeline checks + observability validation
 
-| NFR | Test Type | Tool | Threshold |
-|-----|-----------|------|-----------|
-| Test coverage | CI | Vitest coverage | > 80% |
-| Code duplication | CI | jscpd | < 5% |
-| Vulnerability scan | CI | npm audit | 0 critical/high |
-| Error tracking | E2E | Playwright | Sentry integration |
+| NFR                | Test Type | Tool            | Threshold          |
+| ------------------ | --------- | --------------- | ------------------ |
+| Test coverage      | CI        | Vitest coverage | > 80%              |
+| Code duplication   | CI        | jscpd           | < 5%               |
+| Vulnerability scan | CI        | npm audit       | 0 critical/high    |
+| Error tracking     | E2E       | Playwright      | Sentry integration |
 
 ---
 
 ## Test Environment Requirements
 
 ### Local Development
+
 - `pnpm run test` - Vitest + convex-test for unit/integration
 - `pnpm run test:coverage` - Coverage report
 - No external dependencies (mocked)
 
 ### Staging Environment
+
 - Separate Convex project for E2E tests
 - Test Stripe account with webhook testing
 - Vercel preview deployments
 
 ### CI Pipeline
+
 ```yaml
 jobs:
   test:
@@ -244,14 +255,15 @@ The architecture is well-designed for testability. Minor recommendations:
 
 ### Recommendations
 
-| ID | Concern | Severity | Recommendation |
-|----|---------|----------|----------------|
-| TC-1 | Real-time testing complexity | LOW | Use Convex reactive queries in tests, not polling |
-| TC-2 | Stripe webhook testing | MEDIUM | Use Stripe CLI for local webhook forwarding in integration tests |
-| TC-3 | Email verification testing | LOW | Mock Resend in tests, use `emailVerified: true` flag |
-| TC-4 | Gamification consistency | MEDIUM | Add invariant tests for point calculations |
+| ID   | Concern                      | Severity | Recommendation                                                   |
+| ---- | ---------------------------- | -------- | ---------------------------------------------------------------- |
+| TC-1 | Real-time testing complexity | LOW      | Use Convex reactive queries in tests, not polling                |
+| TC-2 | Stripe webhook testing       | MEDIUM   | Use Stripe CLI for local webhook forwarding in integration tests |
+| TC-3 | Email verification testing   | LOW      | Mock Resend in tests, use `emailVerified: true` flag             |
+| TC-4 | Gamification consistency     | MEDIUM   | Add invariant tests for point calculations                       |
 
 ### Mitigation for TC-2 (Stripe Webhooks):
+
 ```typescript
 // Integration test pattern for webhook handlers
 test("webhook provisions access on checkout.session.completed", async () => {
@@ -266,14 +278,22 @@ test("webhook provisions access on checkout.session.completed", async () => {
   await t.action(api.payments.webhooks.handleStripeWebhook, {
     event: {
       type: "checkout.session.completed",
-      data: { object: { customer_email: "test@example.com", metadata: { tier: "pro" } } }
+      data: {
+        object: {
+          customer_email: "test@example.com",
+          metadata: { tier: "pro" },
+        },
+      },
     },
-    signature: "test_signature" // Bypass validation in test mode
+    signature: "test_signature", // Bypass validation in test mode
   });
 
   // Verify access provisioned
   const user = await t.run(async (ctx) => {
-    return ctx.db.query("users").filter(q => q.eq(q.field("email"), "test@example.com")).first();
+    return ctx.db
+      .query("users")
+      .filter((q) => q.eq(q.field("email"), "test@example.com"))
+      .first();
   });
   expect(user.tier).toBe("pro");
 });
@@ -286,6 +306,7 @@ test("webhook provisions access on checkout.session.completed", async () => {
 ### Framework Setup (Epic 1)
 
 1. **Configure test structure:**
+
    ```
    convex/
    ├── _lib/
@@ -301,6 +322,7 @@ test("webhook provisions access on checkout.session.completed", async () => {
    ```
 
 2. **Add test utilities:**
+
    ```typescript
    // convex/test-utils.ts
    export const createTestUser = (overrides = {}) => ({
@@ -320,14 +342,14 @@ test("webhook provisions access on checkout.session.completed", async () => {
 
 ### Priority Test Coverage
 
-| Priority | Area | Test Type | Stories |
-|----------|------|-----------|---------|
-| P0 | Permission helpers | Unit | 1.2 |
-| P0 | Auth flows | E2E | 1.3, 1.4, 1.5 |
-| P0 | Stripe webhook handlers | Integration | 5.6 |
-| P1 | Gamification points | Unit | 6.1, 6.2 |
-| P1 | Space CRUD | Unit | 2.1 |
-| P1 | Course progress | Unit | 3.6, 3.7 |
+| Priority | Area                    | Test Type   | Stories       |
+| -------- | ----------------------- | ----------- | ------------- |
+| P0       | Permission helpers      | Unit        | 1.2           |
+| P0       | Auth flows              | E2E         | 1.3, 1.4, 1.5 |
+| P0       | Stripe webhook handlers | Integration | 5.6           |
+| P1       | Gamification points     | Unit        | 6.1, 6.2      |
+| P1       | Space CRUD              | Unit        | 2.1           |
+| P1       | Course progress         | Unit        | 3.6, 3.7      |
 
 ---
 
@@ -356,12 +378,14 @@ test("webhook provisions access on checkout.session.completed", async () => {
 **Testability Status:** READY FOR IMPLEMENTATION
 
 **Key Strengths:**
+
 1. Convex + convex-test provides excellent unit test isolation
 2. TypeScript validators ensure predictable function contracts
 3. Better Auth integration is testable via identity mocking
 4. Architecture patterns (ConvexError, permission helpers) support testability
 
 **Next Steps:**
+
 1. Run `*framework` workflow to initialize test framework architecture
 2. Implement P0 test coverage for permission helpers (Story 1.2)
 3. Set up CI pipeline with coverage gates

@@ -87,13 +87,14 @@ describe("members queries", () => {
       expect(user?.notificationPrefs?.digestFrequency).toBe("daily");
     });
 
-    it("should be case-sensitive for email lookup", async () => {
+    it("should be case-insensitive for email lookup (normalized)", async () => {
       const t = convexTest(schema, modules);
 
       const now = Date.now();
+      // Insert with lowercase (as normalized emails would be stored)
       await t.run(async (ctx) => {
         return await ctx.db.insert("users", {
-          email: "Case@Example.com",
+          email: "case@example.com", // Stored as lowercase
           visibility: "public",
           role: "member",
           points: 0,
@@ -103,23 +104,24 @@ describe("members queries", () => {
         });
       });
 
-      // Exact match should work
-      const exactMatch = await t.query(
-        api.members.queries.getUserProfileByEmail,
-        {
-          email: "Case@Example.com",
-        }
-      );
-      expect(exactMatch).not.toBeNull();
-
-      // Different case should not match
-      const differentCase = await t.query(
+      // Lowercase should work
+      const lowercase = await t.query(
         api.members.queries.getUserProfileByEmail,
         {
           email: "case@example.com",
         }
       );
-      expect(differentCase).toBeNull();
+      expect(lowercase).not.toBeNull();
+
+      // Different case should also match (normalized on query)
+      const mixedCase = await t.query(
+        api.members.queries.getUserProfileByEmail,
+        {
+          email: "CASE@EXAMPLE.COM",
+        }
+      );
+      expect(mixedCase).not.toBeNull();
+      expect(mixedCase?._id).toEqual(lowercase?._id);
     });
   });
 });

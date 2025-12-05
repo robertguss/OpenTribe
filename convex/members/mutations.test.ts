@@ -128,5 +128,47 @@ describe("members mutations", () => {
 
       expect(memberships).toHaveLength(1);
     });
+
+    it("should normalize email to lowercase", async () => {
+      const t = convexTest(schema, modules);
+
+      const userId = await t.mutation(api.members.mutations.createUserProfile, {
+        email: "Test@EXAMPLE.COM",
+        name: "Mixed Case User",
+      });
+
+      const user = await t.run(async (ctx) => {
+        return await ctx.db.get(userId);
+      });
+
+      expect(user).not.toBeNull();
+      // Email should be normalized to lowercase
+      expect(user?.email).toBe("test@example.com");
+    });
+
+    it("should treat different case emails as the same user", async () => {
+      const t = convexTest(schema, modules);
+
+      // First creation with lowercase
+      const userId1 = await t.mutation(
+        api.members.mutations.createUserProfile,
+        {
+          email: "case@example.com",
+          name: "First User",
+        }
+      );
+
+      // Second creation with uppercase (should match existing)
+      const userId2 = await t.mutation(
+        api.members.mutations.createUserProfile,
+        {
+          email: "CASE@EXAMPLE.COM",
+          name: "Second User",
+        }
+      );
+
+      // Should return the same user ID
+      expect(userId1).toEqual(userId2);
+    });
   });
 });

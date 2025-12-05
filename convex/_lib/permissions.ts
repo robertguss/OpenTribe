@@ -75,7 +75,10 @@ export async function requireAuth(ctx: QueryCtx | MutationCtx) {
  * Links Better Auth user to our community-specific user data via email.
  * Returns null if user profile not found.
  */
-export async function getUserProfile(ctx: QueryCtx | MutationCtx, userId: Id<"users">) {
+export async function getUserProfile(
+  ctx: QueryCtx | MutationCtx,
+  userId: Id<"users">
+) {
   return await ctx.db.get(userId);
 }
 
@@ -120,7 +123,10 @@ export async function requireRole(
 /**
  * Require admin role. Convenience wrapper for requireRole("admin").
  */
-export async function requireAdmin(ctx: QueryCtx | MutationCtx, userId: Id<"users">) {
+export async function requireAdmin(
+  ctx: QueryCtx | MutationCtx,
+  userId: Id<"users">
+) {
   const userProfile = await getUserProfile(ctx, userId);
   if (!userProfile) {
     throw new ConvexError("User profile not found");
@@ -136,7 +142,10 @@ export async function requireAdmin(ctx: QueryCtx | MutationCtx, userId: Id<"user
 /**
  * Require moderator role or higher. Convenience wrapper for requireRole("moderator").
  */
-export async function requireModerator(ctx: QueryCtx | MutationCtx, userId: Id<"users">) {
+export async function requireModerator(
+  ctx: QueryCtx | MutationCtx,
+  userId: Id<"users">
+) {
   const userProfile = await getUserProfile(ctx, userId);
   if (!userProfile) {
     throw new ConvexError("User profile not found");
@@ -276,7 +285,10 @@ export async function canPostInSpace(
           return false;
         }
 
-        if (membership.status !== "active" && membership.status !== "trialing") {
+        if (
+          membership.status !== "active" &&
+          membership.status !== "trialing"
+        ) {
           return false;
         }
 

@@ -20,7 +20,7 @@ import { signupSchema, type SignupFormData } from "@/lib/validators";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAction, useMutation } from "convex/react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { api } from "@/convex/_generated/api";
 
@@ -28,6 +28,11 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
   const router = useRouter();
   const [serverError, setServerError] = useState<string>("");
   const [loading, setLoading] = useState(false);
+  const [isRetryable, setIsRetryable] = useState(false);
+
+  // Store last submitted data for retry (using state instead of ref for lint compliance)
+  const [lastSubmittedData, setLastSubmittedData] =
+    useState<SignupFormData | null>(null);
 
   // Convex mutation for creating user profile
   const createUserProfile = useMutation(
@@ -48,54 +53,108 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
     reValidateMode: "onChange", // Then on change after first validation
   });
 
-  const onSubmit = async (data: SignupFormData) => {
-    setServerError("");
-    setLoading(true);
+  // Helper to determine if error is retryable (network/server issues)
+  const isNetworkError = (error: unknown): boolean => {
+    const err = error as { code?: string; message?: string };
+    // Network errors, timeouts, and server errors are retryable
+    return (
+      err?.message?.toLowerCase().includes("network") ||
+      err?.message?.toLowerCase().includes("timeout") ||
+      err?.message?.toLowerCase().includes("fetch") ||
+      err?.message?.toLowerCase().includes("connection") ||
+      err?.code === "NETWORK_ERROR" ||
+      err?.code === "TIMEOUT"
+    );
+  };
 
-    try {
-      // Step 1: Create Better Auth user
-      await authClient.signUp.email({
-        email: data.email,
-        password: data.password,
-        name: data.name,
-      });
+  const performSignup = useCallback(
+    async (data: SignupFormData) => {
+      setServerError("");
+      setLoading(true);
+      setIsRetryable(false);
 
-      // Step 2: Create extended user profile in Convex
+      // Normalize email to lowercase for consistency
+      const normalizedEmail = data.email.toLowerCase().trim();
+
       try {
-        await createUserProfile({
-          email: data.email,
+        // Step 1: Create Better Auth user
+        await authClient.signUp.email({
+          email: normalizedEmail,
+          password: data.password,
           name: data.name,
         });
-      } catch (profileError) {
-        // Log but don't fail - profile can be created later
-        console.error("Failed to create user profile:", profileError);
-      }
 
-      // Step 3: Send welcome email (fire and forget - don't block signup)
-      sendWelcomeEmail({
-        email: data.email,
-        name: data.name,
-      }).catch((emailError) => {
-        // Log but don't fail - email is not critical for signup
-        console.error("Failed to send welcome email:", emailError);
-      });
+        // Step 2: Create extended user profile in Convex
+        // This is important - if it fails, we should inform the user
+        try {
+          await createUserProfile({
+            email: normalizedEmail,
+            name: data.name,
+          });
+        } catch (profileError) {
+          // Profile creation failed after auth succeeded
+          // Log the error but continue - profile will be created on next login
+          console.error("Failed to create user profile:", profileError);
 
-      // Step 4: Redirect to dashboard
-      router.push("/dashboard");
-    } catch (err: unknown) {
-      const error = err as { code?: string; message?: string };
-      // Handle Better Auth specific errors
-      if (
-        error?.code === "USER_ALREADY_EXISTS" ||
-        error?.message?.toLowerCase().includes("already exists")
-      ) {
-        setServerError("An account with this email already exists");
-      } else {
-        setServerError(
-          error?.message || "Failed to create account. Please try again."
-        );
+          // Check if it's a rate limit error
+          const err = profileError as { data?: { code?: string } };
+          if (err?.data?.code === "RATE_LIMITED") {
+            // This shouldn't normally happen, but handle it gracefully
+            console.warn("Profile creation rate limited - will retry on login");
+          }
+        }
+
+        // Step 3: Send welcome email (fire and forget - don't block signup)
+        sendWelcomeEmail({
+          email: normalizedEmail,
+          name: data.name,
+        }).catch((emailError) => {
+          // Log but don't fail - email is not critical for signup
+          console.error("Failed to send welcome email:", emailError);
+        });
+
+        // Step 4: Redirect to dashboard (TODO: onboarding flow in future)
+        router.push("/dashboard");
+      } catch (err: unknown) {
+        const error = err as { code?: string; message?: string };
+
+        // Store data for potential retry
+        setLastSubmittedData(data);
+
+        // Handle Better Auth specific errors
+        if (
+          error?.code === "USER_ALREADY_EXISTS" ||
+          error?.message?.toLowerCase().includes("already exists")
+        ) {
+          setServerError("An account with this email already exists");
+          setIsRetryable(false);
+        } else if (isNetworkError(err)) {
+          // Network error - allow retry
+          setServerError(
+            "Connection failed. Please check your internet and try again."
+          );
+          setIsRetryable(true);
+        } else {
+          setServerError(
+            error?.message || "Failed to create account. Please try again."
+          );
+          // Allow retry for generic errors
+          setIsRetryable(true);
+        }
+        setLoading(false);
       }
-      setLoading(false);
+    },
+    [createUserProfile, sendWelcomeEmail, router]
+  );
+
+  const onSubmit = async (data: SignupFormData) => {
+    setLastSubmittedData(data);
+    await performSignup(data);
+  };
+
+  const handleRetry = async () => {
+    if (lastSubmittedData) {
+      await performSignup(lastSubmittedData);
     }
   };
 
@@ -112,13 +171,25 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
           <FieldGroup>
             {serverError && (
               <div className="bg-destructive/15 text-destructive rounded-md p-3 text-sm">
-                {serverError}
+                <p>{serverError}</p>
                 {serverError.includes("already exists") && (
-                  <span className="ml-1">
+                  <p className="mt-1">
                     <a href="/login" className="underline">
                       Sign in instead
                     </a>
-                  </span>
+                  </p>
+                )}
+                {isRetryable && (
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    className="mt-2"
+                    onClick={handleRetry}
+                    disabled={loading}
+                  >
+                    {loading ? "Retrying..." : "Try Again"}
+                  </Button>
                 )}
               </div>
             )}

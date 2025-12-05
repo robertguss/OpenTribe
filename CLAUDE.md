@@ -64,24 +64,20 @@ npx convex codegen                          # Generate TypeScript types (require
 **Better Auth + Convex Integration**: This project uses Better Auth with the Convex plugin, which stores auth data directly in Convex tables managed by a component.
 
 1. **Backend (convex/auth.ts)**:
-
    - `authComponent`: Client for the Better Auth Convex component
    - `createAuth()`: Factory function that creates Better Auth instance
    - Validates `SITE_URL` and `BETTER_AUTH_SECRET` environment variables
    - Email/password auth enabled with `requireEmailVerification: false`
 
 2. **Frontend (lib/auth-client.ts)**:
-
    - Creates auth client with `convexClient()` plugin
    - Used throughout React components for auth operations
 
 3. **Provider (app/ConvexClientProvider.tsx)**:
-
    - Wraps app with `ConvexBetterAuthProvider`
    - Convex client configured with `expectAuth: true` (pauses queries until authenticated)
 
 4. **HTTP Routes (convex/http.ts)**:
-
    - Auth routes registered via `authComponent.registerRoutes(http, createAuth)`
    - Available at `/api/auth/*` endpoints
 
@@ -204,7 +200,6 @@ Reference `.cursor/rules/convex_rules.mdc` for detailed guidelines. Key points:
 2. **Queries**: Use indexes instead of filters. Use `.unique()` for single results, `.take(n)` for limits, `.collect()` or async iteration for results
 
 3. **Validators**:
-
    - Use `v.int64()` not `v.bigint()`
    - Use `v.null()` for null returns
    - Use `v.record()` for dynamic keys

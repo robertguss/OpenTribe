@@ -11,6 +11,7 @@ import { v } from "convex/values";
  * Get a user profile by email address.
  *
  * Used to link Better Auth users to their extended community profiles.
+ * Email is normalized to lowercase for consistent lookups.
  *
  * @param email - The email address to look up
  * @returns The user profile or null if not found
@@ -57,9 +58,12 @@ export const getUserProfileByEmail = query({
     v.null()
   ),
   handler: async (ctx, args) => {
+    // Normalize email to lowercase for consistent lookups
+    const normalizedEmail = args.email.toLowerCase().trim();
+
     const user = await ctx.db
       .query("users")
-      .withIndex("by_email", (q) => q.eq("email", args.email))
+      .withIndex("by_email", (q) => q.eq("email", normalizedEmail))
       .unique();
 
     return user;

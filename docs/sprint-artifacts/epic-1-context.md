@@ -27,6 +27,7 @@ Extend the Convex schema with ~18 domain tables, create centralized authorizatio
 ### Scope
 
 **In Scope:**
+
 - All 18 domain tables defined in Architecture document
 - Authorization utilities with role hierarchy (Admin > Moderator > Member)
 - Email/password registration with welcome email
@@ -37,6 +38,7 @@ Extend the Convex schema with ~18 domain tables, create centralized authorizatio
 - Notification preferences configuration
 
 **Out of Scope:**
+
 - Other social providers (GitHub, Apple) - post-MVP
 - Member directory and search (Epic 8)
 - Following system (Epic 8)
@@ -48,19 +50,20 @@ Extend the Convex schema with ~18 domain tables, create centralized authorizatio
 
 ### Technology Stack
 
-| Layer | Technology | Version |
-|-------|------------|---------|
-| Frontend | Next.js + React | 16 + 19 |
-| Backend | Convex | Latest |
-| Auth | Better Auth | Latest |
-| Styling | Tailwind CSS + shadcn/ui | 4 + NY style |
-| Forms | React Hook Form + Zod | Latest |
-| Email | Resend (via Convex) | Component |
-| File Storage | Convex Storage | Built-in |
+| Layer        | Technology               | Version      |
+| ------------ | ------------------------ | ------------ |
+| Frontend     | Next.js + React          | 16 + 19      |
+| Backend      | Convex                   | Latest       |
+| Auth         | Better Auth              | Latest       |
+| Styling      | Tailwind CSS + shadcn/ui | 4 + NY style |
+| Forms        | React Hook Form + Zod    | Latest       |
+| Email        | Resend (via Convex)      | Component    |
+| File Storage | Convex Storage           | Built-in     |
 
 ### Codebase Patterns
 
 **Convex Schema Conventions:**
+
 ```typescript
 // Tables: camelCase, plural
 // Fields: camelCase
@@ -69,10 +72,11 @@ defineTable({
   fieldName: v.string(),
   createdAt: v.number(), // Unix timestamp ms
   deletedAt: v.optional(v.number()), // Soft delete
-}).index("by_fieldName", ["fieldName"])
+}).index("by_fieldName", ["fieldName"]);
 ```
 
 **Convex Function Organization:**
+
 ```
 convex/
 ├── schema.ts              # Single schema file
@@ -86,10 +90,12 @@ convex/
 ```
 
 **Function Naming:**
+
 - Queries: `get*`, `list*`, `search*`, `count*`
 - Mutations: `create*`, `update*`, `delete*`, `set*`, `toggle*`
 
 **Authorization Pattern:**
+
 ```typescript
 import { authComponent } from "../auth";
 
@@ -108,6 +114,7 @@ export const myMutation = mutation({
 ```
 
 **Error Pattern:**
+
 - Return `null` for not-found (client handles display)
 - Throw `ConvexError` for auth/permission errors
 - Use descriptive error messages
@@ -115,6 +122,7 @@ export const myMutation = mutation({
 ### Files to Reference
 
 **Existing Files (Read Before Modifying):**
+
 - `convex/schema.ts` - Current demo schema to replace
 - `convex/auth.ts` - Better Auth setup (extend for Google, magic link)
 - `convex/http.ts` - HTTP router (may need webhook routes)
@@ -125,22 +133,23 @@ export const myMutation = mutation({
 - `lib/auth-client.ts` - Frontend auth client
 
 **Architecture Reference:**
+
 - `docs/architecture.md` - Full architecture decisions
 - `docs/prd.md` - Product requirements FR1-FR7
 - `docs/ux-design-specification.md` - UI patterns (if exists)
 
 ### Technical Decisions (Pre-Made)
 
-| Decision | Choice | Rationale |
-|----------|--------|-----------|
-| Role storage | Field on user record | Simpler than separate roles table |
-| Profile visibility | public/private enum | Matches PRD FR6 |
-| Avatar storage | Convex file storage | Built-in, no external CDN needed |
-| Bio editor | Tiptap (subset) | Consistent with post editor |
-| Notification prefs | Embedded on user or separate table | TBD based on complexity |
-| Social login | Google only MVP | Highest adoption, simplest config |
-| Magic link expiry | 15 minutes | Security best practice |
-| Password reset expiry | 1 hour | Standard practice |
+| Decision              | Choice                             | Rationale                         |
+| --------------------- | ---------------------------------- | --------------------------------- |
+| Role storage          | Field on user record               | Simpler than separate roles table |
+| Profile visibility    | public/private enum                | Matches PRD FR6                   |
+| Avatar storage        | Convex file storage                | Built-in, no external CDN needed  |
+| Bio editor            | Tiptap (subset)                    | Consistent with post editor       |
+| Notification prefs    | Embedded on user or separate table | TBD based on complexity           |
+| Social login          | Google only MVP                    | Highest adoption, simplest config |
+| Magic link expiry     | 15 minutes                         | Security best practice            |
+| Password reset expiry | 1 hour                             | Standard practice                 |
 
 ---
 
@@ -151,6 +160,7 @@ export const myMutation = mutation({
 **Objective:** Replace demo schema with all domain tables needed for OpenTribe.
 
 **Tasks:**
+
 - [ ] Define `users` table with profile fields (bio, avatar, visibility, role)
 - [ ] Define `spaces` table (name, description, icon, visibility, order)
 - [ ] Define `posts` table with denormalized author info
@@ -167,6 +177,7 @@ export const myMutation = mutation({
 - [ ] Run `npx convex dev` to validate schema
 
 **Schema Definition:**
+
 ```typescript
 // convex/schema.ts
 import { defineSchema, defineTable } from "convex/server";
@@ -180,23 +191,29 @@ export default defineSchema({
     bio: v.optional(v.string()),
     avatarStorageId: v.optional(v.id("_storage")),
     visibility: v.union(v.literal("public"), v.literal("private")),
-    role: v.union(v.literal("admin"), v.literal("moderator"), v.literal("member")),
+    role: v.union(
+      v.literal("admin"),
+      v.literal("moderator"),
+      v.literal("member")
+    ),
     points: v.number(),
     level: v.number(),
-    notificationPrefs: v.optional(v.object({
-      emailComments: v.boolean(),
-      emailReplies: v.boolean(),
-      emailFollowers: v.boolean(),
-      emailEvents: v.boolean(),
-      emailCourses: v.boolean(),
-      emailDMs: v.boolean(),
-      digestFrequency: v.union(
-        v.literal("immediate"),
-        v.literal("daily"),
-        v.literal("weekly"),
-        v.literal("off")
-      ),
-    })),
+    notificationPrefs: v.optional(
+      v.object({
+        emailComments: v.boolean(),
+        emailReplies: v.boolean(),
+        emailFollowers: v.boolean(),
+        emailEvents: v.boolean(),
+        emailCourses: v.boolean(),
+        emailDMs: v.boolean(),
+        digestFrequency: v.union(
+          v.literal("immediate"),
+          v.literal("daily"),
+          v.literal("weekly"),
+          v.literal("off")
+        ),
+      })
+    ),
     createdAt: v.number(),
     updatedAt: v.number(),
   })
@@ -357,12 +374,18 @@ export default defineSchema({
     location: v.optional(v.string()), // Text or URL for virtual
     capacity: v.optional(v.number()), // null = unlimited
     rsvpCount: v.number(),
-    recurrence: v.optional(v.object({
-      frequency: v.union(v.literal("daily"), v.literal("weekly"), v.literal("monthly")),
-      interval: v.number(),
-      endDate: v.optional(v.number()),
-      endAfter: v.optional(v.number()),
-    })),
+    recurrence: v.optional(
+      v.object({
+        frequency: v.union(
+          v.literal("daily"),
+          v.literal("weekly"),
+          v.literal("monthly")
+        ),
+        interval: v.number(),
+        endDate: v.optional(v.number()),
+        endAfter: v.optional(v.number()),
+      })
+    ),
     createdAt: v.number(),
     deletedAt: v.optional(v.number()),
   })
@@ -425,8 +448,7 @@ export default defineSchema({
     participantIds: v.array(v.id("users")),
     lastMessageAt: v.number(),
     lastMessagePreview: v.optional(v.string()),
-  })
-    .index("by_lastMessageAt", ["lastMessageAt"]),
+  }).index("by_lastMessageAt", ["lastMessageAt"]),
 
   // DM Messages
   messages: defineTable({
@@ -457,8 +479,7 @@ export default defineSchema({
   gamificationConfig: defineTable({
     action: v.string(),
     pointValue: v.number(),
-  })
-    .index("by_action", ["action"]),
+  }).index("by_action", ["action"]),
 
   // Levels
   levels: defineTable({
@@ -483,10 +504,18 @@ export default defineSchema({
   // Reports (content moderation)
   reports: defineTable({
     reporterId: v.id("users"),
-    targetType: v.union(v.literal("post"), v.literal("comment"), v.literal("user")),
+    targetType: v.union(
+      v.literal("post"),
+      v.literal("comment"),
+      v.literal("user")
+    ),
     targetId: v.string(),
     reason: v.string(),
-    status: v.union(v.literal("pending"), v.literal("resolved"), v.literal("dismissed")),
+    status: v.union(
+      v.literal("pending"),
+      v.literal("resolved"),
+      v.literal("dismissed")
+    ),
     createdAt: v.number(),
     resolvedAt: v.optional(v.number()),
     resolvedBy: v.optional(v.id("users")),
@@ -517,6 +546,7 @@ export default defineSchema({
 ```
 
 **Acceptance Criteria:**
+
 - [ ] Schema validates without errors (`npx convex dev`)
 - [ ] All 18+ tables created with proper types
 - [ ] All indexes defined for common query patterns
@@ -529,6 +559,7 @@ export default defineSchema({
 **Objective:** Centralized permission checking for all features.
 
 **Tasks:**
+
 - [ ] Create `convex/_lib/permissions.ts`
 - [ ] Implement `getAuthUser(ctx)` - returns user or null
 - [ ] Implement `requireAuth(ctx)` - returns user or throws
@@ -541,6 +572,7 @@ export default defineSchema({
 - [ ] Add unit tests for all permission utilities
 
 **Implementation:**
+
 ```typescript
 // convex/_lib/permissions.ts
 import { ConvexError } from "convex/values";
@@ -568,10 +600,7 @@ export async function requireAuth(ctx: QueryCtx | MutationCtx) {
   return user;
 }
 
-export async function requireRole(
-  ctx: QueryCtx | MutationCtx,
-  minRole: Role
-) {
+export async function requireRole(ctx: QueryCtx | MutationCtx, minRole: Role) {
   const user = await requireAuth(ctx);
   const userDoc = await ctx.db
     .query("users")
@@ -705,6 +734,7 @@ export function hasRole(userRole: Role, requiredRole: Role): boolean {
 ```
 
 **Acceptance Criteria:**
+
 - [ ] All utility functions implemented
 - [ ] Role hierarchy enforced correctly
 - [ ] Space visibility checks work for public/members/paid
@@ -718,6 +748,7 @@ export function hasRole(userRole: Role, requiredRole: Role): boolean {
 **Objective:** Enhanced registration with validation, welcome email, and proper user profile creation.
 
 **Tasks:**
+
 - [ ] Create Zod schema for registration validation
 - [ ] Update signup form with real-time validation
 - [ ] Create `convex/members/mutations.ts` with `createUserProfile`
@@ -727,6 +758,7 @@ export function hasRole(userRole: Role, requiredRole: Role): boolean {
 - [ ] Add rate limiting (5 attempts/hour/IP)
 
 **Frontend Validation Schema:**
+
 ```typescript
 // lib/validation/auth.ts
 import { z } from "zod";
@@ -745,6 +777,7 @@ export type SignupInput = z.infer<typeof signupSchema>;
 ```
 
 **Acceptance Criteria:**
+
 - [ ] Email validates RFC 5322 format on blur
 - [ ] Password requirements shown and validated in real-time
 - [ ] Duplicate email shows inline error
@@ -759,6 +792,7 @@ export type SignupInput = z.infer<typeof signupSchema>;
 **Objective:** Add Google OAuth for quick signup/login.
 
 **Tasks:**
+
 - [ ] Configure Better Auth Google provider
 - [ ] Add Google OAuth credentials to environment
 - [ ] Create "Continue with Google" button on login/signup
@@ -767,6 +801,7 @@ export type SignupInput = z.infer<typeof signupSchema>;
 - [ ] Create user profile on first Google login
 
 **Implementation Notes:**
+
 ```typescript
 // convex/auth.ts - Add Google provider
 import { google } from "better-auth/plugins";
@@ -782,10 +817,12 @@ plugins: [
 ```
 
 **Environment Variables Needed:**
+
 - `GOOGLE_CLIENT_ID`
 - `GOOGLE_CLIENT_SECRET`
 
 **Acceptance Criteria:**
+
 - [ ] Google button visible on login/signup pages
 - [ ] OAuth flow redirects to Google and back
 - [ ] New users get profile created with Google data
@@ -799,6 +836,7 @@ plugins: [
 **Objective:** Allow users to sign in via email link.
 
 **Tasks:**
+
 - [ ] Configure Better Auth magic link provider
 - [ ] Set up Resend integration for email delivery
 - [ ] Create "Sign in with email link" option on login
@@ -807,6 +845,7 @@ plugins: [
 - [ ] Rate limit to 3 requests per email per hour
 
 **Acceptance Criteria:**
+
 - [ ] "Sign in with email link" button on login page
 - [ ] Email with magic link sent within seconds
 - [ ] Clicking valid link logs user in
@@ -820,6 +859,7 @@ plugins: [
 **Objective:** Allow users to reset forgotten passwords.
 
 **Tasks:**
+
 - [ ] Create "Forgot password?" link on login page
 - [ ] Implement reset request form (email input)
 - [ ] Send reset email via Resend (1 hour expiry)
@@ -828,6 +868,7 @@ plugins: [
 - [ ] Show success message and redirect to login
 
 **Acceptance Criteria:**
+
 - [ ] "Forgot password?" link visible on login
 - [ ] Reset email sent (same message whether account exists or not - security)
 - [ ] Reset link works within 1 hour
@@ -842,6 +883,7 @@ plugins: [
 **Objective:** Allow users to view and edit their profile information.
 
 **Tasks:**
+
 - [ ] Create `app/settings/profile/page.tsx`
 - [ ] Build profile form with auto-save (500ms debounce)
 - [ ] Implement avatar upload with preview
@@ -851,6 +893,7 @@ plugins: [
 - [ ] Show "Saving..." and "Saved" indicators
 
 **Acceptance Criteria:**
+
 - [ ] Profile settings page accessible from dashboard
 - [ ] Display name, bio, avatar, visibility editable
 - [ ] Changes auto-save with visual feedback
@@ -865,6 +908,7 @@ plugins: [
 **Objective:** Allow users to configure notification preferences.
 
 **Tasks:**
+
 - [ ] Create `app/settings/notifications/page.tsx`
 - [ ] Build toggles for each notification type
 - [ ] Add email digest frequency selector
@@ -872,6 +916,7 @@ plugins: [
 - [ ] Store preferences on user record
 
 **Notification Types:**
+
 - Comments on my posts (email + in-app)
 - Replies to my comments (email + in-app)
 - New followers (email + in-app)
@@ -880,12 +925,14 @@ plugins: [
 - Direct messages (email + in-app)
 
 **Digest Frequencies:**
+
 - Immediate
 - Daily digest
 - Weekly digest
 - Off
 
 **Acceptance Criteria:**
+
 - [ ] All notification toggles functional
 - [ ] Digest frequency selector works
 - [ ] Preferences save immediately
@@ -898,6 +945,7 @@ plugins: [
 ### Dependencies
 
 **NPM Packages to Install:**
+
 ```bash
 pnpm add @tiptap/react @tiptap/starter-kit @tiptap/extension-placeholder
 pnpm add react-hook-form @hookform/resolvers zod
@@ -905,6 +953,7 @@ pnpm add @dnd-kit/core @dnd-kit/sortable  # For future drag-drop
 ```
 
 **Convex Components:**
+
 - Better Auth (already installed)
 - Resend component (for email)
 - File Storage (built-in)
@@ -912,14 +961,17 @@ pnpm add @dnd-kit/core @dnd-kit/sortable  # For future drag-drop
 ### Testing Strategy
 
 **Unit Tests:**
+
 - Permission utilities (`convex/_lib/permissions.test.ts`)
 - Schema validation (automatic via Convex)
 
 **Integration Tests:**
+
 - Auth flows (registration, login, logout)
 - Profile CRUD operations
 
 **Manual Testing:**
+
 - Google OAuth flow
 - Magic link email delivery
 - Password reset flow
@@ -927,6 +979,7 @@ pnpm add @dnd-kit/core @dnd-kit/sortable  # For future drag-drop
 ### Notes
 
 **First Story Execution Order:**
+
 1. Story 1.1 (Schema) - MUST be first, all others depend on it
 2. Story 1.2 (Permissions) - Needed by 1.3+
 3. Story 1.3 (Registration) - Core auth flow
@@ -935,10 +988,11 @@ pnpm add @dnd-kit/core @dnd-kit/sortable  # For future drag-drop
 6. Story 1.8 (Notifications) - Needs profile
 
 **After Epic 1:**
+
 - Update sprint status: `epic-1: contexted`
 - Run `dev-story` for Story 1.1 first
 - After all 8 stories done: `epic-1-retrospective: completed`
 
 ---
 
-*Generated by create-tech-spec workflow | 2025-12-04*
+_Generated by create-tech-spec workflow | 2025-12-04_

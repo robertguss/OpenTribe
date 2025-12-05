@@ -1,6 +1,6 @@
 # Story 1.3: Email/Password Registration Flow
 
-Status: Ready for Review
+Status: Done
 
 ## Story
 
@@ -519,34 +519,47 @@ None - implementation proceeded without major blockers.
 - Implemented idempotent profile creation (returns existing profile if email already registered)
 - Created `sendWelcomeEmail` action using Convex Resend component + React Email for type-safe templates
 - Added duplicate email error handling with "Sign in instead" link suggestion
-- All 60 tests pass (9 new tests for members mutations/queries + 51 existing)
 - Schema modification: Added `email` and `name` fields to users table per Story 1.2 architecture note
+
+**Code Review Fixes (2025-12-04):**
+
+- **H1 FIXED:** Implemented rate limiting using convex-helpers (createProfile: 10/min with burst capacity 3)
+- **M1 FIXED:** Added retry button for network errors with proper error categorization
+- **M2 FIXED:** Improved profile creation error handling with rate limit detection
+- **L1 FIXED:** Email normalized to lowercase on both mutations and queries for consistent lookups
+- **Tests:** All 62 tests pass (7 mutations + 4 queries + 51 permissions, 1 skipped)
 
 ### File List
 
 **Created:**
 
 - `lib/validators.ts` - Zod validation schemas (signupSchema, loginSchema, passwordSchema)
-- `convex/members/mutations.ts` - createUserProfile mutation
-- `convex/members/queries.ts` - getUserProfileByEmail query
-- `convex/members/mutations.test.ts` - Unit tests for mutations (5 tests)
-- `convex/members/queries.test.ts` - Unit tests for queries (4 tests)
+- `convex/members/mutations.ts` - createUserProfile mutation with rate limiting and email normalization
+- `convex/members/queries.ts` - getUserProfileByEmail query with email normalization
+- `convex/members/mutations.test.ts` - Unit tests for mutations (7 tests including email normalization)
+- `convex/members/queries.test.ts` - Unit tests for queries (4 tests with case-insensitive lookup)
 - `convex/notifications/actions.ts` - sendWelcomeEmail action (uses Convex Resend component + React Email)
 - `convex/emails/WelcomeEmail.tsx` - React Email template for welcome emails
+- `convex/_lib/rateLimits.ts` - Rate limiting configuration (signup: 5/hour, createProfile: 10/min)
 
 **Modified:**
 
-- `convex/schema.ts` - Added email field and by_email index to users table
+- `convex/schema.ts` - Added email field, by_email index, and rateLimitTables from convex-helpers
 - `convex/convex.config.ts` - Added Resend component configuration
-- `components/signup-form.tsx` - React Hook Form integration with validation
-- `package.json` - Added react-hook-form, @hookform/resolvers, @convex-dev/resend, @react-email/components, @react-email/render dependencies
+- `components/signup-form.tsx` - React Hook Form integration with validation, retry button, email normalization
+- `package.json` - Added react-hook-form, @hookform/resolvers, @convex-dev/resend, @react-email/components, @react-email/render, convex-helpers dependencies
 - `convex/_lib/permissions.test.ts` - Fixed test helper to include required email field
+- `.lintstagedrc.js` - Lint-staged configuration for pre-commit hooks
+- `.prettierrc` - Prettier configuration
+- `.prettierignore` - Prettier ignore patterns
+- `tsconfig.json` - TypeScript config with test file exclusions
 
 ## Change Log
 
-| Date       | Change                                            | Author          |
-| ---------- | ------------------------------------------------- | --------------- |
-| 2025-12-04 | Story implementation completed - all 7 tasks done | Claude Opus 4.5 |
+| Date       | Change                                                                                     | Author          |
+| ---------- | ------------------------------------------------------------------------------------------ | --------------- |
+| 2025-12-04 | Story implementation completed - all 7 tasks done                                          | Claude Opus 4.5 |
+| 2025-12-04 | Code review completed - Fixed: rate limiting, retry button, email normalization (62 tests) | Claude Opus 4.5 |
 
 ---
 

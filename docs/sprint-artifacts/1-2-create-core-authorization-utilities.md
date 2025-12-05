@@ -45,32 +45,27 @@ So that permission checks are consistent across all features.
 ## Tasks / Subtasks
 
 - [x] **Task 1: Create permissions utility file** (AC: #1)
-
   - [x] 1.1: Create `convex/_lib/permissions.ts`
   - [x] 1.2: Export `ROLE_HIERARCHY` constant for role comparisons
   - [x] 1.3: Create TypeScript types for Role and permission function signatures
 
 - [x] **Task 2: Implement auth helpers** (AC: #1, #2)
-
   - [x] 2.1: Implement `getAuthUser(ctx)` - returns BetterAuth user or null
   - [x] 2.2: Implement `requireAuth(ctx)` - returns user or throws ConvexError
   - [x] 2.3: Implement `getUserProfile(ctx, userId)` - gets our extended user doc
 
 - [x] **Task 3: Implement role-based helpers** (AC: #3, #4)
-
   - [x] 3.1: Implement `requireRole(ctx, minRole)` - checks user has minimum role level
   - [x] 3.2: Implement `requireAdmin(ctx)` - wraps requireRole("admin")
   - [x] 3.3: Implement `requireModerator(ctx)` - wraps requireRole("moderator")
   - [x] 3.4: Implement `hasRole(userRole, requiredRole)` - pure function for role comparison
 
 - [x] **Task 4: Implement space permission helpers** (AC: #5, #6)
-
   - [x] 4.1: Implement `canViewSpace(ctx, userId, spaceId)` - checks visibility + tier
   - [x] 4.2: Implement `canPostInSpace(ctx, userId, spaceId)` - checks postPermission
   - [x] 4.3: Implement `canModerateSpace(ctx, userId, spaceId)` - checks mod+ role
 
 - [x] **Task 5: Implement content permission helpers** (AC: #7)
-
   - [x] 5.1: Implement `canEditContent(ctx, userId, contentId, type)` - owner or mod+
   - [x] 5.2: Implement `canDeleteContent(ctx, userId, contentId, type)` - owner or mod+
   - [x] 5.3: Handle both "post" and "comment" content types
@@ -385,17 +380,17 @@ None - implementation proceeded without issues.
 
 ### File List
 
-| File                              | Status   | Purpose                          |
-| --------------------------------- | -------- | -------------------------------- |
-| `convex/_lib/permissions.ts`      | Created  | All permission utility functions |
-| `convex/_lib/permissions.test.ts` | Created  | Unit tests (51 tests, all pass)  |
-| `convex/_generated/api.d.ts`      | Modified | Auto-generated types updated     |
-| `eslint.config.mjs`               | Modified | Added eslint-config-prettier     |
+| File                              | Status   | Purpose                                   |
+| --------------------------------- | -------- | ----------------------------------------- |
+| `convex/_lib/permissions.ts`      | Created  | All permission utility functions          |
+| `convex/_lib/permissions.test.ts` | Created  | Unit tests (51 tests, all pass)           |
+| `convex/_generated/api.d.ts`      | Modified | Auto-generated types updated              |
+| `eslint.config.mjs`               | Modified | Added eslint-config-prettier              |
 | `package.json`                    | Modified | Added husky, lint-staged, prettier config |
-| `pnpm-lock.yaml`                  | Modified | Lock file updated                |
-| `.husky/pre-commit`               | Created  | Pre-commit hook for lint-staged  |
-| `.lintstagedrc.js`                | Created  | Lint-staged configuration        |
-| `vitest.config.mts`               | Modified | Exclude e2e tests from Vitest    |
+| `pnpm-lock.yaml`                  | Modified | Lock file updated                         |
+| `.husky/pre-commit`               | Created  | Pre-commit hook for lint-staged           |
+| `.lintstagedrc.js`                | Created  | Lint-staged configuration                 |
+| `vitest.config.mts`               | Modified | Exclude e2e tests from Vitest             |
 
 ### Change Log
 
