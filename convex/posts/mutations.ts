@@ -7,9 +7,13 @@
 import { v } from "convex/values";
 import { mutation } from "../_generated/server";
 import { ConvexError } from "convex/values";
-import { requireAuth, canPostInSpace } from "../_lib/permissions";
+import {
+  requireAuth,
+  canPostInSpace,
+  MAX_PINNED_POSTS_PER_SPACE,
+} from "../_lib/permissions";
 import { awardPoints } from "../_lib/points";
-import { createPostInput } from "./_validators";
+import { createPostInput, pinPostInput } from "./_validators";
 
 /**
  * Create a new post in a space.
@@ -208,6 +212,129 @@ export const deletePost = mutation({
     // Soft delete the post
     await ctx.db.patch(args.postId, {
       deletedAt: Date.now(),
+    });
+
+    return null;
+  },
+});
+
+/**
+ * Pin a post to the top of a space.
+ *
+ * Requirements (from story 2-7):
+ * - Only moderators and admins can pin posts
+ * - Maximum 3 pinned posts per space
+ * - Cannot pin already-pinned posts
+ * - Cannot pin deleted posts
+ *
+ * @param postId - The post to pin
+ */
+export const pinPost = mutation({
+  args: pinPostInput,
+  returns: v.null(),
+  handler: async (ctx, args) => {
+    // Authenticate user
+    const authUser = await requireAuth(ctx);
+
+    // Get user profile by email
+    const userProfile = await ctx.db
+      .query("users")
+      .withIndex("by_email", (q) => q.eq("email", authUser.email.toLowerCase()))
+      .unique();
+
+    if (!userProfile) {
+      throw new ConvexError("User profile not found");
+    }
+
+    // Check moderator or admin role
+    if (userProfile.role !== "admin" && userProfile.role !== "moderator") {
+      throw new ConvexError("Moderation access required");
+    }
+
+    // Get the post
+    const post = await ctx.db.get(args.postId);
+    if (!post || post.deletedAt) {
+      throw new ConvexError("Post not found");
+    }
+
+    // Check if already pinned
+    if (post.pinnedAt) {
+      throw new ConvexError("Post is already pinned");
+    }
+
+    // Check pin limit (max 3 per space)
+    const pinnedPosts = await ctx.db
+      .query("posts")
+      .withIndex("by_spaceId", (q) => q.eq("spaceId", post.spaceId))
+      .filter((q) =>
+        q.and(
+          q.neq(q.field("pinnedAt"), undefined),
+          q.eq(q.field("deletedAt"), undefined)
+        )
+      )
+      .collect();
+
+    if (pinnedPosts.length >= MAX_PINNED_POSTS_PER_SPACE) {
+      throw new ConvexError(
+        `Maximum ${MAX_PINNED_POSTS_PER_SPACE} pinned posts per space. Unpin another post first.`
+      );
+    }
+
+    // Pin the post
+    await ctx.db.patch(args.postId, {
+      pinnedAt: Date.now(),
+    });
+
+    return null;
+  },
+});
+
+/**
+ * Unpin a post from the top of a space.
+ *
+ * Requirements (from story 2-7):
+ * - Only moderators and admins can unpin posts
+ * - Cannot unpin a post that isn't pinned
+ * - Cannot unpin deleted posts
+ *
+ * @param postId - The post to unpin
+ */
+export const unpinPost = mutation({
+  args: pinPostInput, // Same input as pinPost - just postId
+  returns: v.null(),
+  handler: async (ctx, args) => {
+    // Authenticate user
+    const authUser = await requireAuth(ctx);
+
+    // Get user profile by email
+    const userProfile = await ctx.db
+      .query("users")
+      .withIndex("by_email", (q) => q.eq("email", authUser.email.toLowerCase()))
+      .unique();
+
+    if (!userProfile) {
+      throw new ConvexError("User profile not found");
+    }
+
+    // Check moderator or admin role
+    if (userProfile.role !== "admin" && userProfile.role !== "moderator") {
+      throw new ConvexError("Moderation access required");
+    }
+
+    // Get the post
+    const post = await ctx.db.get(args.postId);
+    if (!post || post.deletedAt) {
+      throw new ConvexError("Post not found");
+    }
+
+    // Check if pinned
+    if (!post.pinnedAt) {
+      throw new ConvexError("Post is not pinned");
+    }
+
+    // Unpin the post
+    await ctx.db.patch(args.postId, {
+      pinnedAt: undefined,
     });
 
     return null;

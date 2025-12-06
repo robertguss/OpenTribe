@@ -32,6 +32,13 @@ export const updatePostInput = {
   mediaIds: v.optional(v.array(v.id("_storage"))),
 };
 
+/**
+ * Input for pinning or unpinning a post.
+ */
+export const pinPostInput = {
+  postId: v.id("posts"),
+};
+
 // =============================================================================
 // Output Validators
 // =============================================================================

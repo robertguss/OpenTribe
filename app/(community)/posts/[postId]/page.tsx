@@ -31,8 +31,12 @@ export default function PostDetailPage() {
 
   const post = useQuery(api.posts.queries.getPostWithDetails, { postId });
 
-  // Get current user profile to determine post ownership
+  // Get current user profile to determine post ownership and moderation rights
   const currentUser = useQuery(api.members.queries.getMyProfile, {});
+
+  // Check if current user is a moderator or admin
+  const isModerator =
+    currentUser?.role === "admin" || currentUser?.role === "moderator";
 
   // Navigate back to space
   const handleBack = () => {
@@ -103,6 +107,7 @@ export default function PostDetailPage() {
           <PostCard
             post={post}
             isOwn={isOwnPost(post.authorId, currentUser?._id)}
+            isModerator={isModerator}
           />
 
           {/* Comments section */}

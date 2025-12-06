@@ -27,8 +27,12 @@ export function PostList({ spaceId }: PostListProps) {
     limit: 20,
   });
 
-  // Get current user profile to determine post ownership
+  // Get current user profile to determine post ownership and moderation rights
   const currentUser = useQuery(api.members.queries.getMyProfile, {});
+
+  // Check if current user is a moderator or admin
+  const isModerator =
+    currentUser?.role === "admin" || currentUser?.role === "moderator";
 
   // Track post IDs to detect new posts
   const previousPostIdsRef = useRef<Set<string>>(new Set());
@@ -127,6 +131,7 @@ export function PostList({ spaceId }: PostListProps) {
           key={post._id}
           post={post}
           isOwn={isOwnPost(post.authorId, currentUser?._id)}
+          isModerator={isModerator}
         />
       ))}
 

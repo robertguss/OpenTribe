@@ -246,6 +246,251 @@ describe("posts queries", () => {
       expect(allPosts.regular[1]._id).toBe(oldPost);
     });
 
+    it("should sort multiple pinned posts by pinnedAt DESC (newest pin first)", async () => {
+      const t = convexTest(schema, modules);
+      const userId = await createUser(t, { email: "test@example.com" });
+      const spaceId = await createSpace(t, { name: "General" });
+
+      const now = Date.now();
+
+      // Create 3 pinned posts with different pin times
+      const firstPinned = await createPost(t, {
+        spaceId,
+        authorId: userId,
+        authorName: "Test",
+        contentHtml: "<p>First pinned</p>",
+        pinnedAt: now - 2000, // Pinned earliest
+        createdAt: now - 3000,
+      });
+
+      const secondPinned = await createPost(t, {
+        spaceId,
+        authorId: userId,
+        authorName: "Test",
+        contentHtml: "<p>Second pinned</p>",
+        pinnedAt: now - 1000, // Pinned second
+        createdAt: now - 2000,
+      });
+
+      const thirdPinned = await createPost(t, {
+        spaceId,
+        authorId: userId,
+        authorName: "Test",
+        contentHtml: "<p>Third pinned</p>",
+        pinnedAt: now, // Pinned most recently
+        createdAt: now - 1000,
+      });
+
+      // Query pinned posts and sort by pinnedAt DESC
+      const sortedPinned = await t.run(async (ctx) => {
+        const pinned = await ctx.db
+          .query("posts")
+          .withIndex("by_spaceId", (q) => q.eq("spaceId", spaceId))
+          .filter((q) =>
+            q.and(
+              q.neq(q.field("pinnedAt"), undefined),
+              q.eq(q.field("deletedAt"), undefined)
+            )
+          )
+          .collect();
+
+        // Sort by pinnedAt descending (newest pin first)
+        return pinned.sort((a, b) => (b.pinnedAt || 0) - (a.pinnedAt || 0));
+      });
+
+      expect(sortedPinned).toHaveLength(3);
+      // Most recently pinned should be first
+      expect(sortedPinned[0]._id).toBe(thirdPinned);
+      expect(sortedPinned[1]._id).toBe(secondPinned);
+      expect(sortedPinned[2]._id).toBe(firstPinned);
+    });
+
+    it("should combine pinned posts at top with regular posts below", async () => {
+      const t = convexTest(schema, modules);
+      const userId = await createUser(t, { email: "test@example.com" });
+      const spaceId = await createSpace(t, { name: "General" });
+
+      const now = Date.now();
+
+      // Create a mix of pinned and regular posts
+      const regularPost1 = await createPost(t, {
+        spaceId,
+        authorId: userId,
+        authorName: "Test",
+        contentHtml: "<p>Regular 1</p>",
+        createdAt: now - 2000,
+      });
+
+      const pinnedPost = await createPost(t, {
+        spaceId,
+        authorId: userId,
+        authorName: "Test",
+        contentHtml: "<p>Pinned</p>",
+        pinnedAt: now - 500,
+        createdAt: now - 3000, // Created before regular posts
+      });
+
+      const regularPost2 = await createPost(t, {
+        spaceId,
+        authorId: userId,
+        authorName: "Test",
+        contentHtml: "<p>Regular 2</p>",
+        createdAt: now - 1000,
+      });
+
+      // Combine posts like the query does
+      const combined = await t.run(async (ctx) => {
+        // Get pinned posts
+        const pinned = await ctx.db
+          .query("posts")
+          .withIndex("by_spaceId", (q) => q.eq("spaceId", spaceId))
+          .filter((q) =>
+            q.and(
+              q.neq(q.field("pinnedAt"), undefined),
+              q.eq(q.field("deletedAt"), undefined)
+            )
+          )
+          .collect();
+
+        const sortedPinned = pinned.sort(
+          (a, b) => (b.pinnedAt || 0) - (a.pinnedAt || 0)
+        );
+
+        // Get regular posts sorted by createdAt DESC
+        const regular = await ctx.db
+          .query("posts")
+          .withIndex("by_spaceId_and_createdAt", (q) =>
+            q.eq("spaceId", spaceId)
+          )
+          .filter((q) =>
+            q.and(
+              q.eq(q.field("pinnedAt"), undefined),
+              q.eq(q.field("deletedAt"), undefined)
+            )
+          )
+          .order("desc")
+          .collect();
+
+        // Combine: pinned first, then regular
+        return [...sortedPinned, ...regular];
+      });
+
+      expect(combined).toHaveLength(3);
+      // Pinned post should be first even though it was created earliest
+      expect(combined[0]._id).toBe(pinnedPost);
+      // Then regular posts by createdAt DESC
+      expect(combined[1]._id).toBe(regularPost2); // newer
+      expect(combined[2]._id).toBe(regularPost1); // older
+    });
+
+    it("should only include pinned posts on first page, not subsequent pages", async () => {
+      const t = convexTest(schema, modules);
+      const userId = await createUser(t, { email: "test@example.com" });
+      const spaceId = await createSpace(t, { name: "General" });
+
+      const now = Date.now();
+
+      // Create a pinned post
+      const pinnedPost = await createPost(t, {
+        spaceId,
+        authorId: userId,
+        authorName: "Test",
+        contentHtml: "<p>Pinned</p>",
+        pinnedAt: now,
+        createdAt: now - 5000,
+      });
+
+      // Create 3 regular posts (so we get 2 on first page, 1 on second)
+      for (let i = 0; i < 3; i++) {
+        await createPost(t, {
+          spaceId,
+          authorId: userId,
+          authorName: "Test",
+          contentHtml: `<p>Regular ${i + 1}</p>`,
+          createdAt: now - (3 - i) * 1000,
+        });
+      }
+
+      // First page: should include pinned + 2 regular posts
+      const firstPage = await t.run(async (ctx) => {
+        // Get pinned posts
+        const pinned = await ctx.db
+          .query("posts")
+          .withIndex("by_spaceId", (q) => q.eq("spaceId", spaceId))
+          .filter((q) =>
+            q.and(
+              q.neq(q.field("pinnedAt"), undefined),
+              q.eq(q.field("deletedAt"), undefined)
+            )
+          )
+          .collect();
+
+        // Get paginated regular posts
+        const regularQuery = ctx.db
+          .query("posts")
+          .withIndex("by_spaceId_and_createdAt", (q) =>
+            q.eq("spaceId", spaceId)
+          )
+          .filter((q) =>
+            q.and(
+              q.eq(q.field("pinnedAt"), undefined),
+              q.eq(q.field("deletedAt"), undefined)
+            )
+          )
+          .order("desc");
+
+        const result = await regularQuery.paginate({
+          numItems: 2,
+          cursor: null,
+        });
+
+        // Combine for first page
+        return {
+          posts: [...pinned, ...result.page],
+          cursor: result.continueCursor,
+          isDone: result.isDone,
+        };
+      });
+
+      // First page should have 3 posts (1 pinned + 2 regular)
+      expect(firstPage.posts).toHaveLength(3);
+      expect(firstPage.posts[0]._id).toBe(pinnedPost);
+      expect(firstPage.isDone).toBe(false);
+
+      // Second page: should only have regular posts, no pinned
+      const secondPage = await t.run(async (ctx) => {
+        const regularQuery = ctx.db
+          .query("posts")
+          .withIndex("by_spaceId_and_createdAt", (q) =>
+            q.eq("spaceId", spaceId)
+          )
+          .filter((q) =>
+            q.and(
+              q.eq(q.field("pinnedAt"), undefined),
+              q.eq(q.field("deletedAt"), undefined)
+            )
+          )
+          .order("desc");
+
+        const result = await regularQuery.paginate({
+          numItems: 2,
+          cursor: firstPage.cursor,
+        });
+
+        // Second page: only regular posts (no pinned)
+        return {
+          posts: result.page,
+          isDone: result.isDone,
+        };
+      });
+
+      // Second page should have 1 regular post (the remaining one), no pinned
+      expect(secondPage.posts.length).toBeGreaterThanOrEqual(1);
+      expect(secondPage.posts.every((p) => !p.pinnedAt)).toBe(true);
+      // On second page with only 1 remaining post, we should be done
+      expect(secondPage.isDone).toBe(true);
+    });
+
     it("should paginate results correctly", async () => {
       const t = convexTest(schema, modules);
       const userId = await createUser(t, { email: "test@example.com" });

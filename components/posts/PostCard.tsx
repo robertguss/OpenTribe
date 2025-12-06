@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { formatDistanceToNow } from "date-fns";
+import { useMutation } from "convex/react";
+import { toast } from "sonner";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -11,6 +13,7 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { MoreHorizontal, Pencil, Pin, Trash2 } from "lucide-react";
@@ -19,6 +22,7 @@ import { PostActions } from "./PostActions";
 import { EditPostDialog } from "./EditPostDialog";
 import { DeletePostDialog } from "./DeletePostDialog";
 import { cn } from "@/lib/utils";
+import { api } from "@/convex/_generated/api";
 import type { Id } from "@/convex/_generated/dataModel";
 
 interface Post {
@@ -44,18 +48,55 @@ interface PostCardProps {
   post: Post;
   showActions?: boolean;
   isOwn?: boolean;
+  isModerator?: boolean;
 }
 
 export function PostCard({
   post,
   showActions = true,
   isOwn = false,
+  isModerator = false,
 }: PostCardProps) {
   const router = useRouter();
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [isPinning, setIsPinning] = useState(false);
   const isPinned = !!post.pinnedAt;
   const isEdited = !!post.editedAt;
+
+  // Pin/Unpin mutations
+  const pinPost = useMutation(api.posts.mutations.pinPost);
+  const unpinPost = useMutation(api.posts.mutations.unpinPost);
+
+  // Handle pin action
+  const handlePin = async () => {
+    setIsPinning(true);
+    try {
+      await pinPost({ postId: post._id });
+      toast.success("Post pinned to top");
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : "Failed to pin post";
+      toast.error(message);
+    } finally {
+      setIsPinning(false);
+    }
+  };
+
+  // Handle unpin action
+  const handleUnpin = async () => {
+    setIsPinning(true);
+    try {
+      await unpinPost({ postId: post._id });
+      toast.success("Post unpinned");
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : "Failed to unpin post";
+      toast.error(message);
+    } finally {
+      setIsPinning(false);
+    }
+  };
 
   // Get author initials for avatar fallback
   const initials = post.authorName
@@ -103,30 +144,62 @@ export function PostCard({
                 </p>
               </div>
             </div>
-            {isOwn && (
+            {(isOwn || isModerator) && (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button
                     variant="ghost"
                     size="sm"
                     className="h-8 w-8 p-0 opacity-0 transition-opacity group-hover:opacity-100"
+                    disabled={isPinning}
                   >
                     <MoreHorizontal className="h-4 w-4" />
                     <span className="sr-only">More options</span>
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
-                  <DropdownMenuItem onClick={() => setIsEditDialogOpen(true)}>
-                    <Pencil className="mr-2 h-4 w-4" />
-                    Edit
-                  </DropdownMenuItem>
-                  <DropdownMenuItem
-                    onClick={() => setIsDeleteDialogOpen(true)}
-                    className="text-destructive focus:text-destructive"
-                  >
-                    <Trash2 className="mr-2 h-4 w-4" />
-                    Delete
-                  </DropdownMenuItem>
+                  {/* Pin/Unpin for moderators */}
+                  {isModerator && (
+                    <>
+                      {isPinned ? (
+                        <DropdownMenuItem
+                          onClick={handleUnpin}
+                          disabled={isPinning}
+                        >
+                          <Pin className="mr-2 h-4 w-4" />
+                          Unpin
+                        </DropdownMenuItem>
+                      ) : (
+                        <DropdownMenuItem
+                          onClick={handlePin}
+                          disabled={isPinning}
+                        >
+                          <Pin className="mr-2 h-4 w-4" />
+                          Pin to top
+                        </DropdownMenuItem>
+                      )}
+                      {isOwn && <DropdownMenuSeparator />}
+                    </>
+                  )}
+
+                  {/* Edit/Delete for owner */}
+                  {isOwn && (
+                    <>
+                      <DropdownMenuItem
+                        onClick={() => setIsEditDialogOpen(true)}
+                      >
+                        <Pencil className="mr-2 h-4 w-4" />
+                        Edit
+                      </DropdownMenuItem>
+                      <DropdownMenuItem
+                        onClick={() => setIsDeleteDialogOpen(true)}
+                        className="text-destructive focus:text-destructive"
+                      >
+                        <Trash2 className="mr-2 h-4 w-4" />
+                        Delete
+                      </DropdownMenuItem>
+                    </>
+                  )}
                 </DropdownMenuContent>
               </DropdownMenu>
             )}

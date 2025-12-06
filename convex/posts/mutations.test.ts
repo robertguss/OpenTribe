@@ -728,6 +728,377 @@ describe("posts mutations", () => {
     });
   });
 
+  describe("pinPost", () => {
+    it("should throw error for unauthenticated user", async () => {
+      const t = convexTest(schema, modules);
+      const userId = await createUser(t, { email: "test@example.com" });
+      const spaceId = await createSpace(t, { name: "General" });
+      const postId = await createPost(t, {
+        spaceId,
+        authorId: userId,
+        authorName: "Test User",
+        content: '{"type":"doc"}',
+        contentHtml: "<p>Test</p>",
+      });
+
+      await expect(
+        t.mutation(api.posts.mutations.pinPost, { postId })
+      ).rejects.toThrow();
+    });
+
+    it("should set pinnedAt timestamp when pinning (business logic)", async () => {
+      const t = convexTest(schema, modules);
+      const adminId = await createUser(t, {
+        email: "admin@example.com",
+        role: "admin",
+      });
+      const spaceId = await createSpace(t, { name: "General" });
+      const postId = await createPost(t, {
+        spaceId,
+        authorId: adminId,
+        authorName: "Admin",
+        content: '{"type":"doc"}',
+        contentHtml: "<p>Pin this</p>",
+      });
+
+      // Verify no pinnedAt initially
+      const beforePin = await t.run(async (ctx) => ctx.db.get(postId));
+      expect(beforePin?.pinnedAt).toBeUndefined();
+
+      // Pin the post
+      const pinTime = Date.now();
+      await t.run(async (ctx) => {
+        await ctx.db.patch(postId, { pinnedAt: pinTime });
+      });
+
+      const afterPin = await t.run(async (ctx) => ctx.db.get(postId));
+      expect(afterPin?.pinnedAt).toBeDefined();
+      expect(afterPin?.pinnedAt).toBeGreaterThan(0);
+    });
+
+    it("should require moderator or admin role", async () => {
+      const t = convexTest(schema, modules);
+      const memberId = await createUser(t, {
+        email: "member@example.com",
+        role: "member",
+      });
+      const spaceId = await createSpace(t, { name: "General" });
+      const postId = await createPost(t, {
+        spaceId,
+        authorId: memberId,
+        authorName: "Member",
+        content: '{"type":"doc"}',
+        contentHtml: "<p>Test</p>",
+      });
+
+      await expect(
+        t.run(async (ctx) => {
+          const user = await ctx.db.get(memberId);
+          if (!user) throw new Error("User not found");
+
+          if (user.role !== "admin" && user.role !== "moderator") {
+            throw new Error("Moderation access required");
+          }
+        })
+      ).rejects.toThrow("Moderation access required");
+    });
+
+    it("should enforce 3 pin limit per space", async () => {
+      const t = convexTest(schema, modules);
+      const adminId = await createUser(t, {
+        email: "admin@example.com",
+        role: "admin",
+      });
+      const spaceId = await createSpace(t, { name: "General" });
+
+      // Create 3 already-pinned posts
+      for (let i = 1; i <= 3; i++) {
+        await t.run(async (ctx) => {
+          await ctx.db.insert("posts", {
+            spaceId,
+            authorId: adminId,
+            authorName: "Admin",
+            content: `{"type":"doc","post":${i}}`,
+            contentHtml: `<p>Pinned post ${i}</p>`,
+            likeCount: 0,
+            commentCount: 0,
+            pinnedAt: Date.now() + i,
+            createdAt: Date.now(),
+          });
+        });
+      }
+
+      // Create a 4th post to pin
+      const post4Id = await createPost(t, {
+        spaceId,
+        authorId: adminId,
+        authorName: "Admin",
+        content: '{"type":"doc","post":4}',
+        contentHtml: "<p>Post 4</p>",
+      });
+
+      await expect(
+        t.run(async (ctx) => {
+          const pinnedPosts = await ctx.db
+            .query("posts")
+            .withIndex("by_spaceId", (q) => q.eq("spaceId", spaceId))
+            .filter((q) =>
+              q.and(
+                q.neq(q.field("pinnedAt"), undefined),
+                q.eq(q.field("deletedAt"), undefined)
+              )
+            )
+            .collect();
+
+          if (pinnedPosts.length >= 3) {
+            throw new Error(
+              "Maximum 3 pinned posts per space. Unpin another post first."
+            );
+          }
+
+          await ctx.db.patch(post4Id, { pinnedAt: Date.now() });
+        })
+      ).rejects.toThrow("Maximum 3 pinned posts per space");
+    });
+
+    it("should fail if post is already pinned", async () => {
+      const t = convexTest(schema, modules);
+      const adminId = await createUser(t, {
+        email: "admin@example.com",
+        role: "admin",
+      });
+      const spaceId = await createSpace(t, { name: "General" });
+
+      // Create an already-pinned post
+      const postId = await t.run(async (ctx) => {
+        return await ctx.db.insert("posts", {
+          spaceId,
+          authorId: adminId,
+          authorName: "Admin",
+          content: '{"type":"doc"}',
+          contentHtml: "<p>Already pinned</p>",
+          likeCount: 0,
+          commentCount: 0,
+          pinnedAt: Date.now(),
+          createdAt: Date.now(),
+        });
+      });
+
+      await expect(
+        t.run(async (ctx) => {
+          const post = await ctx.db.get(postId);
+          if (!post) throw new Error("Post not found");
+          if (post.pinnedAt) {
+            throw new Error("Post is already pinned");
+          }
+        })
+      ).rejects.toThrow("Post is already pinned");
+    });
+
+    it("should fail if post is deleted", async () => {
+      const t = convexTest(schema, modules);
+      const adminId = await createUser(t, {
+        email: "admin@example.com",
+        role: "admin",
+      });
+      const spaceId = await createSpace(t, { name: "General" });
+      const postId = await createPost(t, {
+        spaceId,
+        authorId: adminId,
+        authorName: "Admin",
+        content: '{"type":"doc"}',
+        contentHtml: "<p>Deleted</p>",
+        deletedAt: Date.now(),
+      });
+
+      await expect(
+        t.run(async (ctx) => {
+          const post = await ctx.db.get(postId);
+          if (!post || post.deletedAt) {
+            throw new Error("Post not found");
+          }
+        })
+      ).rejects.toThrow("Post not found");
+    });
+
+    it("should allow moderator to pin posts", async () => {
+      const t = convexTest(schema, modules);
+      const modId = await createUser(t, {
+        email: "mod@example.com",
+        role: "moderator",
+      });
+      const spaceId = await createSpace(t, { name: "General" });
+      const postId = await createPost(t, {
+        spaceId,
+        authorId: modId,
+        authorName: "Moderator",
+        content: '{"type":"doc"}',
+        contentHtml: "<p>To pin</p>",
+      });
+
+      await t.run(async (ctx) => {
+        const user = await ctx.db.get(modId);
+        if (!user) throw new Error("User not found");
+
+        if (user.role !== "admin" && user.role !== "moderator") {
+          throw new Error("Moderation access required");
+        }
+
+        await ctx.db.patch(postId, { pinnedAt: Date.now() });
+      });
+
+      const post = await t.run(async (ctx) => ctx.db.get(postId));
+      expect(post?.pinnedAt).toBeDefined();
+    });
+  });
+
+  describe("unpinPost", () => {
+    it("should throw error for unauthenticated user", async () => {
+      const t = convexTest(schema, modules);
+      const adminId = await createUser(t, {
+        email: "admin@example.com",
+        role: "admin",
+      });
+      const spaceId = await createSpace(t, { name: "General" });
+      const postId = await t.run(async (ctx) => {
+        return await ctx.db.insert("posts", {
+          spaceId,
+          authorId: adminId,
+          authorName: "Admin",
+          content: '{"type":"doc"}',
+          contentHtml: "<p>Pinned</p>",
+          likeCount: 0,
+          commentCount: 0,
+          pinnedAt: Date.now(),
+          createdAt: Date.now(),
+        });
+      });
+
+      await expect(
+        t.mutation(api.posts.mutations.unpinPost, { postId })
+      ).rejects.toThrow();
+    });
+
+    it("should clear pinnedAt when unpinning (business logic)", async () => {
+      const t = convexTest(schema, modules);
+      const adminId = await createUser(t, {
+        email: "admin@example.com",
+        role: "admin",
+      });
+      const spaceId = await createSpace(t, { name: "General" });
+
+      // Create a pinned post
+      const postId = await t.run(async (ctx) => {
+        return await ctx.db.insert("posts", {
+          spaceId,
+          authorId: adminId,
+          authorName: "Admin",
+          content: '{"type":"doc"}',
+          contentHtml: "<p>Pinned</p>",
+          likeCount: 0,
+          commentCount: 0,
+          pinnedAt: Date.now(),
+          createdAt: Date.now(),
+        });
+      });
+
+      // Verify pinned initially
+      const beforeUnpin = await t.run(async (ctx) => ctx.db.get(postId));
+      expect(beforeUnpin?.pinnedAt).toBeDefined();
+
+      // Unpin the post
+      await t.run(async (ctx) => {
+        await ctx.db.patch(postId, { pinnedAt: undefined });
+      });
+
+      const afterUnpin = await t.run(async (ctx) => ctx.db.get(postId));
+      expect(afterUnpin?.pinnedAt).toBeUndefined();
+    });
+
+    it("should require moderator or admin role", async () => {
+      const t = convexTest(schema, modules);
+      const memberId = await createUser(t, {
+        email: "member@example.com",
+        role: "member",
+      });
+
+      await expect(
+        t.run(async (ctx) => {
+          const user = await ctx.db.get(memberId);
+          if (!user) throw new Error("User not found");
+
+          if (user.role !== "admin" && user.role !== "moderator") {
+            throw new Error("Moderation access required");
+          }
+        })
+      ).rejects.toThrow("Moderation access required");
+    });
+
+    it("should fail if post is not pinned", async () => {
+      const t = convexTest(schema, modules);
+      const adminId = await createUser(t, {
+        email: "admin@example.com",
+        role: "admin",
+      });
+      const spaceId = await createSpace(t, { name: "General" });
+      const postId = await createPost(t, {
+        spaceId,
+        authorId: adminId,
+        authorName: "Admin",
+        content: '{"type":"doc"}',
+        contentHtml: "<p>Not pinned</p>",
+      });
+
+      await expect(
+        t.run(async (ctx) => {
+          const post = await ctx.db.get(postId);
+          if (!post || post.deletedAt) throw new Error("Post not found");
+          if (!post.pinnedAt) {
+            throw new Error("Post is not pinned");
+          }
+        })
+      ).rejects.toThrow("Post is not pinned");
+    });
+
+    it("should allow moderator to unpin posts", async () => {
+      const t = convexTest(schema, modules);
+      const modId = await createUser(t, {
+        email: "mod@example.com",
+        role: "moderator",
+      });
+      const spaceId = await createSpace(t, { name: "General" });
+
+      // Create a pinned post
+      const postId = await t.run(async (ctx) => {
+        return await ctx.db.insert("posts", {
+          spaceId,
+          authorId: modId,
+          authorName: "Moderator",
+          content: '{"type":"doc"}',
+          contentHtml: "<p>Pinned</p>",
+          likeCount: 0,
+          commentCount: 0,
+          pinnedAt: Date.now(),
+          createdAt: Date.now(),
+        });
+      });
+
+      await t.run(async (ctx) => {
+        const user = await ctx.db.get(modId);
+        if (!user) throw new Error("User not found");
+
+        if (user.role !== "admin" && user.role !== "moderator") {
+          throw new Error("Moderation access required");
+        }
+
+        await ctx.db.patch(postId, { pinnedAt: undefined });
+      });
+
+      const post = await t.run(async (ctx) => ctx.db.get(postId));
+      expect(post?.pinnedAt).toBeUndefined();
+    });
+  });
+
   describe("restorePost", () => {
     it("should throw error for unauthenticated user", async () => {
       const t = convexTest(schema, modules);

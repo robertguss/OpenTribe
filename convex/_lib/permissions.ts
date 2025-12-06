@@ -46,6 +46,12 @@ export const ROLE_HIERARCHY: Record<Role, number> = {
   member: 1,
 };
 
+/**
+ * Maximum number of pinned posts allowed per space.
+ * Used by pinPost mutation to enforce limit.
+ */
+export const MAX_PINNED_POSTS_PER_SPACE = 3;
+
 // =============================================================================
 // Auth Helpers (Task 2)
 // =============================================================================
