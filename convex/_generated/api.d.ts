@@ -17,6 +17,8 @@ import type * as comments_mutations from "../comments/mutations.js";
 import type * as comments_queries from "../comments/queries.js";
 import type * as emails_PasswordResetEmail from "../emails/PasswordResetEmail.js";
 import type * as emails_WelcomeEmail from "../emails/WelcomeEmail.js";
+import type * as feed__validators from "../feed/_validators.js";
+import type * as feed_queries from "../feed/queries.js";
 import type * as http from "../http.js";
 import type * as likes__validators from "../likes/_validators.js";
 import type * as likes_mutations from "../likes/mutations.js";
@@ -51,6 +53,8 @@ declare const fullApi: ApiFromModules<{
   "comments/queries": typeof comments_queries;
   "emails/PasswordResetEmail": typeof emails_PasswordResetEmail;
   "emails/WelcomeEmail": typeof emails_WelcomeEmail;
+  "feed/_validators": typeof feed__validators;
+  "feed/queries": typeof feed_queries;
   http: typeof http;
   "likes/_validators": typeof likes__validators;
   "likes/mutations": typeof likes_mutations;
