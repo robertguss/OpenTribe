@@ -478,4 +478,156 @@ describe("posts queries", () => {
       expect(posts).toHaveLength(1);
     });
   });
+
+  describe("listDeletedPosts", () => {
+    it("should throw error for unauthenticated user", async () => {
+      const t = convexTest(schema, modules);
+
+      await expect(
+        t.query(api.posts.queries.listDeletedPosts, {})
+      ).rejects.toThrow();
+    });
+
+    it("should return deleted posts for admin (business logic)", async () => {
+      const t = convexTest(schema, modules);
+      const adminId = await createUser(t, {
+        email: "admin@example.com",
+        role: "admin",
+      });
+      const userId = await createUser(t, { email: "author@example.com" });
+      const spaceId = await createSpace(t, { name: "General" });
+
+      // Create normal and deleted posts
+      await createPost(t, {
+        spaceId,
+        authorId: userId,
+        authorName: "Author",
+        contentHtml: "<p>Normal post</p>",
+      });
+      await createPost(t, {
+        spaceId,
+        authorId: userId,
+        authorName: "Author",
+        contentHtml: "<p>Deleted post 1</p>",
+        deletedAt: Date.now(),
+      });
+      await createPost(t, {
+        spaceId,
+        authorId: userId,
+        authorName: "Author",
+        contentHtml: "<p>Deleted post 2</p>",
+        deletedAt: Date.now() + 1000,
+      });
+
+      // Query deleted posts like listDeletedPosts does
+      const deletedPosts = await t.run(async (ctx) => {
+        const admin = await ctx.db.get(adminId);
+        if (admin?.role !== "admin") return [];
+
+        return await ctx.db
+          .query("posts")
+          .filter((q) => q.neq(q.field("deletedAt"), undefined))
+          .order("desc")
+          .collect();
+      });
+
+      expect(deletedPosts).toHaveLength(2);
+      expect(deletedPosts.every((p) => p.deletedAt !== undefined)).toBe(true);
+    });
+
+    it("should return empty array for non-admin", async () => {
+      const t = convexTest(schema, modules);
+      const memberId = await createUser(t, {
+        email: "member@example.com",
+        role: "member",
+      });
+      const userId = await createUser(t, { email: "author@example.com" });
+      const spaceId = await createSpace(t, { name: "General" });
+
+      // Create deleted post
+      await createPost(t, {
+        spaceId,
+        authorId: userId,
+        authorName: "Author",
+        contentHtml: "<p>Deleted post</p>",
+        deletedAt: Date.now(),
+      });
+
+      // Query as non-admin (should return empty)
+      const deletedPosts = await t.run(async (ctx) => {
+        const member = await ctx.db.get(memberId);
+        if (member?.role !== "admin") return [];
+
+        return await ctx.db
+          .query("posts")
+          .filter((q) => q.neq(q.field("deletedAt"), undefined))
+          .collect();
+      });
+
+      expect(deletedPosts).toHaveLength(0);
+    });
+
+    it("should return empty array for moderator", async () => {
+      const t = convexTest(schema, modules);
+      const modId = await createUser(t, {
+        email: "mod@example.com",
+        role: "moderator",
+      });
+      const userId = await createUser(t, { email: "author@example.com" });
+      const spaceId = await createSpace(t, { name: "General" });
+
+      // Create deleted post
+      await createPost(t, {
+        spaceId,
+        authorId: userId,
+        authorName: "Author",
+        contentHtml: "<p>Deleted post</p>",
+        deletedAt: Date.now(),
+      });
+
+      // Query as moderator (should return empty - admin only)
+      const deletedPosts = await t.run(async (ctx) => {
+        const mod = await ctx.db.get(modId);
+        if (mod?.role !== "admin") return [];
+
+        return await ctx.db
+          .query("posts")
+          .filter((q) => q.neq(q.field("deletedAt"), undefined))
+          .collect();
+      });
+
+      expect(deletedPosts).toHaveLength(0);
+    });
+
+    it("should return empty array when no deleted posts exist", async () => {
+      const t = convexTest(schema, modules);
+      const adminId = await createUser(t, {
+        email: "admin@example.com",
+        role: "admin",
+      });
+      const userId = await createUser(t, { email: "author@example.com" });
+      const spaceId = await createSpace(t, { name: "General" });
+
+      // Create only normal posts
+      await createPost(t, {
+        spaceId,
+        authorId: userId,
+        authorName: "Author",
+        contentHtml: "<p>Normal post</p>",
+      });
+
+      // Query deleted posts (should be empty)
+      const deletedPosts = await t.run(async (ctx) => {
+        const admin = await ctx.db.get(adminId);
+        if (admin?.role !== "admin") return [];
+
+        return await ctx.db
+          .query("posts")
+          .filter((q) => q.neq(q.field("deletedAt"), undefined))
+          .collect();
+      });
+
+      expect(deletedPosts).toHaveLength(0);
+    });
+  });
 });

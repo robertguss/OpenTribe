@@ -6,12 +6,13 @@
 
 import { v } from "convex/values";
 import { query } from "../_generated/server";
-import { requireAuth, canViewSpace } from "../_lib/permissions";
+import { requireAuth, canViewSpace, hasRole } from "../_lib/permissions";
 import {
   postOutput,
   paginatedPostsOutput,
   enhancedPaginatedPostsOutput,
   postWithDetailsOutput,
+  deletedPostOutput,
 } from "./_validators";
 
 /**
@@ -392,5 +393,74 @@ export const getPostWithDetails = query({
       authorLevel,
       hasLiked: !!like,
     };
+  },
+});
+
+/**
+ * List deleted posts for admin moderation view.
+ *
+ * Admin-only query that returns soft-deleted posts for recovery.
+ *
+ * @param limit - Maximum number of posts to return (default 50)
+ * @returns List of deleted posts with space info
+ */
+export const listDeletedPosts = query({
+  args: {
+    limit: v.optional(v.number()),
+  },
+  returns: v.array(deletedPostOutput),
+  handler: async (ctx, args) => {
+    // Authenticate user
+    const authUser = await requireAuth(ctx);
+
+    // Get user profile
+    const userProfile = await ctx.db
+      .query("users")
+      .withIndex("by_email", (q) => q.eq("email", authUser.email.toLowerCase()))
+      .unique();
+
+    if (!userProfile) {
+      return [];
+    }
+
+    // Admin only
+    if (!hasRole(userProfile.role, "admin")) {
+      return [];
+    }
+
+    const limit = args.limit ?? 50;
+
+    // Get all deleted posts
+    const deletedPosts = await ctx.db
+      .query("posts")
+      .filter((q) => q.neq(q.field("deletedAt"), undefined))
+      .order("desc")
+      .take(limit);
+
+    // Enrich with space names
+    const enrichedPosts = [];
+    for (const post of deletedPosts) {
+      const space = await ctx.db.get(post.spaceId);
+      if (space && post.deletedAt) {
+        enrichedPosts.push({
+          _id: post._id,
+          _creationTime: post._creationTime,
+          spaceId: post.spaceId,
+          spaceName: space.name,
+          authorId: post.authorId,
+          authorName: post.authorName,
+          authorAvatar: post.authorAvatar,
+          title: post.title,
+          content: post.content,
+          contentHtml: post.contentHtml,
+          likeCount: post.likeCount,
+          commentCount: post.commentCount,
+          createdAt: post.createdAt,
+          deletedAt: post.deletedAt,
+        });
+      }
+    }
+
+    return enrichedPosts;
   },
 });

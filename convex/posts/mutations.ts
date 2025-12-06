@@ -213,3 +213,53 @@ export const deletePost = mutation({
     return null;
   },
 });
+
+/**
+ * Restore a deleted post (admin only).
+ *
+ * Allows admins to recover soft-deleted posts from moderation view.
+ *
+ * @param postId - The post to restore
+ */
+export const restorePost = mutation({
+  args: {
+    postId: v.id("posts"),
+  },
+  returns: v.null(),
+  handler: async (ctx, args) => {
+    // Authenticate user
+    const authUser = await requireAuth(ctx);
+
+    // Get user profile
+    const userProfile = await ctx.db
+      .query("users")
+      .withIndex("by_email", (q) => q.eq("email", authUser.email.toLowerCase()))
+      .unique();
+
+    if (!userProfile) {
+      throw new ConvexError("User profile not found");
+    }
+
+    // Admin only
+    if (userProfile.role !== "admin") {
+      throw new ConvexError("Admin access required");
+    }
+
+    // Get the post
+    const post = await ctx.db.get(args.postId);
+    if (!post) {
+      throw new ConvexError("Post not found");
+    }
+
+    if (!post.deletedAt) {
+      throw new ConvexError("Post is not deleted");
+    }
+
+    // Clear deletedAt to restore
+    await ctx.db.patch(args.postId, {
+      deletedAt: undefined,
+    });
+
+    return null;
+  },
+});

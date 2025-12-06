@@ -9,6 +9,14 @@ import { NewPostsBanner } from "./NewPostsBanner";
 import { Skeleton } from "@/components/ui/skeleton";
 import { MessageCircle } from "lucide-react";
 
+// Helper to compare user IDs
+function isOwnPost(
+  postAuthorId: Id<"users">,
+  currentUserId: Id<"users"> | undefined
+): boolean {
+  return !!currentUserId && postAuthorId === currentUserId;
+}
+
 interface PostListProps {
   spaceId: Id<"spaces">;
 }
@@ -18,6 +26,9 @@ export function PostList({ spaceId }: PostListProps) {
     spaceId,
     limit: 20,
   });
+
+  // Get current user profile to determine post ownership
+  const currentUser = useQuery(api.members.queries.getMyProfile, {});
 
   // Track post IDs to detect new posts
   const previousPostIdsRef = useRef<Set<string>>(new Set());
@@ -112,7 +123,11 @@ export function PostList({ spaceId }: PostListProps) {
 
       {/* Posts list */}
       {result.posts.map((post) => (
-        <PostCard key={post._id} post={post} />
+        <PostCard
+          key={post._id}
+          post={post}
+          isOwn={isOwnPost(post.authorId, currentUser?._id)}
+        />
       ))}
 
       {result.hasMore && (

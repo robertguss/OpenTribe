@@ -125,3 +125,24 @@ export const postWithDetailsOutput = v.object({
   deletedAt: v.optional(v.number()),
   hasLiked: v.boolean(),
 });
+
+/**
+ * Deleted post output for admin moderation view.
+ * Includes space name and deletion timestamp.
+ */
+export const deletedPostOutput = v.object({
+  _id: v.id("posts"),
+  _creationTime: v.number(),
+  spaceId: v.id("spaces"),
+  spaceName: v.string(),
+  authorId: v.id("users"),
+  authorName: v.string(),
+  authorAvatar: v.optional(v.string()),
+  title: v.optional(v.string()),
+  content: v.string(),
+  contentHtml: v.string(),
+  likeCount: v.number(),
+  commentCount: v.number(),
+  createdAt: v.number(),
+  deletedAt: v.number(), // Required for deleted posts
+});

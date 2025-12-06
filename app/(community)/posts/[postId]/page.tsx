@@ -3,13 +3,21 @@
 import { useParams, useRouter } from "next/navigation";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
-import { Id } from "@/convex/_generated/dataModel";
+import type { Id } from "@/convex/_generated/dataModel";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, MessageCircle } from "lucide-react";
 import { PostCard } from "@/components/posts/PostCard";
 import { CommentSection } from "@/components/comments";
 import { TooltipProvider } from "@/components/ui/tooltip";
+
+// Helper to compare user IDs
+function isOwnPost(
+  postAuthorId: Id<"users">,
+  currentUserId: Id<"users"> | undefined
+): boolean {
+  return !!currentUserId && postAuthorId === currentUserId;
+}
 
 /**
  * Post Detail Page
@@ -22,6 +30,9 @@ export default function PostDetailPage() {
   const postId = params.postId as Id<"posts">;
 
   const post = useQuery(api.posts.queries.getPostWithDetails, { postId });
+
+  // Get current user profile to determine post ownership
+  const currentUser = useQuery(api.members.queries.getMyProfile, {});
 
   // Navigate back to space
   const handleBack = () => {
@@ -89,7 +100,10 @@ export default function PostDetailPage() {
 
         {/* Post content */}
         <div className="flex-1 overflow-auto p-4">
-          <PostCard post={post} />
+          <PostCard
+            post={post}
+            isOwn={isOwnPost(post.authorId, currentUser?._id)}
+          />
 
           {/* Comments section */}
           <div id="comments" className="mt-6">
