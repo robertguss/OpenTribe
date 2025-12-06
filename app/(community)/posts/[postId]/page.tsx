@@ -8,13 +8,13 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, MessageCircle } from "lucide-react";
 import { PostCard } from "@/components/posts/PostCard";
+import { CommentSection } from "@/components/comments";
 import { TooltipProvider } from "@/components/ui/tooltip";
 
 /**
  * Post Detail Page
  *
  * Shows the full post with comments section.
- * Comments functionality will be added in Story 2-5.
  */
 export default function PostDetailPage() {
   const params = useParams();
@@ -91,17 +91,13 @@ export default function PostDetailPage() {
         <div className="flex-1 overflow-auto p-4">
           <PostCard post={post} />
 
-          {/* Comments section placeholder */}
+          {/* Comments section */}
           <div id="comments" className="mt-6">
-            <h2 className="mb-4 text-lg font-semibold">
-              Comments ({post.commentCount})
-            </h2>
-            <div className="rounded-lg border border-dashed p-8 text-center">
-              <MessageCircle className="text-muted-foreground mx-auto mb-2 h-8 w-8 opacity-50" />
-              <p className="text-muted-foreground text-sm">
-                Comments coming in Story 2-5: Comment System with Nested Replies
-              </p>
-            </div>
+            <CommentSection
+              postId={postId}
+              commentCount={post.commentCount}
+              defaultExpanded={true}
+            />
           </div>
         </div>
       </div>
